@@ -1,3 +1,5 @@
+import 'package:fitjung/UI/HomeScreen.dart';
+import 'package:fitjung/UI/SingupScreen.dart';
 import 'package:flutter/material.dart';
 import './UI/SinginScreen.dart';
 
@@ -12,9 +14,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.pink,
       ),
-      initialRoute: "/",
+      initialRoute: "/signup",
       routes: {
-        "/": (context) => SinginScreen(),
+        "/" : (context) => HomeScreen(),
+        "/signin": (context) => SinginScreen(),
+        "/signup": (context) => SingUpScreen(),
       },
     );
   }
