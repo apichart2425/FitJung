@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class SingUpScreen extends StatefulWidget {
+class SignUpScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return RegisterScreen();
+    return SignUpScreenState();
   }
 }
 
-class RegisterScreen extends State<SingUpScreen> {
+class SignUpScreenState extends State<SignUpScreen> {
   final _formkey = GlobalKey<FormState>();
   FirebaseAuth auth = FirebaseAuth.instance;
   TextEditingController emailController = TextEditingController();

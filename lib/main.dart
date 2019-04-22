@@ -1,7 +1,9 @@
 import 'package:fitjung/UI/HomeScreen.dart';
-import 'package:fitjung/UI/SingupScreen.dart';
+import 'package:fitjung/UI/SignInfoScreen.dart';
+import 'package:fitjung/UI/SigninScreen.dart';
+import 'package:fitjung/UI/SignupScreen.dart';
 import 'package:flutter/material.dart';
-import './UI/SinginScreen.dart';
+
 
 
 void main() => runApp(MyApp());
@@ -17,8 +19,9 @@ class MyApp extends StatelessWidget {
       initialRoute: "/signup",
       routes: {
         "/" : (context) => HomeScreen(),
-        "/signin": (context) => SinginScreen(),
-        "/signup": (context) => SingUpScreen(),
+        "/signin": (context) => SigninScreen(),
+        "/signup": (context) => SignUpScreen(),
+        "/SignInfo": (context) => SignInfoScreen(),
       },
     );
   }

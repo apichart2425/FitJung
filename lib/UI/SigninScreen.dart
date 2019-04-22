@@ -1,16 +1,16 @@
+import 'package:fitjung/UI/SignupScreen.dart';
 import 'package:flutter/material.dart';
-import './SingupScreen.dart';
 import './HomeScreen.dart';
 
-class SinginScreen extends StatefulWidget {
+class SigninScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return SinginScreenState();
+    return SigninScreenState();
   }
 }
 
-class SinginScreenState extends State<SinginScreen> {
+class SigninScreenState extends State<SigninScreen> {
   final _formKey = GlobalKey<FormState>();
 
   // FirebaseAuth auth = FirebaseAuth.instance;
@@ -78,7 +78,7 @@ class SinginScreenState extends State<SinginScreen> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => SingUpScreen()));
+                              builder: (context) => SignUpScreen()));
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(0.0),

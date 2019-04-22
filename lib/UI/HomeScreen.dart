@@ -1,4 +1,5 @@
-import './SinginScreen.dart';
+
+import 'package:fitjung/UI/SigninScreen.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -13,7 +14,7 @@ class HomeScreen extends StatelessWidget {
             FlatButton(
               child: Text("กดกลับ login ทำเล่นๆ"),
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => SinginScreen()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => SigninScreen()));
               },
             )
           ],
