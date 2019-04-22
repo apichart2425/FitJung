@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.pink,
       ),
-      initialRoute: "/signup",
+      initialRoute: "/SignInfo",
       routes: {
         "/" : (context) => HomeScreen(),
         "/signin": (context) => SigninScreen(),
