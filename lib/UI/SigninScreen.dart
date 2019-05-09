@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitjung/UI/SignupScreen.dart';
 import 'package:flutter/material.dart';
 import './HomeScreen.dart';
@@ -13,7 +14,7 @@ class SigninScreen extends StatefulWidget {
 class SigninScreenState extends State<SigninScreen> {
   final _formKey = GlobalKey<FormState>();
 
-  // FirebaseAuth auth = FirebaseAuth.instance;
+  FirebaseAuth auth = FirebaseAuth.instance;
 
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
@@ -31,7 +32,6 @@ class SigninScreenState extends State<SigninScreen> {
           child: Column(
             children: <Widget>[
               // Icon()crossAxisAlignment: CrossAxisAlignment.center,
-
               Image.asset(
                 "resource/cat_eating.jpg",
                 height: 200,
@@ -47,9 +47,10 @@ class SigninScreenState extends State<SigninScreen> {
                 },
               ),
               TextFormField(
+                obscureText: true,
                 controller: password,
                 decoration: InputDecoration(labelText: "Password"),
-                keyboardType: TextInputType.emailAddress,
+                keyboardType: TextInputType.text,
                 validator: (value) {
                   if (value.isEmpty) {
                     return "Password is required";
@@ -62,10 +63,33 @@ class SigninScreenState extends State<SigninScreen> {
                     color: Colors.grey.shade300,
                     child: Text("LOGIN"),
                     onPressed: () {
-                      Navigator.push(
+                      auth.signInWithEmailAndPassword(email: email.text, password: password.text).then((user){
+                        if(user.isEmailVerified){
+                          Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => HomeScreen()));
+                        }
+                        else{
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context){
+                              return AlertDialog(
+                                title: Text("ERROR"),
+                                content: Text("Please verify your email first"),
+                                actions: <Widget>[
+                                  FlatButton(
+                                    child: Text("Close"),
+                                    onPressed: (){
+                                      Navigator.of(context).pop();
+                                    },
+                                  )
+                                ],
+                              );
+                            }
+                          );
+                        }
+                      });
                     }),
               ),
 

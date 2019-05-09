@@ -1,6 +1,7 @@
 // กด SignUp แล้วจะเด้งมาหน้านี้ เพื่อกรอกข้อมูลเก็บลง FireStore
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitjung/UI/HomeScreen.dart';
+import 'package:fitjung/UI/SigninScreen.dart';
 import 'package:fitjung/utility/firestore_util.dart';
 import 'package:flutter/material.dart';
 
@@ -58,134 +59,142 @@ class SignInfoScreenState extends State<SignInfoScreen> {
         appBar: AppBar(
           title: Text("Information"),
         ),
-        body: Form(
-          key: _formkey,
-          child: Column(
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.all(10),
-                  ),
-                  Expanded(
-                    child: TextFormField(
-                        controller: nameController,
-                        decoration: InputDecoration(labelText: "Name"),
-                        keyboardType: TextInputType.text,
-                        validator: (value) {
-                          if (value.isEmpty) return "Name is required";
-                        }),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(10),
-                  ),
-                  Expanded(
-                    child: TextFormField(
-                        controller: surnameController,
-                        decoration: InputDecoration(labelText: "Surname"),
-                        keyboardType: TextInputType.text,
-                        validator: (value) {
-                          if (value.isEmpty) return "Surname is required";
-                        }),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(10),
-                  ),
-                ],
-              ),
-              Row(
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.all(10),
-                  ),
-                  Expanded(
-                    child: TextFormField(
-                        controller: heightController,
-                        decoration: InputDecoration(labelText: "Height : cm."),
-                        keyboardType: TextInputType.number,
-                        validator: (value) {
-                          if (value.isEmpty) return "Height is required";
-                        }),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(10),
-                  ),
-                  Expanded(
-                    child: TextFormField(
-                        controller: weightController,
-                        decoration: InputDecoration(labelText: "Weight : kg."),
-                        keyboardType: TextInputType.number,
-                        validator: (value) {
-                          if (value.isEmpty) return "Weight is required";
-                        }),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(10),
-                  ),
-                ],
-              ),
-              Row(
-                //for age sex
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.all(10),
-                  ),
-                  Expanded(
-                    child: DropdownButtonFormField(
-                      value: _currentSex,
-                      items: _dropDownMenuItems,
-                      onChanged: changedDropDownItem,
-                      validator: ((value) {
-                        if (value == "SEX") {
-                          return "Please select sex";
-                        }
-                      }),
+        body: SingleChildScrollView(
+                  child: Form(
+            key: _formkey,
+            child: Column(
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.all(10),
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(10),
-                  ),
-                  // Expanded(
-                  //Date Picker
-                  // ),
-                  Padding(
-                    padding: EdgeInsets.all(10),
-                  ),
-                ],
-              ),
-              Row(
-                children: <Widget>[
-                  Expanded(
-                    flex: 1,
-                    child: RaisedButton(
-                      child: Text("Next"),
-                      onPressed: () {
-                        if (_formkey.currentState.validate()) {
-                          auth
-                              .createUserWithEmailAndPassword(
-                                  email: widget.map['email'],
-                                  password: widget.map['password'])
-                              .then((FirebaseUser user) {
-                            user.sendEmailVerification().then((user) {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => HomeScreen()));
+                    Expanded(
+                      child: TextFormField(
+                          controller: nameController,
+                          decoration: InputDecoration(labelText: "Name"),
+                          keyboardType: TextInputType.text,
+                          validator: (value) {
+                            if (value.isEmpty) return "Name is required";
+                          }),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(10),
+                    ),
+                    Expanded(
+                      child: TextFormField(
+                          controller: surnameController,
+                          decoration: InputDecoration(labelText: "Surname"),
+                          keyboardType: TextInputType.text,
+                          validator: (value) {
+                            if (value.isEmpty) return "Surname is required";
+                          }),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(10),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.all(10),
+                    ),
+                    Expanded(
+                      child: TextFormField(
+                          controller: heightController,
+                          decoration: InputDecoration(labelText: "Height : cm."),
+                          keyboardType: TextInputType.number,
+                          validator: (value) {
+                            if (value.isEmpty) return "Height is required";
+                          }),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(10),
+                    ),
+                    Expanded(
+                      child: TextFormField(
+                          controller: weightController,
+                          decoration: InputDecoration(labelText: "Weight : kg."),
+                          keyboardType: TextInputType.number,
+                          validator: (value) {
+                            if (value.isEmpty) return "Weight is required";
+                          }),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(10),
+                    ),
+                  ],
+                ),
+                Row(
+                  //for age sex
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.all(10),
+                    ),
+                    Expanded(
+                      child: DropdownButtonFormField(
+                        value: _currentSex,
+                        items: _dropDownMenuItems,
+                        onChanged: changedDropDownItem,
+                        validator: ((value) {
+                          if (value == "SEX") {
+                            return "Please select sex";
+                          }
+                        }),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(10),
+                    ),
+                    // Expanded(
+                    //Date Picker
+                    // ),
+                    Padding(
+                      padding: EdgeInsets.all(10),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: <Widget>[
+                    Expanded(
+                      flex: 1,
+                      child: RaisedButton(
+                        child: Text("Next"),
+                        onPressed: () {
+                          if (_formkey.currentState.validate()) {
+                            auth
+                                .createUserWithEmailAndPassword(
+                                    email: widget.map['email'],
+                                    password: widget.map['password'])
+                                .then((FirebaseUser user) {
+                              user.sendEmailVerification().then((user) {
+                                FirestoreUtils.addProfile(
+                                    widget.map['email'],
+                                    nameController.text,
+                                    surnameController.text,
+                                    heightController.text,
+                                    weightController.text,
+                                    _currentSex);
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => SigninScreen()));
+                              });
+                              print("return from firebase  $user.email");
+                            }).catchError((error) {
+                              print("$error");
                             });
-                            print("return from firebase  $user.email");
-                          }).catchError((error) {
-                            print("$error");
-                          });
-                          FirestoreUtils.addProfile(widget.map['email'], nameController.text, surnameController.text, heightController.text, weightController.text, _currentSex);
-                        } else {
-                          print("error");
-                        }
-                      },
+                          } else {
+                            print("error");
+                          }
+                        },
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
         ));
   }
