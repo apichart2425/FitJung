@@ -16,12 +16,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.pink,
       ),
-      initialRoute: "/SignInfo",
+      initialRoute: "/signup",
       routes: {
         "/" : (context) => HomeScreen(),
         "/signin": (context) => SigninScreen(),
         "/signup": (context) => SignUpScreen(),
-        "/SignInfo": (context) => SignInfoScreen(),
+        "/signinfo": (context) => SignInfoScreen(),
       },
     );
   }

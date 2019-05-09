@@ -2,6 +2,9 @@
 import 'package:flutter/material.dart';
 
 class SignInfoScreen extends StatefulWidget {
+  final Map map;
+  const SignInfoScreen({Key key, this.map}): super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -10,6 +13,7 @@ class SignInfoScreen extends StatefulWidget {
 }
 
 class SignInfoScreenState extends State<SignInfoScreen> {
+
   List _sex = ["SEX", "Female", "Male"];
   List<DropdownMenuItem<String>> _dropDownMenuItems;
   String _currentSex;
