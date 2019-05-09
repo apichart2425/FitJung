@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "552219917120",
-    "firebase_url": "https://fitjung-8c6b0.firebaseio.com",
-    "project_id": "fitjung-8c6b0",
-    "storage_bucket": "fitjung-8c6b0.appspot.com"
+    "project_number": "572841362986",
+    "firebase_url": "https://fitjung-4351e.firebaseio.com",
+    "project_id": "fitjung-4351e",
+    "storage_bucket": "fitjung-4351e.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:552219917120:android:6b22fd8157068c52",
+        "mobilesdk_app_id": "1:572841362986:android:6b22fd8157068c52",
         "android_client_info": {
           "package_name": "com.example.fitjung"
         }
       },
       "oauth_client": [
         {
-          "client_id": "552219917120-9qpu2tu101de89hb16h5vndmj1clk353.apps.googleusercontent.com",
+          "client_id": "572841362986-oo1eme7ehhaf1u963jfd1ddbnj2t6ksu.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyC8AfEc-VOVh0IkRNNQ4BcaihrB1zjzz_s"
+          "current_key": "AIzaSyDirLIIhy9AIsUxn_eMkBCArC4zie4TT2I"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "552219917120-9qpu2tu101de89hb16h5vndmj1clk353.apps.googleusercontent.com",
+              "client_id": "572841362986-oo1eme7ehhaf1u963jfd1ddbnj2t6ksu.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

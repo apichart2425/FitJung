@@ -49,11 +49,9 @@ flutter:
     - resource/image_01.jpg
 
     - resource/image_02.png
-    
+
     - resource/image_03.jpg
 
-
-  
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
