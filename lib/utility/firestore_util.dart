@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FirestoreUtils {
-  static void addTask(String title) {
+  static void addProfile(String email, String name, String surname, String height, String weight, String sex) {
     Firestore.instance
         .collection('profile')
-        .document()
-        .setData({'title': title, 'done': false});
+        .document(email)
+        .setData({'name': name, 'surname': surname, 'height': height, 'weight': weight, 'sex': sex});
   }
 // email password name surname heigh weight sex
 
