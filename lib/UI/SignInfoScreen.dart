@@ -17,7 +17,7 @@ class SignInfoScreen extends StatefulWidget {
 }
 
 class SignInfoScreenState extends State<SignInfoScreen> {
-  List _sex = ["SEX", "Female", "Male"];
+  List _sex = ["GENDER", "Female", "Male"];
   List<DropdownMenuItem<String>> _dropDownMenuItems;
   String _currentSex;
 
@@ -138,8 +138,8 @@ class SignInfoScreenState extends State<SignInfoScreen> {
                         items: _dropDownMenuItems,
                         onChanged: changedDropDownItem,
                         validator: ((value) {
-                          if (value == "SEX") {
-                            return "Please select sex";
+                          if (value == "GENDER") {
+                            return "Please select gender";
                           }
                         }),
                       ),
