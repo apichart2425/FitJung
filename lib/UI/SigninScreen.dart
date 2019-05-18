@@ -23,11 +23,11 @@ class SigninScreenState extends State<SigninScreen> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 50.0),
-        // padding: EdgeInsets.all(20),
-        child: Form(
+      // resizeToAvoidBottomPadding: false,
+      body: ListView(
+        children: <Widget>[
+          Padding(padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 30.0),),
+          Form(
           key: _formKey,
           child: Column(
             children: <Widget>[
@@ -36,26 +36,47 @@ class SigninScreenState extends State<SigninScreen> {
                 "resource/cat_eating.jpg",
                 height: 200,
               ),
-              TextFormField(
-                controller: email,
-                decoration: InputDecoration(labelText: "Email"),
-                keyboardType: TextInputType.emailAddress,
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return "Email is required";
-                  }
-                },
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: 40,
+                  top: 0,
+                  bottom: 0,
+                  right: 40
+                ),
+                child: TextFormField(
+                  controller: email,
+                  decoration: InputDecoration(labelText: "Email"),
+                  keyboardType: TextInputType.emailAddress,
+                  validator: (value) {
+                    Pattern pattern = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+                    RegExp regex = new RegExp(pattern);
+                    if (!regex.hasMatch(value)){
+                      return 'Enter Valid Email';
+                    }
+                    if (value.isEmpty) {
+                      return "Email is required";
+                    }
+                  },
+                ),
               ),
-              TextFormField(
-                obscureText: true,
-                controller: password,
-                decoration: InputDecoration(labelText: "Password"),
-                keyboardType: TextInputType.text,
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return "Password is required";
-                  }
-                },
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: 40,
+                  top: 0,
+                  bottom: 0,
+                  right: 40
+                ),
+                child: TextFormField(
+                  obscureText: true,
+                  controller: password,
+                  decoration: InputDecoration(labelText: "Password"),
+                  keyboardType: TextInputType.text,
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return "Password is required";
+                    }
+                  },
+                ),
               ),
               ButtonTheme(
                 minWidth: 300,
@@ -63,20 +84,21 @@ class SigninScreenState extends State<SigninScreen> {
                     color: Colors.grey.shade300,
                     child: Text("LOGIN"),
                     onPressed: () {
-                      auth.signInWithEmailAndPassword(email: email.text, password: password.text).then((user){
+                      if (_formKey.currentState.validate()){
+                        auth.signInWithEmailAndPassword(email: email.text, password: password.text).then((user){
                         if(user.isEmailVerified){
                           Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => HomeScreen()));
                         }
-                        else{
-                          showDialog(
+                      }).catchError((error){
+                        showDialog(
                             context: context,
                             builder: (BuildContext context){
                               return AlertDialog(
                                 title: Text("ERROR"),
-                                content: Text("Please verify your email first"),
+                                content: Text(error.toString()),
                                 actions: <Widget>[
                                   FlatButton(
                                     child: Text("Close"),
@@ -88,8 +110,8 @@ class SigninScreenState extends State<SigninScreen> {
                               );
                             }
                           );
-                        }
                       });
+                      }
                     }),
               ),
 
@@ -105,7 +127,12 @@ class SigninScreenState extends State<SigninScreen> {
                               builder: (context) => SignUpScreen()));
                     },
                     child: Padding(
-                      padding: const EdgeInsets.all(0.0),
+                      padding: const EdgeInsets.only(
+                        left: 0,
+                        top: 0,
+                        bottom: 0,
+                        right: 30
+                      ),
                       child: Text(
                         "Register New Account",
                       ),
@@ -117,7 +144,8 @@ class SigninScreenState extends State<SigninScreen> {
             ],
           ),
         ),
-      ),
+        ],
+      )
     );
   }
 }
