@@ -20,15 +20,19 @@ class ProfileScreenState extends State<ProfileScreen> {
   TextEditingController sexController = TextEditingController();
   TextEditingController weightController = TextEditingController();
   TextEditingController heightController = TextEditingController();
+  TextEditingController bmiController = TextEditingController();
   void initState() {
     SharedPreferencesUtil.loadLastLogin().then((value) {
       emailController.text = value;
       FirestoreUtils.getData(value).then((result) {
-        nameController.text = result.data['name'];
-        surnameController.text = result.data['surname'];
-        sexController.text = result.data['sex'];
-        weightController.text = result.data['weight'];
-        heightController.text = result.data['height'];
+        setState(() {
+          nameController.text = result.data['name'];
+          surnameController.text = result.data['surname'];
+          sexController.text = result.data['sex'];
+          weightController.text = result.data['weight'];
+          heightController.text = result.data['height'];
+          bmiController.text = result.data['bmi'];
+        });
       });
     });
     super.initState();
@@ -91,6 +95,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                       if (value.isEmpty) return "Surname is required";
                     }),
                 TextField(
+                  enabled: false,
                   controller: sexController,
                   decoration: InputDecoration(labelText: "Gender"),
                   keyboardType: TextInputType.text,
@@ -109,6 +114,12 @@ class ProfileScreenState extends State<ProfileScreen> {
                     validator: (value) {
                       if (value.isEmpty) return "Height  is required";
                     }),
+                TextField(
+                  enabled: false,
+                  controller: bmiController,
+                  decoration: InputDecoration(labelText: "BMI"),
+                  keyboardType: TextInputType.text,
+                ),
                 Row(
                   children: <Widget>[
                     Expanded(
