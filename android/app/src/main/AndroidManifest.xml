@@ -1,12 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.fitjung">
-
+ 
     <!-- The INTERNET permission is required for development. Specifically,
          flutter needs it to communicate with the running application
          to allow setting breakpoints, to provide hot reload, etc.
     -->
     <uses-permission android:name="android.permission.INTERNET"/>
-
+ 
     <!-- io.flutter.app.FlutterApplication is an android.app.Application that
          calls FlutterMain.startInitialization(this); in its onCreate method.
          In most cases you can leave this as-is, but you if you want to provide
@@ -16,6 +16,8 @@
         android:name="io.flutter.app.FlutterApplication"
         android:label="fitjung"
         android:icon="@mipmap/ic_launcher">
+        <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyD0LqZgBAAQ13CrzjuXXL6nD6oLNC5p0Hk"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
@@ -35,5 +37,6 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+       
     </application>
 </manifest>
