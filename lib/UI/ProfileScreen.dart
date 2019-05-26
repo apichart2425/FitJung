@@ -46,8 +46,29 @@ class ProfileScreenState extends State<ProfileScreen> {
             padding: const EdgeInsets.all(18.0),
             child: ListView(
               children: <Widget>[
-                Container(
-                  child: Image.asset('resource/cat_eating.jpg'),
+                Stack(
+                  alignment: const Alignment(0.2, 0.7),
+                  children: [
+                    CircleAvatar(
+                      backgroundImage: AssetImage('resource/cat_eating.jpg'),
+                      radius: 100,
+                    ),
+                    Container(
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                          left: 250,
+                          right: 0,
+                          top: 150,
+                          bottom: 0,
+                        ),
+                        child: FloatingActionButton(
+                          tooltip: 'Change image',
+                          child: Icon(Icons.add),
+                          onPressed: () {},
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 TextField(
                   enabled: false,
