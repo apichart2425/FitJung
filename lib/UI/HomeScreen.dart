@@ -30,7 +30,7 @@ class HomeState extends State<HomeScreen> {
         FirestoreUtils.getData(value).then((result) {
           setState(() {
             name.text = result.data['name'];
-            name.text += " "+result.data['surname'];
+            name.text += " " + result.data['surname'];
           });
         });
       });
@@ -74,8 +74,26 @@ class HomeState extends State<HomeScreen> {
                         Theme.of(context).platform == TargetPlatform.iOS
                             ? Colors.deepPurple
                             : Colors.white,
-                    child: new Text(name.text.substring(0,1).toUpperCase()),
+                    child: new Text(name.text.substring(0, 1).toUpperCase()),
                   ),
+<<<<<<< HEAD
+=======
+                  otherAccountsPictures: <Widget>[
+                    new IconButton(
+                      icon: Icon(
+                        Icons.settings,
+                        color: Colors.white,
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ProfileScreen()),
+                        );
+                      },
+                    )
+                  ],
+>>>>>>> 48cd06ea7345b5a786b2e3096f1ee863288af5ec
                 ),
                 ListTile(
                   leading: Icon(
@@ -103,7 +121,7 @@ class HomeState extends State<HomeScreen> {
                     style: TextStyle(color: Colors.white),
                   ),
                   onTap: () {
-                    Navigator.pushReplacementNamed(context, '/map');
+                    Navigator.pushNamed(context, '/map');
                   },
                 ),
                 ListTile(
