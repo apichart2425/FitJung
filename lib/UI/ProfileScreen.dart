@@ -81,7 +81,7 @@ class ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Profile"),
+        title: Text("Edit Profile"),
         actions: <Widget>[
           IconButton(
             tooltip: "Add Photo",
@@ -258,6 +258,9 @@ class ProfileScreenState extends State<ProfileScreen> {
                             //   MaterialPageRoute(
                             //       builder: (context) => ProfileUser()),
                             // );
+
+                            // Navigator.pop(context);
+
                             Navigator.pushReplacementNamed(
                                 context, '/profileuser');
 

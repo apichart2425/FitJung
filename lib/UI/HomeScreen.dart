@@ -116,11 +116,11 @@ class HomeState extends State<HomeScreen> {
                     style: TextStyle(color: Colors.white),
                   ),
                   onTap: () {
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(builder: (context) => ProfileUser()),
-                    // );
-                    Navigator.pushNamed(context, '/profile');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ProfileUser()),
+                    );
+                    // Navigator.pushReplacementNamed(context, '/profileuser');
                   },
                 ),
                 ListTile(
