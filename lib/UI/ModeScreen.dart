@@ -69,7 +69,11 @@ class ModeScreen extends StatelessWidget{
                           color: Colors.white,
                           fontSize: 42
                         )),
-
+                        Padding(
+                          padding: EdgeInsets.only(left: 70),
+                          child: Icon(Icons.arrow_forward_ios, size: 30, color: Colors.white,),
+                        ),
+                        
                       ],
                     )
                   )
@@ -97,6 +101,10 @@ class ModeScreen extends StatelessWidget{
                           color: Colors.white,
                           fontSize: 42
                         )),
+                        Padding(
+                          padding: EdgeInsets.only(left: 10.0),
+                          child: Icon(Icons.arrow_forward_ios, size: 30, color: Colors.white,),
+                        ),
 
                       ],
                     )
@@ -126,6 +134,11 @@ class ModeScreen extends StatelessWidget{
                             color: Colors.white,
                             fontSize: 42
                           )),
+                          Padding(
+                          padding: EdgeInsets.only(left: 60.0),
+                          child: Icon(Icons.arrow_forward_ios, size: 30, color: Colors.white,),
+                        ),
+                        
 
                         ],
                       )
