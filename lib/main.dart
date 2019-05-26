@@ -5,6 +5,7 @@ import 'package:fitjung/UI/ProfileScreen.dart';
 import 'package:fitjung/UI/SignInfoScreen.dart';
 import 'package:fitjung/UI/SigninScreen.dart';
 import 'package:fitjung/UI/SignupScreen.dart';
+import 'package:fitjung/UI/TestScreen.dart';
 // import 'package:fitjung/map/mapApi.dart';
 import 'package:flutter/material.dart';
 import './map/mapApi.dart';
@@ -46,6 +47,7 @@ class MyApp extends StatelessWidget {
         "/signinfo": (context) => SignInfoScreen(),
         "/map": (context) => MapApiPage(),
         '/profile': (context) => ProfileScreen(),
+        '/test': (context) => TestScreen(),
         // "/image": (context) => ImageScreen(),
 
       },
