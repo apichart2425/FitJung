@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../Icon/CustomIcon.dart';
 import '../data.dart';
 import 'dart:math';
+import 'ProfileScreen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -46,39 +47,54 @@ class HomeState extends State<HomeScreen> {
           backgroundColor: Colors.transparent,
         ),
         drawer: new Drawer(
-          child: new ListView(
-            children: <Widget>[
-              UserAccountsDrawerHeader(
-                accountName: new Text("Fluke Peerapol"),
-                accountEmail: new Text("fluke_onhan@hotmail.com"),
-                currentAccountPicture: new CircleAvatar(
-                  backgroundColor: Theme.of(context).platform == TargetPlatform.iOS
-                  ? Colors.deepPurple
-                  : Colors.white,
-                  child: new Text("F"),
+          child: Container(
+            color: Color(0XFF282e46),
+            child: new ListView(
+              children: <Widget>[
+                UserAccountsDrawerHeader(
+                  accountName: new Text("Fluke Peerapol"),
+                  accountEmail: new Text("fluke_onhan@hotmail.com"),
+                  currentAccountPicture: new CircleAvatar(
+                    backgroundColor:
+                        Theme.of(context).platform == TargetPlatform.iOS
+                            ? Colors.deepPurple
+                            : Colors.white,
+                    child: new Text("F"),
+                  ),
+                  onDetailsPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ProfileScreen()),
+                    );
+                  },
                 ),
-              ),
-              ListTile(
-                leading: Icon(Icons.map),
-                title: Text('Map'),
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
-              ListTile(
-                title: Text(''),
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
-              ListTile(
-                title: Text(''),
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
-
-            ],
+                ListTile(
+                  leading: Icon(
+                    Icons.map,
+                    color: Colors.white,
+                  ),
+                  title: Text(
+                    'Map',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                ),
+                ListTile(
+                  title: Text(''),
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                ),
+                ListTile(
+                  title: Text(''),
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            ),
           ),
         ),
         body: SingleChildScrollView(
@@ -87,7 +103,6 @@ class HomeState extends State<HomeScreen> {
               Padding(
                 padding: const EdgeInsets.only(
                     left: 12.0, right: 12.0, top: 30.0, bottom: 8.0),
-                
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.0),
