@@ -76,12 +76,6 @@ class HomeState extends State<HomeScreen> {
                             : Colors.white,
                     child: new Text(name.text.substring(0,1).toUpperCase()),
                   ),
-                  onDetailsPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => ProfileScreen()),
-                    );
-                  },
                 ),
                 ListTile(
                   leading: Icon(
@@ -114,7 +108,7 @@ class HomeState extends State<HomeScreen> {
                 ),
                 ListTile(
                   leading: Icon(
-                    Icons.settings_backup_restore,
+                    Icons.power_settings_new,
                     color: Colors.white,
                   ),
                   title: Text(
