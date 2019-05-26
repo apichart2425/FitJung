@@ -120,7 +120,7 @@ class MapScreen extends State<MapApiPage> {
     });
 
     final location = Location(center.latitude,center.longitude);
-    final result = await _places.searchNearbyWithRadius(location, 2000);
+    final result = await _places.searchNearbyWithRadius(location, 500);
     var list = [
       'gym',
       'health',

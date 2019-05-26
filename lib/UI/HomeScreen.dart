@@ -6,6 +6,7 @@ import '../Icon/CustomIcon.dart';
 import '../data.dart';
 import 'dart:math';
 import 'ProfileScreen.dart';
+import 'ProfileUser.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -93,6 +94,22 @@ class HomeState extends State<HomeScreen> {
                 ),
                 ListTile(
                   leading: Icon(
+                    Icons.person,
+                    color: Colors.white,
+                  ),
+                  title: Text(
+                    'Profile',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ProfileUser()),
+                    );
+                  },
+                ),
+                ListTile(
+                  leading: Icon(
                     Icons.map,
                     color: Colors.white,
                   ),
@@ -101,20 +118,23 @@ class HomeState extends State<HomeScreen> {
                     style: TextStyle(color: Colors.white),
                   ),
                   onTap: () {
-                    // Navigator.of().
                     Navigator.pushNamed(context, '/map');
                   },
                 ),
                 ListTile(
-                  title: Text(''),
+                  leading: Icon(
+                    Icons.settings_backup_restore,
+                    color: Colors.white,
+                  ),
+                  title: Text(
+                    'Logout',
+                    style: TextStyle(color: Colors.white),
+                  ),
                   onTap: () {
-                    Navigator.pop(context);
-                  },
-                ),
-                ListTile(
-                  title: Text(''),
-                  onTap: () {
-                    Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SigninScreen()),
+                    );
                   },
                 ),
               ],

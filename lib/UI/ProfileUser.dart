@@ -5,16 +5,16 @@ import 'package:fitjung/utility/firestore_util.dart';
 import 'package:fitjung/utility/share.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'ImageScreen.dart';
+import 'ProfileScreen.dart';
 
-class ProfileScreen extends StatefulWidget {
+class ProfileUser extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return ProfileScreenState();
+    return ProfileUserState();
   }
 }
 
-class ProfileScreenState extends State<ProfileScreen> {
+class ProfileUserState extends State<ProfileUser> {
   QuerySnapshot info;
   final _formkey = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
@@ -70,11 +70,12 @@ class ProfileScreenState extends State<ProfileScreen> {
                         ),
                         child: FloatingActionButton(
                           tooltip: 'Change image',
-                          child: Icon(Icons.add),
+                          child: Icon(Icons.edit),
                           onPressed: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder:  (context) =>ImageScreen())
+                              MaterialPageRoute(
+                                  builder: (context) => ProfileScreen()),
                             );
                           },
                         ),
@@ -135,9 +136,18 @@ class ProfileScreenState extends State<ProfileScreen> {
                       child: RaisedButton(
                         child: Text("SAVE"),
                         onPressed: () {
-                          FirestoreUtils.update(emailController.text, nameController.text, surnameController.text, weightController.text, heightController.text, _calBMI(double.parse(weightController.text), double.parse(heightController.text)));
+                          FirestoreUtils.update(
+                              emailController.text,
+                              nameController.text,
+                              surnameController.text,
+                              weightController.text,
+                              heightController.text,
+                              _calBMI(double.parse(weightController.text),
+                                  double.parse(heightController.text)));
                           setState(() {
-                           bmiController.text = _calBMI(double.parse(weightController.text), double.parse(heightController.text)) ;
+                            bmiController.text = _calBMI(
+                                double.parse(weightController.text),
+                                double.parse(heightController.text));
                           });
                           Navigator.pushReplacementNamed(context, '/profile');
                         },

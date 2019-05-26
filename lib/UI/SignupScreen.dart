@@ -236,76 +236,77 @@ class SignUpScreenState extends State<SignUpScreen> {
                             ),
                           ),
                         ),
-                        Row(
-                          children: <Widget>[
-                            ButtonTheme(
-                              minWidth: 300,
-                              child: InkWell(
-                                  child: Container(
-                                width: ScreenUtil.getInstance().setWidth(330),
-                                height: ScreenUtil.getInstance().setHeight(100),
-                                decoration: BoxDecoration(
-                                  gradient: LinearGradient(
-                                    colors: [
-                                      Color(0xFF85627c),
-                                      Color(0xFF0949a5)
+                        Padding(
+                          padding: EdgeInsets.only(top: 20.0),
+                        ),
+                              ButtonTheme(
+                                minWidth: 300,
+                                child: InkWell(
+                                    child: Container(
+                                  width: ScreenUtil.getInstance().setWidth(330),
+                                  height: ScreenUtil.getInstance().setHeight(100),
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        Color(0xFF85627c),
+                                        Color(0xFF0949a5)
+                                      ],
+                                    ),
+                                    borderRadius: BorderRadius.circular(6.0),
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color:
+                                              Color(0xFF6078ea).withOpacity(.3),
+                                          offset: Offset(0.0, 8.0),
+                                          blurRadius: 8.0),
                                     ],
                                   ),
-                                  borderRadius: BorderRadius.circular(6.0),
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color:
-                                            Color(0xFF6078ea).withOpacity(.3),
-                                        offset: Offset(0.0, 8.0),
-                                        blurRadius: 8.0),
-                                  ],
-                                ),
-                                child: Material(
-                                  color: Colors.transparent,
-                                  child: InkWell(
-                                      child: Center(
-                                    child: Material(
-                                      color: Colors.transparent,
-                                      child: InkWell(
-                                        child: RaisedButton(
-                                          color: Colors.transparent
-                                              .withOpacity(0.0),
-                                          child: Text(
-                                            "Next",
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontFamily: 'Poppins-Bold',
-                                                letterSpacing: 1.0,
-                                                fontSize: 18.0),
+                                  child: Material(
+                                    color: Colors.transparent,
+                                    child: InkWell(
+                                        child: Center(
+                                      child: Material(
+                                        color: Colors.transparent,
+                                        child: InkWell(
+                                          child: RaisedButton(
+                                            color: Colors.transparent
+                                                .withOpacity(0.0),
+                                            child: Text(
+                                              "Next",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontFamily: 'Poppins-Bold',
+                                                  letterSpacing: 1.0,
+                                                  fontSize: 18.0),
+                                            ),
+                                            onPressed: () {
+                                              if (_formkey.currentState
+                                                  .validate()) {
+                                                Map map = {
+                                                  'email': emailController.text,
+                                                  'password':
+                                                      passwordController.text
+                                                };
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            SignInfoScreen(
+                                                                map: map)));
+                                              } else {
+                                                print("error");
+                                              }
+                                            },
                                           ),
-                                          onPressed: () {
-                                            if (_formkey.currentState
-                                                .validate()) {
-                                              Map map = {
-                                                'email': emailController.text,
-                                                'password':
-                                                    passwordController.text
-                                              };
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          SignInfoScreen(
-                                                              map: map)));
-                                            } else {
-                                              print("error");
-                                            }
-                                          },
                                         ),
                                       ),
-                                    ),
-                                  )),
-                                ),
-                              )),
-                            ),
-                          ],
-                        ),
-                      ],
+                                    )),
+                                  ),
+                                )),
+                              ),
+                            ],
+                         
+                    
                     ),
                   )
                 ],
