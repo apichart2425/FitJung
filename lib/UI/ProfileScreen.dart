@@ -205,7 +205,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                     Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: ButtonTheme(
-                        minWidth: 350.0,
+                        minWidth: 300.0,
                         height: 50.0,
                         child: RaisedButton(
                           child: Text("SAVE", style:
