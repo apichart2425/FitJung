@@ -49,13 +49,12 @@ class ProfileScreenState extends State<ProfileScreen> {
                 Container(
                   child: Image.asset('resource/cat_eating.jpg'),
                 ),
-                TextFormField(
-                    controller: emailController,
-                    decoration: InputDecoration(labelText: "Email"),
-                    keyboardType: TextInputType.emailAddress,
-                    validator: (value) {
-                      if (value.isEmpty) return "Email is required";
-                    }),
+                TextField(
+                  enabled: false,
+                  controller: emailController,
+                  decoration: InputDecoration(labelText: "Email"),
+                  keyboardType: TextInputType.emailAddress,
+                ),
                 TextFormField(
                     controller: nameController,
                     decoration: InputDecoration(labelText: "Name"),
@@ -70,13 +69,11 @@ class ProfileScreenState extends State<ProfileScreen> {
                     validator: (value) {
                       if (value.isEmpty) return "Surname is required";
                     }),
-                TextFormField(
-                    controller: sexController,
-                    decoration: InputDecoration(labelText: "Gender"),
-                    keyboardType: TextInputType.text,
-                    validator: (value) {
-                      if (value.isEmpty) return "Gender is required";
-                    }),
+                TextField(
+                  controller: sexController,
+                  decoration: InputDecoration(labelText: "Gender"),
+                  keyboardType: TextInputType.text,
+                ),
                 TextFormField(
                     controller: weightController,
                     decoration: InputDecoration(labelText: "Weight"),
@@ -97,7 +94,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                       flex: 1,
                       child: RaisedButton(
                         child: Text("SAVE"),
-                        onPressed: (){},
+                        onPressed: () {},
                       ),
                     ),
                     Padding(
