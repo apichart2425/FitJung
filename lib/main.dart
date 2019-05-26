@@ -36,7 +36,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: colors,
         
       ),
-      initialRoute: "/",
+
+      initialRoute: "/signinfo",
 
       routes: {
         "/" : (context) => HomeScreen(),

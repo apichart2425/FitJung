@@ -6,6 +6,7 @@ import 'package:fitjung/UI/HomeScreen.dart';
 import 'package:fitjung/UI/SigninScreen.dart';
 import 'package:fitjung/utility/firestore_util.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SignInfoScreen extends StatefulWidget {
   final Map map;
@@ -21,6 +22,8 @@ class SignInfoScreen extends StatefulWidget {
 class SignInfoScreenState extends State<SignInfoScreen> {
   List _sex = ["GENDER", "Female", "Male"];
   List<DropdownMenuItem<String>> _dropDownMenuItems;
+  int box_size = 550;
+  int state_1 = 0,  state_3 = 0,  state_5 = 0;
   String _currentSex;
 
   final _formkey = GlobalKey<FormState>();
@@ -30,6 +33,8 @@ class SignInfoScreenState extends State<SignInfoScreen> {
   TextEditingController heightController = TextEditingController();
   TextEditingController weightController = TextEditingController();
   // TextEditingController sexController = TextEditingController();
+
+  
 
   @override
   void initState() {
@@ -50,6 +55,8 @@ class SignInfoScreenState extends State<SignInfoScreen> {
   }
 
   Widget build(BuildContext context) {
+    ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
+    ScreenUtil.instance = ScreenUtil(width: 750, height: 1334, allowFontScaling: true);
     void changedDropDownItem(String selectedSex) {
       //State
       setState(() {
@@ -58,15 +65,93 @@ class SignInfoScreenState extends State<SignInfoScreen> {
     }
 
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Information"),
-        ),
-        body: SingleChildScrollView(
-                  child: Form(
-            key: _formkey,
-            child: Column(
-              children: <Widget>[
-                Row(
+      backgroundColor: Colors.white,
+      resizeToAvoidBottomPadding: false,
+      body: Stack(
+        fit: StackFit.expand,
+        children: <Widget>[
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(top: 20.0),
+              child: Image.asset('resource/6272.jpg'),
+            ),
+            Expanded(
+              child: Container(
+
+              ),
+              
+            ),
+            Image.asset('resource/img_02.png'),
+            ],
+          ),
+          SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.only(left: 28.0, right: 28.0, top: 60.0),
+              child: Column(
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                    Image.asset('resource/logo.png',
+                      width: ScreenUtil.getInstance().setWidth(110),
+                      height: ScreenUtil.getInstance().setHeight(110),
+                    ),
+                    Text("FITJUNG", style: TextStyle(
+                      fontFamily: 'Poppins-Bold',
+                      fontSize: ScreenUtil.getInstance().setSp(46),
+                      letterSpacing: .6,
+                      fontWeight: FontWeight.bold,
+                    ),)
+                    ],
+
+                  ),
+                   SizedBox(
+                    height: ScreenUtil.getInstance().setHeight(180),
+                  ),
+                  Form(
+                    key: _formkey,
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          width: double.infinity,
+                          height: ScreenUtil.getInstance().setHeight(box_size),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8.0),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black12,
+                                offset: Offset(0.0, -10.0),
+                                blurRadius: 15.0
+                              ),
+                              BoxShadow(
+                                color: Colors.black12,
+                                offset: Offset(0.0, -10.0),
+                                blurRadius: 10.0
+                              ),
+                              BoxShadow(
+                                color: Colors.black12,
+                                offset: Offset(0.0, 10.0),
+                                blurRadius: 10.0
+                              ),
+                            ],
+
+                          ),
+                          child: Padding(
+                            padding: 
+                              EdgeInsets.only(left: 16.0, right: 16.0, top: 16.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text('Info',
+                                  style: TextStyle(
+                                    fontSize: ScreenUtil.getInstance().setSp(45),
+                                    fontFamily: "Poppins-Bold",
+                                    letterSpacing: .6
+                                  ),
+                                ),
+                                Row(
                   children: <Widget>[
                     Padding(
                       padding: EdgeInsets.all(10),
@@ -77,7 +162,20 @@ class SignInfoScreenState extends State<SignInfoScreen> {
                           decoration: InputDecoration(labelText: "Name"),
                           keyboardType: TextInputType.text,
                           validator: (value) {
-                            if (value.isEmpty) return "Name is required";
+                            if (value.isEmpty){
+                              if(state_1 < 1){
+                                setState(() {
+                                  box_size += 50; 
+                                  state_1 ++;                      
+                                });
+                              }
+                              return "Name is required";
+                            }else{
+                              if(state_1 == 1){
+                                state_1--;
+                                box_size -=50;
+                              }
+                            }
                           }),
                     ),
                     Padding(
@@ -89,8 +187,22 @@ class SignInfoScreenState extends State<SignInfoScreen> {
                           decoration: InputDecoration(labelText: "Surname"),
                           keyboardType: TextInputType.text,
                           validator: (value) {
-                            if (value.isEmpty) return "Surname is required";
-                          }),
+                            if (value.isEmpty) {
+                              if(state_1 < 1){
+                                setState(() {
+                                  box_size += 50; 
+                                  state_1++;                      
+                                });
+                              }
+                              return "Surname is required";
+                            }else{
+                              if(state_1 == 1){
+                                state_1--;
+                                box_size -= 50;
+                              }
+                            }
+                          }
+                      ),
                     ),
                     Padding(
                       padding: EdgeInsets.all(10),
@@ -108,7 +220,20 @@ class SignInfoScreenState extends State<SignInfoScreen> {
                           decoration: InputDecoration(labelText: "Height : cm."),
                           keyboardType: TextInputType.number,
                           validator: (value) {
-                            if (value.isEmpty) return "Height is required";
+                            if (value.isEmpty) {
+                              if(state_3 < 1){
+                                setState(() {
+                                  box_size += 50; 
+                                  state_3++;                      
+                                });
+                              }
+                              return "Height is required";
+                            }else{
+                              if(state_3 == 1){
+                                state_3--;
+                                box_size -= 50;
+                              }
+                            }
                           }),
                     ),
                     Padding(
@@ -120,7 +245,20 @@ class SignInfoScreenState extends State<SignInfoScreen> {
                           decoration: InputDecoration(labelText: "Weight : kg."),
                           keyboardType: TextInputType.number,
                           validator: (value) {
-                            if (value.isEmpty) return "Weight is required";
+                            if (value.isEmpty) {
+                              if(state_3 < 1){
+                                setState(() {
+                                  box_size += 50; 
+                                  state_3++;                      
+                                });
+                              }
+                              return "Weight is required";
+                            }else{
+                              if(state_3 == 1){
+                                state_3--;
+                                box_size -= 50;
+                              }
+                            }
                           }),
                     ),
                     Padding(
@@ -128,79 +266,139 @@ class SignInfoScreenState extends State<SignInfoScreen> {
                     ),
                   ],
                 ),
-                Row(
-                  //for age sex
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.all(10),
+                    Row(
+                      //for age sex
+                      children: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.all(10),
+                        ),
+                        Expanded(
+                          child: DropdownButtonFormField(
+                            value: _currentSex,
+                            items: _dropDownMenuItems,
+                            onChanged: changedDropDownItem,
+                            validator: ((value) {
+                              if (value == "GENDER") {
+                                if(state_5 < 1){
+                                  setState(() {
+                                  box_size += 50; 
+                                  state_5++;                      
+                                });
+                                }
+                                return "Please select gender";
+                              }else{
+                                if(state_5 == 1){
+                                  box_size -= 50; 
+                                  state_5--;   
+                                }
+                              }
+                            }),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.all(10),
+                        ),
+                        // Expanded(
+                        //Date Picker
+                        // ),
+                        Padding(
+                          padding: EdgeInsets.all(10),
+                        ),
+                      ],
                     ),
-                    Expanded(
-                      child: DropdownButtonFormField(
-                        value: _currentSex,
-                        items: _dropDownMenuItems,
-                        onChanged: changedDropDownItem,
-                        validator: ((value) {
-                          if (value == "GENDER") {
-                            return "Please select gender";
-                          }
-                        }),
-                      ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: 20.0),
+                        ),
+                        ButtonTheme(
+                          minWidth: 300,
+                          child: InkWell(
+                            child: Container(
+                              width: ScreenUtil.getInstance().setWidth(330),
+                              height: ScreenUtil.getInstance().setHeight(100),
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                      colors: [
+                                        Color(0xFF85627c),
+                                        Color(0xFF0949a5)
+                                      ],
+                                    ),
+                                  borderRadius: BorderRadius.circular(6.0),
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color:
+                                              Color(0xFF6078ea).withOpacity(.3),
+                                          offset: Offset(0.0, 8.0),
+                                          blurRadius: 8.0),
+                                    ],
+                              ),
+                              child: Material(
+                                color: Colors.transparent,
+                                child: InkWell(
+                                  child: Center(
+                                    child: Material(
+                                      color: Colors.transparent,
+                                      child: InkWell(
+                                        child: RaisedButton(
+                                          color: Colors.transparent.withOpacity(0.0),
+                                        child: Text("Next", style: TextStyle(
+                                          color: Colors.white,
+                                          fontFamily: 'Poppins-Bold',
+                                          letterSpacing: 1.0,
+                                          fontSize: 18.0
+                                        ),),
+                                        onPressed: () {
+                                          if (_formkey.currentState.validate()) {
+                                            auth
+                                                .createUserWithEmailAndPassword(
+                                                    email: widget.map['email'],
+                                                    password: widget.map['password'])
+                                                .then((FirebaseUser user) {
+                                              user.sendEmailVerification().then((user) {
+                                                FirestoreUtils.addProfile(
+                                                    widget.map['email'],
+                                                    nameController.text,
+                                                    surnameController.text,
+                                                    heightController.text,
+                                                    weightController.text,
+                                                    _currentSex,
+                                                    _calBMI(double.parse(weightController.text), double.parse(heightController.text))
+                                                    );
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) => SigninScreen()));
+                                              });
+                                              print("return from firebase  $user.email");
+                                            }).catchError((error) {
+                                              print("$error");
+                                            });
+                                          } else {
+                                            print("error");
+                                          }
+                                        },
+                                      ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                    Padding(
-                      padding: EdgeInsets.all(10),
-                    ),
-                    // Expanded(
-                    //Date Picker
-                    // ),
-                    Padding(
-                      padding: EdgeInsets.all(10),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: <Widget>[
-                    Expanded(
-                      flex: 1,
-                      child: RaisedButton(
-                        child: Text("Next"),
-                        onPressed: () {
-                          if (_formkey.currentState.validate()) {
-                            auth
-                                .createUserWithEmailAndPassword(
-                                    email: widget.map['email'],
-                                    password: widget.map['password'])
-                                .then((FirebaseUser user) {
-                              user.sendEmailVerification().then((user) {
-                                FirestoreUtils.addProfile(
-                                    widget.map['email'],
-                                    nameController.text,
-                                    surnameController.text,
-                                    heightController.text,
-                                    weightController.text,
-                                    _currentSex,
-                                    _calBMI(double.parse(weightController.text), double.parse(heightController.text))
-                                    );
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => SigninScreen()));
-                              });
-                              print("return from firebase  $user.email");
-                            }).catchError((error) {
-                              print("$error");
-                            });
-                          } else {
-                            print("error");
-                          }
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+                  ),
+                ],
+              ),
             ),
           ),
-        ));
+        ],
+      ),
+    );
   }
 }
 

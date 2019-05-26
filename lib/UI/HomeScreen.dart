@@ -1,4 +1,5 @@
 import 'package:fitjung/UI/SigninScreen.dart';
+import 'package:fitjung/utility/firestore_util.dart';
 import 'package:fitjung/utility/share.dart';
 import 'package:flutter/material.dart';
 import '../Icon/CustomIcon.dart';
@@ -17,10 +18,23 @@ var widgetAspectRatio = cardAspectRatio * 1.2;
 
 class HomeState extends State<HomeScreen> {
   var currentPage = images.length - 1.0;
+  TextEditingController email = TextEditingController();
+  TextEditingController name = TextEditingController(text: "test");
 
   @override
   void initState() {
     super.initState();
+    SharedPreferencesUtil.loadLastLogin().then((value) {
+      setState(() {
+        email.text = value.toString();
+        FirestoreUtils.getData(value).then((result) {
+          setState(() {
+            name.text = result.data['name'];
+            name.text += " "+result.data['surname'];
+          });
+        });
+      });
+    });
   }
 
   @override
@@ -53,14 +67,14 @@ class HomeState extends State<HomeScreen> {
             child: new ListView(
               children: <Widget>[
                 UserAccountsDrawerHeader(
-                  accountName: new Text("Fluke Peerapol"),
-                  accountEmail: new Text("fluke_onhan@hotmail.com"),
+                  accountName: new Text(name.text),
+                  accountEmail: new Text(email.text),
                   currentAccountPicture: new CircleAvatar(
                     backgroundColor:
                         Theme.of(context).platform == TargetPlatform.iOS
                             ? Colors.deepPurple
                             : Colors.white,
-                    child: new Text("F"),
+                    child: new Text(name.text.substring(0,1).toUpperCase()),
                   ),
                   onDetailsPressed: () {
                     Navigator.push(

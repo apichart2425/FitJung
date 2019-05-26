@@ -22,9 +22,10 @@ class SigninScreenState extends State<SigninScreen> {
   @override
   void initState() {
     super.initState();
-    SharedPreferencesUtil.loadLastLogin().then((onValue) {
-      print(onValue);
-    });
+    // SharedPreferencesUtil.loadLastLogin().then((onValue) {
+    //   print(onValue);
+    // });
+
     getUrlImage();
   }
 
