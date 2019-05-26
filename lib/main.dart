@@ -6,6 +6,7 @@ import 'package:fitjung/UI/SignInfoScreen.dart';
 import 'package:fitjung/UI/SigninScreen.dart';
 import 'package:fitjung/UI/SignupScreen.dart';
 import 'package:flutter/material.dart';
+import './map/mapApi.dart';
 
 
 
@@ -19,13 +20,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.pink,
       ),
-      initialRoute: "/profile",
+      initialRoute: "/",
       routes: {
         "/" : (context) => HomeScreen(),
         "/signin": (context) => SigninScreen(),
         "/signup": (context) => SignUpScreen(),
         "/signinfo": (context) => SignInfoScreen(),
-        "/map": (context) => MapScreen(),
+        "/map": (context) => MapApiPage(),
         '/profile': (context) => ProfileScreen(),
         // "/image": (context) => ImageScreen(),
 
