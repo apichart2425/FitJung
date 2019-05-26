@@ -6,6 +6,8 @@ import 'package:fitjung/utility/firestore_util.dart';
 import 'package:fitjung/utility/share.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'ImageScreen.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -26,7 +28,10 @@ class ProfileScreenState extends State<ProfileScreen> {
   TextEditingController sexController = TextEditingController();
   TextEditingController weightController = TextEditingController();
   TextEditingController heightController = TextEditingController();
-  TextEditingController bmiController = TextEditingController();
+  TextEditingController ageController = TextEditingController();
+  TextEditingController bmiValController = TextEditingController();
+  TextEditingController bmiStatusController = TextEditingController();
+  TextEditingController bmiRiskController = TextEditingController();
   TextEditingController img = TextEditingController();
   var url =
       'https://cdn3.iconfinder.com/data/icons/map-and-location-fill/144/People_Location-512.png';
@@ -44,9 +49,16 @@ class ProfileScreenState extends State<ProfileScreen> {
           sexController.text = result.data['sex'];
           weightController.text = result.data['weight'];
           heightController.text = result.data['height'];
-          bmiController.text = result.data['bmi'];
+          ageController.text = result.data['age'];
           getUrlImage();
-          // print('img-----------------${img}');
+          postRequest(weightController.text, heightController.text, ageController.text, sexController.text).then((response){
+            var data = json.decode(response.body);
+            setState(() {
+              bmiValController.text = data['bmi']['value'];
+              bmiStatusController.text = data['bmi']['status'];
+              bmiRiskController.text = data['bmi']['risk'];
+            });
+          });
         });
       });
     });
@@ -151,11 +163,26 @@ class ProfileScreenState extends State<ProfileScreen> {
                     validator: (value) {
                       if (value.isEmpty) return "Height  is required";
                     }),
+                TextFormField(
+                  controller: ageController,
+                  decoration: InputDecoration(icon: Icon(Icons.account_box, size: 30,), labelText: "Age"),
+                  keyboardType: TextInputType.text,
+                ),
                 TextField(
                   enabled: false,
-                  controller: bmiController,
-                  decoration: InputDecoration(icon: Icon(Icons.account_box, size: 30,), labelText: "BMI"),
-                  keyboardType: TextInputType.text,
+                  controller: bmiValController,
+                  decoration: InputDecoration(icon: Icon(Icons.account_box, size: 30,), labelText: "BMI value"),
+                ),
+                TextField(
+                  enabled: false,
+                  controller: bmiStatusController,
+                  decoration: InputDecoration(icon: Icon(Icons.account_box, size: 30,), labelText: "Status"),
+                ),
+                TextField(
+                  enabled: false,
+                  controller: bmiRiskController,
+                  maxLines: 2,
+                  decoration: InputDecoration(icon: Icon(Icons.account_box, size: 30,), labelText: "Risk"),
                 ),
                 Row(
                   children: <Widget>[
@@ -170,29 +197,15 @@ class ProfileScreenState extends State<ProfileScreen> {
                               surnameController.text,
                               weightController.text,
                               heightController.text,
-                              _calBMI(double.parse(weightController.text),
-                                  double.parse(heightController.text)));
-                          setState(() {
-                            bmiController.text = _calBMI(
-                                double.parse(weightController.text),
-                                double.parse(heightController.text));
-                          });
-                          Navigator.pushReplacementNamed(context, '/profile');
+                              ageController.text);
+                          Navigator.pushReplacementNamed(context, '/');
                         },
                       ),
                     ),
                     Padding(
                       padding: EdgeInsets.all(10),
                     ),
-                    Expanded(
-                      flex: 1,
-                      child: RaisedButton(
-                        child: Text("BACK"),
-                        onPressed: () {
-                          Navigator.of(context).popAndPushNamed('/');
-                        },
-                      ),
-                    ),
+
                   ],
                 )
               ],
@@ -202,7 +215,32 @@ class ProfileScreenState extends State<ProfileScreen> {
   }
 }
 
-String _calBMI(double weight, double height) {
-  height = height / 100;
-  return (weight / pow(height, 2)).toStringAsFixed(2);
-}
+Future<http.Response> postRequest(String weight, String height, String age, String sex) async {
+    var url =
+        'https://bmi.p.rapidapi.com/';
+
+    Map data = {
+      'weight': {'value': weight, 'unit': 'kg'},
+      'height': {'value': height, 'unit': 'cm'},
+      'sex': sex.substring(0, 1).toLowerCase(),
+      'age': age,
+    };
+    //encode Map to JSON
+    var body = json.encode(data);
+
+    var response = await http.post(url,
+        headers: {
+          'X-RapidAPI-Host': 'bmi.p.rapidapi.com',
+          'X-RapidAPI-Key': 'a5367c95edmsh93c43a9a99f221fp193dcejsnd9a7ccf34386',
+          'Content-Type': 'application/json'
+        },
+        body: body);
+    // print("${response.statusCode}");
+    // print("${response.body}");
+    final test = json.decode(response.body);
+    print(test['weight']['kg']);
+    print(test['bmi']['value']);
+    print(test['bmi']['status']);
+    print(test['bmi']['risk']);
+    return response;
+  }
