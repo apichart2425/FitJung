@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 import 'package:firebase_storage/firebase_storage.dart';
 
@@ -6,6 +7,8 @@ import 'package:fitjung/utility/firestore_util.dart';
 import 'package:fitjung/utility/share.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:toast/toast.dart';
 import 'ImageScreen.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -61,6 +64,16 @@ class ProfileScreenState extends State<ProfileScreen> {
     });
   }
 
+  File sampleImage = null;
+
+  Future getImage() async {
+    var tempImage = await ImagePicker.pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      sampleImage = tempImage;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,8 +87,7 @@ class ProfileScreenState extends State<ProfileScreen> {
               size: 30,
             ),
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ImageScreen()));
+              getImage();
             },
           )
         ],
@@ -91,11 +103,13 @@ class ProfileScreenState extends State<ProfileScreen> {
                   children: [
                     ClipRRect(
                       borderRadius: new BorderRadius.circular(50.0),
-                      child: Image.network(
-                        url,
-                        width: 350,
-                        height: 300,
-                      ),
+                      child: sampleImage == null
+                          ? Image.network(
+                              url,
+                              width: 350,
+                              height: 300,
+                            )
+                          : enableUpload(),
                     ),
                     Container(
                       child: Padding(
@@ -113,20 +127,33 @@ class ProfileScreenState extends State<ProfileScreen> {
                   enabled: false,
                   controller: emailController,
                   decoration: InputDecoration(
-                      icon: Icon(Icons.email , size: 30,), labelText: "Email"),
+                      icon: Icon(
+                        Icons.email,
+                        size: 30,
+                      ),
+                      labelText: "Email"),
                   keyboardType: TextInputType.emailAddress,
                 ),
                 TextFormField(
                     controller: nameController,
                     decoration: InputDecoration(
-                        icon: Icon(Icons.account_box, size: 30,), labelText: "Name"),
+                        icon: Icon(
+                          Icons.account_box,
+                          size: 30,
+                        ),
+                        labelText: "Name"),
                     keyboardType: TextInputType.text,
                     validator: (value) {
                       if (value.isEmpty) return "Name is required";
                     }),
                 TextFormField(
                     controller: surnameController,
-                    decoration: InputDecoration(icon: Icon(Icons.account_box, size: 30,),labelText: "Surname"),
+                    decoration: InputDecoration(
+                        icon: Icon(
+                          Icons.account_box,
+                          size: 30,
+                        ),
+                        labelText: "Surname"),
                     keyboardType: TextInputType.text,
                     validator: (value) {
                       if (value.isEmpty) return "Surname is required";
@@ -134,54 +161,75 @@ class ProfileScreenState extends State<ProfileScreen> {
                 TextField(
                   enabled: false,
                   controller: sexController,
-                  decoration: InputDecoration(icon: Icon(Icons.account_box, size: 30,), labelText: "Gender"),
+                  decoration: InputDecoration(
+                      icon: Icon(
+                        Icons.account_box,
+                        size: 30,
+                      ),
+                      labelText: "Gender"),
                   keyboardType: TextInputType.text,
                 ),
                 TextFormField(
                     controller: weightController,
-                    decoration: InputDecoration(icon: Icon(Icons.account_box, size: 30,), labelText: "Weight"),
+                    decoration: InputDecoration(
+                        icon: Icon(
+                          Icons.account_box,
+                          size: 30,
+                        ),
+                        labelText: "Weight"),
                     keyboardType: TextInputType.text,
                     validator: (value) {
                       if (value.isEmpty) return "Weight is required";
                     }),
                 TextFormField(
                     controller: heightController,
-                    decoration: InputDecoration(icon: Icon(Icons.account_box, size: 30,), labelText: "Height"),
+                    decoration: InputDecoration(
+                        icon: Icon(
+                          Icons.account_box,
+                          size: 30,
+                        ),
+                        labelText: "Height"),
                     keyboardType: TextInputType.text,
                     validator: (value) {
                       if (value.isEmpty) return "Height  is required";
                     }),
-
                 Row(
-                 children: <Widget>[
+                  children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: ButtonTheme(
                         minWidth: 350.0,
                         height: 50.0,
                         child: RaisedButton(
-                          child: Text("SAVE", style:
-                            TextStyle(color: Colors.white)),
+                          child: Text("SAVE",
+                              style: TextStyle(color: Colors.white)),
                           color: Colors.blueAccent,
-                          
                           shape: new RoundedRectangleBorder(
                               borderRadius: new BorderRadius.circular(15.0)),
-                          onPressed: () {
+                          onPressed: () async{
+                            print(this.email.text);
+                            final StorageReference firebaseStorageRef =
+                                FirebaseStorage.instance
+                                    .ref()
+                                    .child(this.email.text);
+                            final StorageUploadTask task =
+                                firebaseStorageRef.putFile(sampleImage);
+                            print(await(await task.onComplete)
+                                .ref
+                                .getDownloadURL());
+                            if (task.isComplete) {
+                              Toast.show("UPLOAD complete", context);
+                              Navigator.pushReplacementNamed(
+                                  context, '/profile');
+                            }
                             FirestoreUtils.update(
                                 emailController.text,
                                 nameController.text,
                                 surnameController.text,
                                 weightController.text,
                                 heightController.text,
-                                _calBMI(double.parse(weightController.text),
-                                    double.parse(heightController.text)));
-                            setState(() {
-                              bmiController.text = _calBMI(
-                                  double.parse(weightController.text),
-                                  double.parse(heightController.text));
-                            });
-                            Navigator.pushReplacementNamed(
-                                context, '/profile');
+                                '');
+                            Navigator.pushReplacementNamed(context, '/profile');
                           },
                         ),
                       ),
@@ -216,9 +264,14 @@ class ProfileScreenState extends State<ProfileScreen> {
           )),
     );
   }
-}
 
-String _calBMI(double weight, double height) {
-  height = height / 100;
-  return (weight / pow(height, 2)).toStringAsFixed(2);
+  Widget enableUpload() {
+    return Container(
+      child: Column(
+        children: <Widget>[
+          Image.file(sampleImage, height: 300, width: 300),
+        ],
+      ),
+    );
+  }
 }
