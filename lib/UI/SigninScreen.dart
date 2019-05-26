@@ -4,6 +4,7 @@ import 'package:fitjung/UI/ImageScreen.dart';
 import 'package:fitjung/UI/SignupScreen.dart';
 import 'package:fitjung/utility/share.dart';
 import 'package:flutter/material.dart';
+import 'package:toast/toast.dart';
 import './HomeScreen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -341,6 +342,13 @@ class SigninScreenState extends State<SigninScreen> {
                                                                       builder:
                                                                           (context) =>
                                                                               HomeScreen()));
+                                                            }
+                                                            if (!user.isEmailVerified){
+                                                              setState(() {
+                                                                isLoading =
+                                                                    false;
+                                                              });
+                                                              Toast.show("YOUR ACCOUNT IS NOT VERIFIED", context);
                                                             }
                                                           }).catchError(
                                                                   (error) {
