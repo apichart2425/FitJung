@@ -9,6 +9,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:toast/toast.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'ImageScreen.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -29,7 +31,7 @@ class ProfileScreenState extends State<ProfileScreen> {
   TextEditingController sexController = TextEditingController();
   TextEditingController weightController = TextEditingController();
   TextEditingController heightController = TextEditingController();
-  TextEditingController bmiController = TextEditingController();
+  TextEditingController ageController = TextEditingController();
   TextEditingController img = TextEditingController();
   var url =
       'https://cdn3.iconfinder.com/data/icons/map-and-location-fill/144/People_Location-512.png';
@@ -47,9 +49,8 @@ class ProfileScreenState extends State<ProfileScreen> {
           sexController.text = result.data['sex'];
           weightController.text = result.data['weight'];
           heightController.text = result.data['height'];
-          bmiController.text = result.data['bmi'];
+          ageController.text = result.data['age'];
           getUrlImage();
-          // print('img-----------------${img}');
         });
       });
     });
@@ -193,6 +194,18 @@ class ProfileScreenState extends State<ProfileScreen> {
                     validator: (value) {
                       if (value.isEmpty) return "Height  is required";
                     }),
+                TextFormField(
+                    controller: ageController,
+                    decoration: InputDecoration(
+                        icon: Icon(
+                          Icons.account_box,
+                          size: 30,
+                        ),
+                        labelText: "Age"),
+                    keyboardType: TextInputType.number,
+                    validator: (value) {
+                      if (value.isEmpty) return "Age  is required";
+                    }),
                 Row(
                   children: <Widget>[
                     Padding(
@@ -206,30 +219,36 @@ class ProfileScreenState extends State<ProfileScreen> {
                           color: Colors.blueAccent,
                           shape: new RoundedRectangleBorder(
                               borderRadius: new BorderRadius.circular(15.0)),
-                          onPressed: () async{
-                            print(this.email.text);
+                          onPressed: () async {
                             final StorageReference firebaseStorageRef =
                                 FirebaseStorage.instance
                                     .ref()
                                     .child(this.email.text);
                             final StorageUploadTask task =
                                 firebaseStorageRef.putFile(sampleImage);
-                            print(await(await task.onComplete)
-                                .ref
-                                .getDownloadURL());
-                            if (task.isComplete) {
-                              Toast.show("UPLOAD complete", context);
-                              Navigator.pushReplacementNamed(
-                                  context, '/profile');
-                            }
+
+                            print(await task.onComplete);
+                            //     .ref
+                            //     .getDownloadURL());
+                            // if (task.isComplete) {
+                            //   Toast.show("UPLOAD complete", context);
+                            //   Navigator.pushReplacementNamed(
+                            //       context, '/profile');
+                            // }
                             FirestoreUtils.update(
                                 emailController.text,
                                 nameController.text,
                                 surnameController.text,
                                 weightController.text,
                                 heightController.text,
-                                '');
-                            Navigator.pushReplacementNamed(context, '/profile');
+                                ageController.text);
+                            if (task.isComplete && sampleImage!=null ) {
+                              Toast.show("UPLOAD complete", context);
+                              Navigator.pushReplacementNamed(
+                                  context, '/profile');
+                            }
+
+                            // Navigator.pushNamed(context, '/profileuser');
                           },
                         ),
                       ),

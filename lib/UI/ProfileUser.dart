@@ -27,7 +27,10 @@ class ProfileUserState extends State<ProfileUser> {
   TextEditingController sexController = TextEditingController();
   TextEditingController weightController = TextEditingController();
   TextEditingController heightController = TextEditingController();
+  TextEditingController ageController = TextEditingController();
   TextEditingController bmiController = TextEditingController();
+  TextEditingController bmiStatusController = TextEditingController();
+  TextEditingController bmiRiskController = TextEditingController();
   var url =
       'https://cdn3.iconfinder.com/data/icons/map-and-location-fill/144/People_Location-512.png';
   @override
@@ -42,12 +45,19 @@ class ProfileUserState extends State<ProfileUser> {
           sexController.text = result.data['sex'];
           weightController.text = result.data['weight'];
           heightController.text = result.data['height'];
-          bmiController.text = result.data['bmi'];
+          ageController.text = result.data['age'];
           getUrlImage();
+          postRequest(weightController.text, heightController.text, ageController.text, sexController.text).then((response){
+            var data = json.decode(response.body);
+            setState(() {
+              bmiController.text = data['bmi']['value'];
+              bmiStatusController.text = data['bmi']['status'];
+              bmiRiskController.text = data['bmi']['risk'];
+            });
+          });
         });
       });
     });
-    // postRequest(weightController.text, heightController.text, ageContr);
   }
 
   getUrlImage() async {
@@ -189,7 +199,31 @@ class ProfileUserState extends State<ProfileUser> {
                                   Padding(
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 10),
+                                    child: Text("Age : ${ageController.text}",
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 20.0)),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 10),
                                     child: Text("BMI : ${bmiController.text}",
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 20.0)),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 10),
+                                    child: Text("Status : ${bmiStatusController.text}",
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 20.0)),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 10),
+                                    child: Text("Risk : ${bmiRiskController.text}",
                                         style: TextStyle(
                                             color: Colors.black,
                                             fontSize: 20.0)),
@@ -268,34 +302,25 @@ class ProfileUserState extends State<ProfileUser> {
   }
 }
 
-String _calBMI(double weight, double height) {
-  height = height / 100;
-  return (weight / pow(height, 2)).toStringAsFixed(2);
+Future<http.Response> postRequest(
+    String weight, String height, String age, String sex) async {
+  var url = 'https://bmi.p.rapidapi.com/';
+
+  Map data = {
+    'weight': {'value': weight, 'unit': 'kg'},
+    'height': {'value': height, 'unit': 'cm'},
+    'sex': sex.substring(0, 1).toLowerCase(),
+    'age': age,
+  };
+  //encode Map to JSON
+  var body = json.encode(data);
+
+  var response = await http.post(url,
+      headers: {
+        'X-RapidAPI-Host': 'bmi.p.rapidapi.com',
+        'X-RapidAPI-Key': 'a5367c95edmsh93c43a9a99f221fp193dcejsnd9a7ccf34386',
+        'Content-Type': 'application/json'
+      },
+      body: body);
+  return response;
 }
-
-Future<http.Response> postRequest(String weight, String height, String age, String sex) async {
-    var url =
-        'https://bmi.p.rapidapi.com/';
-
-    Map data = {
-      'weight': {'value': weight, 'unit': 'kg'},
-      'height': {'value': height, 'unit': 'cm'},
-      'sex': 'm',
-      'age': '24',
-    };
-    //encode Map to JSON
-    var body = json.encode(data);
-
-    var response = await http.post(url,
-        headers: {
-          'X-RapidAPI-Host': 'bmi.p.rapidapi.com',
-          'X-RapidAPI-Key': 'a5367c95edmsh93c43a9a99f221fp193dcejsnd9a7ccf34386',
-          'Content-Type': 'application/json'
-        },
-        body: body);
-    print("${response.statusCode}");
-    print("${response.body}");
-    final test = json.decode(response.body);
-    print(test['weight']);
-    return response;
-  }
