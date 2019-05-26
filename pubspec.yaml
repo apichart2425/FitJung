@@ -26,7 +26,7 @@ dependencies:
   # sqflite: ^1.1.0
   firebase_core: ^0.2.5
   firebase_auth: ^0.6.5
-  cloud_firestore: ^0.8.2+3
+  cloud_firestore: 
   firebase_storage:
   toast: ^0.1.3
 
