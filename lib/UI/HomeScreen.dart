@@ -1,22 +1,20 @@
-
 import 'package:fitjung/UI/SigninScreen.dart';
 import 'package:fitjung/utility/share.dart';
 import 'package:flutter/material.dart';
 import '../Icon/CustomIcon.dart';
 import '../data.dart';
 import 'dart:math';
+import 'ProfileScreen.dart';
 
-
-class HomeScreen extends StatefulWidget{
+class HomeScreen extends StatefulWidget {
   @override
   HomeState createState() => new HomeState();
- 
 }
 
 var cardAspectRatio = 12.0 / 16.0;
 var widgetAspectRatio = cardAspectRatio * 1.2;
 
-class HomeState extends State<HomeScreen>{
+class HomeState extends State<HomeScreen> {
   var currentPage = images.length - 1.0;
 
   @override
@@ -45,33 +43,66 @@ class HomeState extends State<HomeScreen>{
               tileMode: TileMode.clamp)),
       child: Scaffold(
         backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+        ),
+        drawer: new Drawer(
+          child: Container(
+            color: Color(0XFF282e46),
+            child: new ListView(
+              children: <Widget>[
+                UserAccountsDrawerHeader(
+                  accountName: new Text("Fluke Peerapol"),
+                  accountEmail: new Text("fluke_onhan@hotmail.com"),
+                  currentAccountPicture: new CircleAvatar(
+                    backgroundColor:
+                        Theme.of(context).platform == TargetPlatform.iOS
+                            ? Colors.deepPurple
+                            : Colors.white,
+                    child: new Text("F"),
+                  ),
+                  onDetailsPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ProfileScreen()),
+                    );
+                  },
+                ),
+                ListTile(
+                  leading: Icon(
+                    Icons.map,
+                    color: Colors.white,
+                  ),
+                  title: Text(
+                    'Map',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onTap: () {
+                    Navigator.pushReplacementNamed(context, '/map');
+                  },
+                ),
+                ListTile(
+                  title: Text(''),
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                ),
+                ListTile(
+                  title: Text(''),
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            ),
+          ),
+        ),
         body: SingleChildScrollView(
           child: Column(
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.only(
                     left: 12.0, right: 12.0, top: 30.0, bottom: 8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    IconButton(
-                      icon: Icon(
-                        CustomIcon.menu,
-                        color: Colors.white,
-                        size: 30.0,
-                      ),
-                      onPressed: () {},
-                    ),
-                    IconButton(
-                      icon: Icon(
-                        Icons.search,
-                        color: Colors.white,
-                        size: 30.0,
-                      ),
-                      onPressed: () {},
-                    )
-                  ],
-                ),
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.0),
@@ -110,7 +141,8 @@ class HomeState extends State<HomeScreen>{
                           padding: EdgeInsets.symmetric(
                               horizontal: 22.0, vertical: 6.0),
                           child: Text("Animated",
-                              style: TextStyle(color: Colors.white, fontSize: 10.0)),
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: 10.0)),
                         ),
                       ),
                     ),
@@ -118,7 +150,8 @@ class HomeState extends State<HomeScreen>{
                       width: 15.0,
                     ),
                     Text("25+ Stories",
-                        style: TextStyle(color: Colors.blueAccent, fontSize: 10.0))
+                        style:
+                            TextStyle(color: Colors.blueAccent, fontSize: 10.0))
                   ],
                 ),
               ),
@@ -314,4 +347,3 @@ class CardScrollWidget extends StatelessWidget {
     );
   }
 }
-
