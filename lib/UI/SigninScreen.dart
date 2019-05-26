@@ -184,6 +184,9 @@ class SigninScreenState extends State<SigninScreen> {
                                             left: 0, top: 0, bottom: 0, right: 30),
                                         child: Text(
                                           "Register New Account",
+                                          style: TextStyle(
+                                            color: Color(0xFF3a70bb)
+                                          ),
                                         ),
                                       ),
                                       textColor: Colors.teal.shade500,
@@ -206,9 +209,38 @@ class SigninScreenState extends State<SigninScreen> {
                 ButtonTheme(
                 minWidth: 300,
 
-                child: RaisedButton(
-                    color: Colors.lightBlue,
-                    child: Text("LOGIN"),
+                child: InkWell(
+                  child: Container(
+                    width: ScreenUtil.getInstance().setWidth(330),
+                    height: ScreenUtil.getInstance().setHeight(100),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [Color(0xFF85627c), Color(0xFF0949a5)],
+                        ),
+                        borderRadius: BorderRadius.circular(6.0),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color(0xFF6078ea).withOpacity(.3),
+                            offset: Offset(0.0, 8.0),
+                            blurRadius: 8.0
+                          ),
+                        ],
+                    ),
+                    child: Material(
+                      color: Colors.transparent,
+                      child: InkWell(
+                        child: Center(
+                          child: Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    child: RaisedButton(
+                    color: Colors.transparent.withOpacity(0.0),
+                    child: Text("LOGIN", style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'Poppins-Bold',
+                      letterSpacing: 1.0,
+                      fontSize: 18.0
+                    ),),
                     onPressed: () {
                       if (_formKey.currentState.validate()) {
                         auth
@@ -242,6 +274,13 @@ class SigninScreenState extends State<SigninScreen> {
                         });
                       }
                     }),
+                  ),
+                ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
               )
                   ],
                   ),
@@ -255,3 +294,5 @@ class SigninScreenState extends State<SigninScreen> {
     ));
   }
 }
+
+

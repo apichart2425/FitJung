@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fitjung/utility/firestore_util.dart';
 import 'package:fitjung/utility/share.dart';
@@ -20,15 +22,19 @@ class ProfileScreenState extends State<ProfileScreen> {
   TextEditingController sexController = TextEditingController();
   TextEditingController weightController = TextEditingController();
   TextEditingController heightController = TextEditingController();
+  TextEditingController bmiController = TextEditingController();
   void initState() {
     SharedPreferencesUtil.loadLastLogin().then((value) {
       emailController.text = value;
       FirestoreUtils.getData(value).then((result) {
-        nameController.text = result.data['name'];
-        surnameController.text = result.data['surname'];
-        sexController.text = result.data['sex'];
-        weightController.text = result.data['weight'];
-        heightController.text = result.data['height'];
+        setState(() {
+          nameController.text = result.data['name'];
+          surnameController.text = result.data['surname'];
+          sexController.text = result.data['sex'];
+          weightController.text = result.data['weight'];
+          heightController.text = result.data['height'];
+          bmiController.text = result.data['bmi'];
+        });
       });
     });
     super.initState();
@@ -46,8 +52,29 @@ class ProfileScreenState extends State<ProfileScreen> {
             padding: const EdgeInsets.all(18.0),
             child: ListView(
               children: <Widget>[
-                Container(
-                  child: Image.asset('resource/cat_eating.jpg'),
+                Stack(
+                  alignment: const Alignment(0.2, 0.7),
+                  children: [
+                    CircleAvatar(
+                      backgroundImage: AssetImage('resource/cat_eating.jpg'),
+                      radius: 100,
+                    ),
+                    Container(
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                          left: 250,
+                          right: 0,
+                          top: 150,
+                          bottom: 0,
+                        ),
+                        child: FloatingActionButton(
+                          tooltip: 'Change image',
+                          child: Icon(Icons.add),
+                          onPressed: () {},
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 TextField(
                   enabled: false,
@@ -70,6 +97,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                       if (value.isEmpty) return "Surname is required";
                     }),
                 TextField(
+                  enabled: false,
                   controller: sexController,
                   decoration: InputDecoration(labelText: "Gender"),
                   keyboardType: TextInputType.text,
@@ -88,13 +116,25 @@ class ProfileScreenState extends State<ProfileScreen> {
                     validator: (value) {
                       if (value.isEmpty) return "Height  is required";
                     }),
+                TextField(
+                  enabled: false,
+                  controller: bmiController,
+                  decoration: InputDecoration(labelText: "BMI"),
+                  keyboardType: TextInputType.text,
+                ),
                 Row(
                   children: <Widget>[
                     Expanded(
                       flex: 1,
                       child: RaisedButton(
                         child: Text("SAVE"),
-                        onPressed: () {},
+                        onPressed: () {
+                          FirestoreUtils.update(emailController.text, nameController.text, surnameController.text, weightController.text, heightController.text, _calBMI(double.parse(weightController.text), double.parse(heightController.text)));
+                          setState(() {
+                           bmiController.text = _calBMI(double.parse(weightController.text), double.parse(heightController.text)) ;
+                          });
+                          Navigator.pushReplacementNamed(context, '/profile');
+                        },
                       ),
                     ),
                     Padding(
@@ -104,7 +144,9 @@ class ProfileScreenState extends State<ProfileScreen> {
                       flex: 1,
                       child: RaisedButton(
                         child: Text("BACK"),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).popAndPushNamed('/');
+                        },
                       ),
                     ),
                   ],
@@ -114,4 +156,9 @@ class ProfileScreenState extends State<ProfileScreen> {
           )),
     );
   }
+}
+
+String _calBMI(double weight, double height) {
+  height = height / 100;
+  return (weight / pow(height, 2)).toStringAsFixed(2);
 }

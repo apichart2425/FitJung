@@ -1,4 +1,6 @@
 // กด SignUp แล้วจะเด้งมาหน้านี้ เพื่อกรอกข้อมูลเก็บลง FireStore
+import 'dart:math';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitjung/UI/HomeScreen.dart';
 import 'package:fitjung/UI/SigninScreen.dart';
@@ -175,7 +177,9 @@ class SignInfoScreenState extends State<SignInfoScreen> {
                                     surnameController.text,
                                     heightController.text,
                                     weightController.text,
-                                    _currentSex);
+                                    _currentSex,
+                                    _calBMI(double.parse(weightController.text), double.parse(heightController.text))
+                                    );
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
@@ -198,4 +202,9 @@ class SignInfoScreenState extends State<SignInfoScreen> {
           ),
         ));
   }
+}
+
+String _calBMI(double weight, double height){
+  height = height/100;
+  return (weight/pow(height, 2)).toStringAsFixed(2);
 }
