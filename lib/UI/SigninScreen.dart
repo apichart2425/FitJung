@@ -23,11 +23,13 @@ class SigninScreenState extends State<SigninScreen> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      // resizeToAvoidBottomPadding: false,
-      body: ListView(
-        children: <Widget>[
-          Padding(padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 30.0),),
-          Form(
+        // resizeToAvoidBottomPadding: false,
+        body: ListView(
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 30.0),
+        ),
+        Form(
           key: _formKey,
           child: Column(
             children: <Widget>[
@@ -38,19 +40,16 @@ class SigninScreenState extends State<SigninScreen> {
               ),
               Padding(
                 padding: const EdgeInsets.only(
-                  left: 40,
-                  top: 0,
-                  bottom: 0,
-                  right: 40
-                ),
+                    left: 40, top: 0, bottom: 0, right: 40),
                 child: TextFormField(
                   controller: email,
                   decoration: InputDecoration(labelText: "Email"),
                   keyboardType: TextInputType.emailAddress,
                   validator: (value) {
-                    Pattern pattern = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+                    Pattern pattern =
+                        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
                     RegExp regex = new RegExp(pattern);
-                    if (!regex.hasMatch(value)){
+                    if (!regex.hasMatch(value)) {
                       return 'Enter Valid Email';
                     }
                     if (value.isEmpty) {
@@ -61,11 +60,7 @@ class SigninScreenState extends State<SigninScreen> {
               ),
               Padding(
                 padding: const EdgeInsets.only(
-                  left: 40,
-                  top: 0,
-                  bottom: 0,
-                  right: 40
-                ),
+                    left: 40, top: 0, bottom: 0, right: 40),
                 child: TextFormField(
                   obscureText: true,
                   controller: password,
@@ -84,33 +79,35 @@ class SigninScreenState extends State<SigninScreen> {
                     color: Colors.grey.shade300,
                     child: Text("LOGIN"),
                     onPressed: () {
-                      if (_formKey.currentState.validate()){
-                        auth.signInWithEmailAndPassword(email: email.text, password: password.text).then((user){
-                        if(user.isEmailVerified){
-                          Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => HomeScreen()));
-                        }
-                      }).catchError((error){
-                        showDialog(
-                            context: context,
-                            builder: (BuildContext context){
-                              return AlertDialog(
-                                title: Text("ERROR"),
-                                content: Text(error.toString()),
-                                actions: <Widget>[
-                                  FlatButton(
-                                    child: Text("Close"),
-                                    onPressed: (){
-                                      Navigator.of(context).pop();
-                                    },
-                                  )
-                                ],
-                              );
-                            }
-                          );
-                      });
+                      if (_formKey.currentState.validate()) {
+                        auth
+                            .signInWithEmailAndPassword(
+                                email: email.text, password: password.text)
+                            .then((user) {
+                          if (user.isEmailVerified) {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => HomeScreen()));
+                          }
+                        }).catchError((error) {
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: Text("ERROR"),
+                                  content: Text(error.toString()),
+                                  actions: <Widget>[
+                                    FlatButton(
+                                      child: Text("Close"),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    )
+                                  ],
+                                );
+                              });
+                        });
                       }
                     }),
               ),
@@ -128,11 +125,7 @@ class SigninScreenState extends State<SigninScreen> {
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(
-                        left: 0,
-                        top: 0,
-                        bottom: 0,
-                        right: 30
-                      ),
+                          left: 0, top: 0, bottom: 0, right: 30),
                       child: Text(
                         "Register New Account",
                       ),
@@ -144,8 +137,7 @@ class SigninScreenState extends State<SigninScreen> {
             ],
           ),
         ),
-        ],
-      )
-    );
+      ],
+    ));
   }
 }
