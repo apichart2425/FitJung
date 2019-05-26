@@ -144,7 +144,9 @@ class ProfileScreenState extends State<ProfileScreen> {
                       flex: 1,
                       child: RaisedButton(
                         child: Text("BACK"),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).popAndPushNamed('/');
+                        },
                       ),
                     ),
                   ],
