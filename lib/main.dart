@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: colors,
         
       ),
-      initialRoute: "/profile",
+      initialRoute: "/signin",
       routes: {
         "/" : (context) => HomeScreen(),
         "/signin": (context) => SigninScreen(),
