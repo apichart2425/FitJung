@@ -1,4 +1,5 @@
 import 'package:fitjung/UI/HomeScreen.dart';
+import 'package:fitjung/UI/ProfileScreen.dart';
 // import 'package:fitjung/UI/ImageScreen.dart';
 import 'package:fitjung/UI/SignInfoScreen.dart';
 import 'package:fitjung/UI/SigninScreen.dart';
@@ -17,12 +18,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.pink,
       ),
-      initialRoute: "/signin",
+      initialRoute: "/profile",
       routes: {
         "/" : (context) => HomeScreen(),
         "/signin": (context) => SigninScreen(),
         "/signup": (context) => SignUpScreen(),
         "/signinfo": (context) => SignInfoScreen(),
+        '/profile': (context) => ProfileScreen(),
         // "/image": (context) => ImageScreen(),
 
       },

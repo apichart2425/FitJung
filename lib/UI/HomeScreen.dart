@@ -1,5 +1,6 @@
 
 import 'package:fitjung/UI/SigninScreen.dart';
+import 'package:fitjung/utility/share.dart';
 import 'package:flutter/material.dart';
 import '../Icon/CustomIcon.dart';
 import '../data.dart';
@@ -17,6 +18,11 @@ var widgetAspectRatio = cardAspectRatio * 1.2;
 
 class HomeState extends State<HomeScreen>{
   var currentPage = images.length - 1.0;
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
