@@ -119,14 +119,14 @@ class ProfileScreenState extends State<ProfileScreen> {
                 TextFormField(
                     controller: nameController,
                     decoration: InputDecoration(
-                        icon: Icon(Icons.account_box, size: 30,), labelText: "Name"),
+                        icon: Icon(Icons.portrait, size: 30,), labelText: "Name"),
                     keyboardType: TextInputType.text,
                     validator: (value) {
                       if (value.isEmpty) return "Name is required";
                     }),
                 TextFormField(
                     controller: surnameController,
-                    decoration: InputDecoration(icon: Icon(Icons.account_box, size: 30,),labelText: "Surname"),
+                    decoration: InputDecoration(icon: Icon(Icons.portrait, size: 30,),labelText: "Surname"),
                     keyboardType: TextInputType.text,
                     validator: (value) {
                       if (value.isEmpty) return "Surname is required";
@@ -134,19 +134,19 @@ class ProfileScreenState extends State<ProfileScreen> {
                 TextField(
                   enabled: false,
                   controller: sexController,
-                  decoration: InputDecoration(icon: Icon(Icons.account_box, size: 30,), labelText: "Gender"),
+                  decoration: InputDecoration(icon: Icon(Icons.face, size: 30,), labelText: "Gender"),
                   keyboardType: TextInputType.text,
                 ),
                 TextFormField(
                     controller: weightController,
-                    decoration: InputDecoration(icon: Icon(Icons.account_box, size: 30,), labelText: "Weight"),
+                    decoration: InputDecoration(icon: Icon(Icons.create, size: 30,), labelText: "Weight"),
                     keyboardType: TextInputType.text,
                     validator: (value) {
                       if (value.isEmpty) return "Weight is required";
                     }),
                 TextFormField(
                     controller: heightController,
-                    decoration: InputDecoration(icon: Icon(Icons.account_box, size: 30,), labelText: "Height"),
+                    decoration: InputDecoration(icon: Icon(Icons.create, size: 30,), labelText: "Height"),
                     keyboardType: TextInputType.text,
                     validator: (value) {
                       if (value.isEmpty) return "Height  is required";
@@ -154,7 +154,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                 TextField(
                   enabled: false,
                   controller: bmiController,
-                  decoration: InputDecoration(icon: Icon(Icons.account_box, size: 30,), labelText: "BMI"),
+                  decoration: InputDecoration(icon: Icon(Icons.fitness_center, size: 30,), labelText: "BMI"),
                   keyboardType: TextInputType.text,
                 ),
                 Row(
