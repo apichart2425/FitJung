@@ -12,6 +12,7 @@ import 'package:toast/toast.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'ImageScreen.dart';
+import 'ProfileUser.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -41,9 +42,10 @@ class ProfileScreenState extends State<ProfileScreen> {
     super.initState();
 
     SharedPreferencesUtil.loadLastLogin().then((value) {
-      emailController.text = value;
       FirestoreUtils.getData(value).then((result) {
         setState(() async {
+          emailController.text = value;
+
           nameController.text = result.data['name'];
           surnameController.text = result.data['surname'];
           sexController.text = result.data['sex'];
@@ -220,14 +222,20 @@ class ProfileScreenState extends State<ProfileScreen> {
                           shape: new RoundedRectangleBorder(
                               borderRadius: new BorderRadius.circular(15.0)),
                           onPressed: () async {
+                            print(' Save --------------');
                             final StorageReference firebaseStorageRef =
                                 FirebaseStorage.instance
                                     .ref()
-                                    .child(this.email.text);
+                                    .child(this.emailController.text);
                             final StorageUploadTask task =
                                 firebaseStorageRef.putFile(sampleImage);
+                            print(await (await task.onComplete)
+                                .ref
+                                .getDownloadURL());
+                            // print(emailController.text);
+                            // print(' Save2 --------------');
 
-                            print(await task.onComplete);
+                            // print(await task.onComplete);
                             //     .ref
                             //     .getDownloadURL());
                             // if (task.isComplete) {
@@ -242,11 +250,16 @@ class ProfileScreenState extends State<ProfileScreen> {
                                 weightController.text,
                                 heightController.text,
                                 ageController.text);
-                            if (task.isComplete && sampleImage!=null ) {
-                              Toast.show("UPLOAD complete", context);
-                              Navigator.pushReplacementNamed(
-                                  context, '/profile');
-                            }
+
+                            print('Update !!!!!');
+
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //       builder: (context) => ProfileUser()),
+                            // );
+                            Navigator.pushReplacementNamed(
+                                context, '/profileuser');
 
                             // Navigator.pushNamed(context, '/profileuser');
                           },
@@ -289,6 +302,9 @@ class ProfileScreenState extends State<ProfileScreen> {
       child: Column(
         children: <Widget>[
           Image.file(sampleImage, height: 300, width: 300),
+
+          // Toast.show("UPLOAD complete", context);
+          // Navigator.pushReplacementNamed(context, '/profile');
         ],
       ),
     );
