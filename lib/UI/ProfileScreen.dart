@@ -151,48 +151,64 @@ class ProfileScreenState extends State<ProfileScreen> {
                     validator: (value) {
                       if (value.isEmpty) return "Height  is required";
                     }),
-                TextField(
-                  enabled: false,
-                  controller: bmiController,
-                  decoration: InputDecoration(icon: Icon(Icons.account_box, size: 30,), labelText: "BMI"),
-                  keyboardType: TextInputType.text,
-                ),
+
                 Row(
-                  children: <Widget>[
-                    Expanded(
-                      flex: 1,
-                      child: RaisedButton(
-                        child: Text("SAVE"),
-                        onPressed: () {
-                          FirestoreUtils.update(
-                              emailController.text,
-                              nameController.text,
-                              surnameController.text,
-                              weightController.text,
-                              heightController.text,
-                              _calBMI(double.parse(weightController.text),
-                                  double.parse(heightController.text)));
-                          setState(() {
-                            bmiController.text = _calBMI(
-                                double.parse(weightController.text),
-                                double.parse(heightController.text));
-                          });
-                          Navigator.pushReplacementNamed(context, '/profile');
-                        },
-                      ),
-                    ),
+                 children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.all(10),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: RaisedButton(
-                        child: Text("BACK"),
-                        onPressed: () {
-                          Navigator.of(context).popAndPushNamed('/');
-                        },
+                      padding: const EdgeInsets.all(10.0),
+                      child: ButtonTheme(
+                        minWidth: 350.0,
+                        height: 50.0,
+                        child: RaisedButton(
+                          child: Text("SAVE", style:
+                            TextStyle(color: Colors.white)),
+                          color: Colors.blueAccent,
+                          
+                          shape: new RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(15.0)),
+                          onPressed: () {
+                            FirestoreUtils.update(
+                                emailController.text,
+                                nameController.text,
+                                surnameController.text,
+                                weightController.text,
+                                heightController.text,
+                                _calBMI(double.parse(weightController.text),
+                                    double.parse(heightController.text)));
+                            setState(() {
+                              bmiController.text = _calBMI(
+                                  double.parse(weightController.text),
+                                  double.parse(heightController.text));
+                            });
+                            Navigator.pushReplacementNamed(
+                                context, '/profile');
+                          },
+                        ),
                       ),
                     ),
+                    // Padding(
+                    //   padding: EdgeInsets.all(10),
+                    // ),
+                    // Padding(
+                    //   padding: const EdgeInsets.all(5.0),
+                    //   child: ButtonTheme(
+                    //     minWidth: 350.0,
+                    //     height: 50.0,
+                    //     child: RaisedButton(
+                    //       child: Text(
+                    //         "BACK",
+                    //         style: TextStyle(
+                    //             fontSize: 18, fontWeight: FontWeight.bold),
+                    //       ),
+                    //       onPressed: () {
+                    //         Navigator.pop(context);
+                    //       },
+                    //       color: Colors.white,
+                    //       shape: new RoundedRectangleBorder(
+                    //           borderRadius: new BorderRadius.circular(15.0)),
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 )
               ],
