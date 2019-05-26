@@ -32,6 +32,10 @@ dependencies:
   shared_preferences: ^0.5.2+1
   flutter_screenutil: ^0.4.2
 
+  google_maps_flutter: any
+  flutter_google_places: any
+  location: any
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

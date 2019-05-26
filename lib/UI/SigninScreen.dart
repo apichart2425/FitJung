@@ -250,31 +250,3 @@ class SigninScreenState extends State<SigninScreen> {
     ));
   }
 }
-
-
-
-
-
-
-//               Align(
-//                 alignment: Alignment.centerRight,
-//                 child: ButtonTheme(
-//                   padding: EdgeInsets.all(0),
-//                   child: FlatButton(
-//                     onPressed: () {
-//                       Navigator.push(
-//                           context,
-//                           MaterialPageRoute(
-//                               builder: (context) => ImageScreen()));
-//                     },
-//                     child: Padding(
-//                       padding: const EdgeInsets.only(
-//                           left: 0, top: 0, bottom: 0, right: 30),
-//                       child: Text(
-//                         "IMAGE",
-//                       ),
-//                     ),
-//                     textColor: Colors.teal.shade500,
-//                   ),
-//                 ),
-//               ),
