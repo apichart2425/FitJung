@@ -1,3 +1,4 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:fitjung/UI/SigninScreen.dart';
 import 'package:fitjung/utility/firestore_util.dart';
 import 'package:fitjung/utility/share.dart';
@@ -21,6 +22,8 @@ class HomeState extends State<HomeScreen> {
   var currentPage = images.length - 1.0;
   TextEditingController email = TextEditingController();
   TextEditingController name = TextEditingController(text: "test");
+  var url =
+      'https://cdn3.iconfinder.com/data/icons/map-and-location-fill/144/People_Location-512.png';
 
   @override
   void initState() {
@@ -32,9 +35,18 @@ class HomeState extends State<HomeScreen> {
           setState(() {
             name.text = result.data['name'];
             name.text += " " + result.data['surname'];
+            getUrlImage();
           });
         });
       });
+    });
+  }
+
+  getUrlImage() async {
+    final ref = FirebaseStorage.instance.ref().child(email.text);
+    var url = await ref.getDownloadURL();
+    setState(() {
+      this.url = url;
     });
   }
 
@@ -71,6 +83,7 @@ class HomeState extends State<HomeScreen> {
                   accountName: new Text(name.text),
                   accountEmail: new Text(email.text),
                   currentAccountPicture: new CircleAvatar(
+                    backgroundImage: NetworkImage(url),
                     backgroundColor:
                         Theme.of(context).platform == TargetPlatform.iOS
                             ? Colors.deepPurple
