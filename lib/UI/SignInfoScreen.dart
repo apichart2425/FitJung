@@ -22,8 +22,8 @@ class SignInfoScreen extends StatefulWidget {
 class SignInfoScreenState extends State<SignInfoScreen> {
   List _sex = ["GENDER", "Female", "Male"];
   List<DropdownMenuItem<String>> _dropDownMenuItems;
-  int box_size = 550;
-  int state_1 = 0,  state_3 = 0,  state_5 = 0;
+  int box_size = 650;
+  int state_1 = 0, state_2 = 0, state_3 = 0, state_5 = 0;
   String _currentSex;
 
   final _formkey = GlobalKey<FormState>();
@@ -33,8 +33,7 @@ class SignInfoScreenState extends State<SignInfoScreen> {
   TextEditingController heightController = TextEditingController();
   TextEditingController weightController = TextEditingController();
   // TextEditingController sexController = TextEditingController();
-
-  
+  TextEditingController ageController = TextEditingController();
 
   @override
   void initState() {
@@ -56,7 +55,8 @@ class SignInfoScreenState extends State<SignInfoScreen> {
 
   Widget build(BuildContext context) {
     ScreenUtil.instance = ScreenUtil.getInstance()..init(context);
-    ScreenUtil.instance = ScreenUtil(width: 750, height: 1334, allowFontScaling: true);
+    ScreenUtil.instance =
+        ScreenUtil(width: 750, height: 1334, allowFontScaling: true);
     void changedDropDownItem(String selectedSex) {
       //State
       setState(() {
@@ -73,17 +73,14 @@ class SignInfoScreenState extends State<SignInfoScreen> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
-            Padding(
-              padding: EdgeInsets.only(top: 20.0),
-              child: Image.asset('resource/6272.jpg'),
-            ),
-            Expanded(
-              child: Container(
-
+              Padding(
+                padding: EdgeInsets.only(top: 20.0),
+                child: Image.asset('resource/6272.jpg'),
               ),
-              
-            ),
-            Image.asset('resource/img_02.png'),
+              Expanded(
+                child: Container(),
+              ),
+              Image.asset('resource/img_02.png'),
             ],
           ),
           SingleChildScrollView(
@@ -93,20 +90,23 @@ class SignInfoScreenState extends State<SignInfoScreen> {
                 children: <Widget>[
                   Row(
                     children: <Widget>[
-                    Image.asset('resource/logo.png',
-                      width: ScreenUtil.getInstance().setWidth(110),
-                      height: ScreenUtil.getInstance().setHeight(110),
-                    ),
-                    Text("FITJUNG", style: TextStyle(
-                      fontFamily: 'Poppins-Bold',
-                      fontSize: ScreenUtil.getInstance().setSp(46),
-                      letterSpacing: .6,
-                      fontWeight: FontWeight.bold,
-                    ),)
+                      Image.asset(
+                        'resource/logo.png',
+                        width: ScreenUtil.getInstance().setWidth(110),
+                        height: ScreenUtil.getInstance().setHeight(110),
+                      ),
+                      Text(
+                        "FITJUNG",
+                        style: TextStyle(
+                          fontFamily: 'Poppins-Bold',
+                          fontSize: ScreenUtil.getInstance().setSp(46),
+                          letterSpacing: .6,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )
                     ],
-
                   ),
-                   SizedBox(
+                  SizedBox(
                     height: ScreenUtil.getInstance().setHeight(180),
                   ),
                   Form(
@@ -121,191 +121,230 @@ class SignInfoScreenState extends State<SignInfoScreen> {
                             borderRadius: BorderRadius.circular(8.0),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black12,
-                                offset: Offset(0.0, -10.0),
-                                blurRadius: 15.0
-                              ),
+                                  color: Colors.black12,
+                                  offset: Offset(0.0, -10.0),
+                                  blurRadius: 15.0),
                               BoxShadow(
-                                color: Colors.black12,
-                                offset: Offset(0.0, -10.0),
-                                blurRadius: 10.0
-                              ),
+                                  color: Colors.black12,
+                                  offset: Offset(0.0, -10.0),
+                                  blurRadius: 10.0),
                               BoxShadow(
-                                color: Colors.black12,
-                                offset: Offset(0.0, 10.0),
-                                blurRadius: 10.0
-                              ),
+                                  color: Colors.black12,
+                                  offset: Offset(0.0, 10.0),
+                                  blurRadius: 10.0),
                             ],
-
                           ),
                           child: Padding(
-                            padding: 
-                              EdgeInsets.only(left: 16.0, right: 16.0, top: 16.0),
+                            padding: EdgeInsets.only(
+                                left: 16.0, right: 16.0, top: 16.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                Text('Info',
+                                Text(
+                                  'Info',
                                   style: TextStyle(
-                                    fontSize: ScreenUtil.getInstance().setSp(45),
-                                    fontFamily: "Poppins-Bold",
-                                    letterSpacing: .6
-                                  ),
+                                      fontSize:
+                                          ScreenUtil.getInstance().setSp(45),
+                                      fontFamily: "Poppins-Bold",
+                                      letterSpacing: .6),
                                 ),
                                 Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.all(10),
-                    ),
-                    Expanded(
-                      child: TextFormField(
-                          controller: nameController,
-                          decoration: InputDecoration(labelText: "Name"),
-                          keyboardType: TextInputType.text,
-                          validator: (value) {
-                            if (value.isEmpty){
-                              if(state_1 < 1){
-                                setState(() {
-                                  box_size += 50; 
-                                  state_1 ++;                      
-                                });
-                              }
-                              return "Name is required";
-                            }else{
-                              if(state_1 == 1){
-                                state_1--;
-                                box_size -=50;
-                              }
-                            }
-                          }),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(10),
-                    ),
-                    Expanded(
-                      child: TextFormField(
-                          controller: surnameController,
-                          decoration: InputDecoration(labelText: "Surname"),
-                          keyboardType: TextInputType.text,
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              if(state_1 < 1){
-                                setState(() {
-                                  box_size += 50; 
-                                  state_1++;                      
-                                });
-                              }
-                              return "Surname is required";
-                            }else{
-                              if(state_1 == 1){
-                                state_1--;
-                                box_size -= 50;
-                              }
-                            }
-                          }
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(10),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.all(10),
-                    ),
-                    Expanded(
-                      child: TextFormField(
-                          controller: heightController,
-                          decoration: InputDecoration(labelText: "Height : cm."),
-                          keyboardType: TextInputType.number,
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              if(state_3 < 1){
-                                setState(() {
-                                  box_size += 50; 
-                                  state_3++;                      
-                                });
-                              }
-                              return "Height is required";
-                            }else{
-                              if(state_3 == 1){
-                                state_3--;
-                                box_size -= 50;
-                              }
-                            }
-                          }),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(10),
-                    ),
-                    Expanded(
-                      child: TextFormField(
-                          controller: weightController,
-                          decoration: InputDecoration(labelText: "Weight : kg."),
-                          keyboardType: TextInputType.number,
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              if(state_3 < 1){
-                                setState(() {
-                                  box_size += 50; 
-                                  state_3++;                      
-                                });
-                              }
-                              return "Weight is required";
-                            }else{
-                              if(state_3 == 1){
-                                state_3--;
-                                box_size -= 50;
-                              }
-                            }
-                          }),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(10),
-                    ),
-                  ],
-                ),
-                    Row(
-                      //for age sex
-                      children: <Widget>[
-                        Padding(
-                          padding: EdgeInsets.all(10),
-                        ),
-                        Expanded(
-                          child: DropdownButtonFormField(
-                            value: _currentSex,
-                            items: _dropDownMenuItems,
-                            onChanged: changedDropDownItem,
-                            validator: ((value) {
-                              if (value == "GENDER") {
-                                if(state_5 < 1){
-                                  setState(() {
-                                  box_size += 50; 
-                                  state_5++;                      
-                                });
-                                }
-                                return "Please select gender";
-                              }else{
-                                if(state_5 == 1){
-                                  box_size -= 50; 
-                                  state_5--;   
-                                }
-                              }
-                            }),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.all(10),
-                        ),
-                        // Expanded(
-                        //Date Picker
-                        // ),
-                        Padding(
-                          padding: EdgeInsets.all(10),
-                        ),
-                      ],
-                    ),
+                                  children: <Widget>[
+                                    Padding(
+                                      padding: EdgeInsets.all(10),
+                                    ),
+                                    Expanded(
+                                      child: TextFormField(
+                                          controller: nameController,
+                                          decoration: InputDecoration(
+                                              labelText: "Name"),
+                                          keyboardType: TextInputType.text,
+                                          validator: (value) {
+                                            if (value.isEmpty) {
+                                              if (state_1 < 1) {
+                                                setState(() {
+                                                  box_size += 50;
+                                                  state_1++;
+                                                });
+                                              }
+                                              return "Name is required";
+                                            } else {
+                                              if (state_1 == 1) {
+                                                state_1--;
+                                                box_size -= 50;
+                                              }
+                                            }
+                                          }),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.all(10),
+                                    ),
+                                    Expanded(
+                                      child: TextFormField(
+                                          controller: surnameController,
+                                          decoration: InputDecoration(
+                                              labelText: "Surname"),
+                                          keyboardType: TextInputType.text,
+                                          validator: (value) {
+                                            if (value.isEmpty) {
+                                              if (state_1 < 1) {
+                                                setState(() {
+                                                  box_size += 50;
+                                                  state_1++;
+                                                });
+                                              }
+                                              return "Surname is required";
+                                            } else {
+                                              if (state_1 == 1) {
+                                                state_1--;
+                                                box_size -= 50;
+                                              }
+                                            }
+                                          }),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.all(10),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    Padding(
+                                      padding: EdgeInsets.all(10),
+                                    ),
+                                    Expanded(
+                                      child: TextFormField(
+                                          controller: heightController,
+                                          decoration: InputDecoration(
+                                              labelText: "Height : cm."),
+                                          keyboardType: TextInputType.number,
+                                          validator: (value) {
+                                            if (value.isEmpty) {
+                                              if (state_3 < 1) {
+                                                setState(() {
+                                                  box_size += 50;
+                                                  state_3++;
+                                                });
+                                              }
+                                              return "Height is required";
+                                            } else {
+                                              if (state_3 == 1) {
+                                                state_3--;
+                                                box_size -= 50;
+                                              }
+                                            }
+                                          }),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.all(10),
+                                    ),
+                                    Expanded(
+                                      child: TextFormField(
+                                          controller: weightController,
+                                          decoration: InputDecoration(
+                                              labelText: "Weight : kg."),
+                                          keyboardType: TextInputType.number,
+                                          validator: (value) {
+                                            if (value.isEmpty) {
+                                              if (state_3 < 1) {
+                                                setState(() {
+                                                  box_size += 50;
+                                                  state_3++;
+                                                });
+                                              }
+                                              return "Weight is required";
+                                            } else {
+                                              if (state_3 == 1) {
+                                                state_3--;
+                                                box_size -= 50;
+                                              }
+                                            }
+                                          }),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.all(10),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  //for age sex
+                                  children: <Widget>[
+                                    Padding(
+                                      padding: EdgeInsets.all(10),
+                                    ),
+                                    Expanded(
+                                      child: DropdownButtonFormField(
+                                        value: _currentSex,
+                                        items: _dropDownMenuItems,
+                                        onChanged: changedDropDownItem,
+                                        validator: ((value) {
+                                          if (value == "GENDER") {
+                                            if (state_5 < 1) {
+                                              setState(() {
+                                                box_size += 50;
+                                                state_5++;
+                                              });
+                                            }
+                                            return "Please select gender";
+                                          } else {
+                                            if (state_5 == 1) {
+                                              box_size -= 50;
+                                              state_5--;
+                                            }
+                                          }
+                                        }),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.all(10),
+                                    ),
+                                    // Expanded(
+                                    //Date Picker
+                                    // ),
+                                    Padding(
+                                      padding: EdgeInsets.all(10),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  //for age sex
+                                  children: <Widget>[
+                                    Padding(
+                                      padding: EdgeInsets.all(10),
+                                    ),
+                                    Expanded(
+                                        child: TextFormField(
+                                            controller: ageController,
+                                            decoration: InputDecoration(
+                                                labelText: "Age"),
+                                            keyboardType: TextInputType.number,
+                                            validator: (value) {
+                                              if (value.isEmpty) {
+                                                if (state_2 < 1) {
+                                                  setState(() {
+                                                    state_2++;
+                                                    box_size += 50;
+                                                  });
+                                                }
+                                                return "Age is required";
+                                              } else {
+                                                if (state_2 == 1) {
+                                                  state_2--;
+                                                  box_size -= 50;
+                                                }
+                                              }
+                                            })),
+                                    Padding(
+                                      padding: EdgeInsets.all(10),
+                                    ),
+                                    // Expanded(
+                                    //Date Picker
+                                    // ),
+                                    Padding(
+                                      padding: EdgeInsets.all(10),
+                                    ),
+                                  ],
+                                ),
                               ],
                             ),
                           ),
@@ -321,19 +360,18 @@ class SignInfoScreenState extends State<SignInfoScreen> {
                               height: ScreenUtil.getInstance().setHeight(100),
                               decoration: BoxDecoration(
                                 gradient: LinearGradient(
-                                      colors: [
-                                        Color(0xFF85627c),
-                                        Color(0xFF0949a5)
-                                      ],
-                                    ),
-                                  borderRadius: BorderRadius.circular(6.0),
-                                    boxShadow: [
-                                      BoxShadow(
-                                          color:
-                                              Color(0xFF6078ea).withOpacity(.3),
-                                          offset: Offset(0.0, 8.0),
-                                          blurRadius: 8.0),
-                                    ],
+                                  colors: [
+                                    Color(0xFF85627c),
+                                    Color(0xFF0949a5)
+                                  ],
+                                ),
+                                borderRadius: BorderRadius.circular(6.0),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Color(0xFF6078ea).withOpacity(.3),
+                                      offset: Offset(0.0, 8.0),
+                                      blurRadius: 8.0),
+                                ],
                               ),
                               child: Material(
                                 color: Colors.transparent,
@@ -343,44 +381,54 @@ class SignInfoScreenState extends State<SignInfoScreen> {
                                       color: Colors.transparent,
                                       child: InkWell(
                                         child: RaisedButton(
-                                          color: Colors.transparent.withOpacity(0.0),
-                                        child: Text("Next", style: TextStyle(
-                                          color: Colors.white,
-                                          fontFamily: 'Poppins-Bold',
-                                          letterSpacing: 1.0,
-                                          fontSize: 18.0
-                                        ),),
-                                        onPressed: () {
-                                          if (_formkey.currentState.validate()) {
-                                            auth
-                                                .createUserWithEmailAndPassword(
-                                                    email: widget.map['email'],
-                                                    password: widget.map['password'])
-                                                .then((FirebaseUser user) {
-                                              user.sendEmailVerification().then((user) {
-                                                FirestoreUtils.addProfile(
-                                                    widget.map['email'],
-                                                    nameController.text,
-                                                    surnameController.text,
-                                                    heightController.text,
-                                                    weightController.text,
-                                                    _currentSex,
-                                                    _calBMI(double.parse(weightController.text), double.parse(heightController.text))
-                                                    );
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) => SigninScreen()));
+                                          color: Colors.transparent
+                                              .withOpacity(0.0),
+                                          child: Text(
+                                            "Next",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontFamily: 'Poppins-Bold',
+                                                letterSpacing: 1.0,
+                                                fontSize: 18.0),
+                                          ),
+                                          onPressed: () {
+                                            if (_formkey.currentState
+                                                .validate()) {
+                                              auth
+                                                  .createUserWithEmailAndPassword(
+                                                      email:
+                                                          widget.map['email'],
+                                                      password: widget
+                                                          .map['password'])
+                                                  .then((FirebaseUser user) {
+                                                user
+                                                    .sendEmailVerification()
+                                                    .then((user) {
+                                                  FirestoreUtils.addProfile(
+                                                      widget.map['email'],
+                                                      nameController.text,
+                                                      surnameController.text,
+                                                      heightController.text,
+                                                      weightController.text,
+                                                      _currentSex,
+                                                      ageController.text
+                                                      );
+                                                  Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              SigninScreen()));
+                                                });
+                                                print(
+                                                    "return from firebase  $user.email");
+                                              }).catchError((error) {
+                                                print("$error");
                                               });
-                                              print("return from firebase  $user.email");
-                                            }).catchError((error) {
-                                              print("$error");
-                                            });
-                                          } else {
-                                            print("error");
-                                          }
-                                        },
-                                      ),
+                                            } else {
+                                              print("error");
+                                            }
+                                          },
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -402,7 +450,7 @@ class SignInfoScreenState extends State<SignInfoScreen> {
   }
 }
 
-String _calBMI(double weight, double height){
-  height = height/100;
-  return (weight/pow(height, 2)).toStringAsFixed(2);
+String _calBMI(double weight, double height) {
+  height = height / 100;
+  return (weight / pow(height, 2)).toStringAsFixed(2);
 }

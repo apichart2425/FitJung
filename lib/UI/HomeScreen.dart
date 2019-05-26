@@ -131,7 +131,8 @@ class HomeState extends State<HomeScreen> {
                     style: TextStyle(color: Colors.white),
                   ),
                   onTap: () {
-                    Navigator.push(
+                    SharedPreferencesUtil.saveLastLogin(null);
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(builder: (context) => SigninScreen()),
                     );
@@ -153,21 +154,13 @@ class HomeState extends State<HomeScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text("Trending",
+                    Text("Course",
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 30.0,
+                          fontSize: 46.0,
                           fontFamily: "Calibre-Semibold",
                           letterSpacing: 1.0,
                         )),
-                    IconButton(
-                      icon: Icon(
-                        CustomIcon.option,
-                        size: 8.0,
-                        color: Colors.white,
-                      ),
-                      onPressed: () {},
-                    )
                   ],
                 ),
               ),
@@ -175,27 +168,12 @@ class HomeState extends State<HomeScreen> {
                 padding: const EdgeInsets.only(left: 20.0),
                 child: Row(
                   children: <Widget>[
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Color(0xFFff6e6e),
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
-                      child: Center(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 22.0, vertical: 6.0),
-                          child: Text("Animated",
-                              style: TextStyle(
-                                  color: Colors.white, fontSize: 10.0)),
-                        ),
-                      ),
-                    ),
                     SizedBox(
                       width: 15.0,
                     ),
-                    Text("25+ Stories",
+                    Text("Exercise Library",
                         style:
-                            TextStyle(color: Colors.blueAccent, fontSize: 10.0))
+                            TextStyle(color: Colors.grey, fontSize: 18.0))
                   ],
                 ),
               ),
@@ -219,21 +197,13 @@ class HomeState extends State<HomeScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text("Favourite",
+                    Text("Tips",
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 46.0,
                           fontFamily: "Calibre-Semibold",
                           letterSpacing: 1.0,
                         )),
-                    IconButton(
-                      icon: Icon(
-                        CustomIcon.option,
-                        size: 12.0,
-                        color: Colors.white,
-                      ),
-                      onPressed: () {},
-                    )
                   ],
                 ),
               ),
@@ -241,25 +211,11 @@ class HomeState extends State<HomeScreen> {
                 padding: const EdgeInsets.only(left: 20.0),
                 child: Row(
                   children: <Widget>[
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.blueAccent,
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
-                      child: Center(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 22.0, vertical: 6.0),
-                          child: Text("Latest",
-                              style: TextStyle(color: Colors.white)),
-                        ),
-                      ),
-                    ),
                     SizedBox(
                       width: 15.0,
                     ),
-                    Text("9+ Stories",
-                        style: TextStyle(color: Colors.blueAccent))
+                    Text("Clean health fitness education blog..",
+                        style: TextStyle(color: Colors.grey))
                   ],
                 ),
               ),
@@ -353,7 +309,7 @@ class CardScrollWidget extends StatelessWidget {
                                   horizontal: 16.0, vertical: 8.0),
                               child: Text(title[i],
                                   style: TextStyle(
-                                      color: Colors.white,
+                                      color: Colors.black87,
                                       fontSize: 25.0,
                                       fontFamily: "SF-Pro-Text-Regular")),
                             ),
