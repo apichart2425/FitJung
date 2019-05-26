@@ -16,6 +16,8 @@ class SigninScreen extends StatefulWidget {
 }
 
 class SigninScreenState extends State<SigninScreen> {
+  int box_size = 500;
+  int state_1 = 0, state_2 = 0;
   var url;
   @override
   void initState() {
@@ -98,7 +100,7 @@ class SigninScreenState extends State<SigninScreen> {
                   children: <Widget>[
                       Container(
                   width: double.infinity,
-                  height: ScreenUtil.getInstance().setHeight(500),
+                  height: ScreenUtil.getInstance().setHeight(box_size),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(8.0),
@@ -145,10 +147,27 @@ class SigninScreenState extends State<SigninScreen> {
                                         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
                                     RegExp regex = new RegExp(pattern);
                                     if (!regex.hasMatch(value)) {
+                                      setState(() {
+                                        if (state_1 < 1){
+                                          box_size += 50;
+                                          state_1++;
+                                        }
+                                      });
                                       return 'Enter Valid Email';
                                     }
                                     if (value.isEmpty) {
+                                      setState(() {
+                                        if (state_1 < 1){
+                                          box_size += 50;
+                                          state_1++;
+                                        }
+                                      });
                                       return "Email is required";
+                                    }else {
+                                      if (state_1 == 1){
+                                        box_size -= 50;
+                                        state_1--;
+                                      }
                                     }
                                   },
                                 ),
@@ -163,7 +182,18 @@ class SigninScreenState extends State<SigninScreen> {
                                   keyboardType: TextInputType.text,
                                   validator: (value) {
                                     if (value.isEmpty) {
+                                      setState(() {
+                                        if (state_2 < 1) {
+                                          box_size += 50;
+                                          state_2++;
+                                        }
+                                      });
                                       return "Password is required";
+                                    }else{
+                                      if (state_2 == 1){
+                                        box_size -= 50;
+                                        state_2--;
+                                      }
                                     }
                                   },
                                 ),
