@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:firebase_storage/firebase_storage.dart';
@@ -8,6 +9,7 @@ import 'package:fitjung/utility/share.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'ProfileScreen.dart';
+import 'package:http/http.dart' as http;
 
 class ProfileUser extends StatefulWidget {
   @override
@@ -31,7 +33,6 @@ class ProfileUserState extends State<ProfileUser> {
   @override
   void initState() {
     super.initState();
-
     SharedPreferencesUtil.loadLastLogin().then((value) {
       emailController.text = value;
       FirestoreUtils.getData(value).then((result) {
@@ -46,6 +47,7 @@ class ProfileUserState extends State<ProfileUser> {
         });
       });
     });
+    // postRequest(weightController.text, heightController.text, ageContr);
   }
 
   getUrlImage() async {
@@ -212,3 +214,30 @@ String _calBMI(double weight, double height) {
   height = height / 100;
   return (weight / pow(height, 2)).toStringAsFixed(2);
 }
+
+Future<http.Response> postRequest(String weight, String height, String age, String sex) async {
+    var url =
+        'https://bmi.p.rapidapi.com/';
+
+    Map data = {
+      'weight': {'value': weight, 'unit': 'kg'},
+      'height': {'value': height, 'unit': 'cm'},
+      'sex': 'm',
+      'age': '24',
+    };
+    //encode Map to JSON
+    var body = json.encode(data);
+
+    var response = await http.post(url,
+        headers: {
+          'X-RapidAPI-Host': 'bmi.p.rapidapi.com',
+          'X-RapidAPI-Key': 'a5367c95edmsh93c43a9a99f221fp193dcejsnd9a7ccf34386',
+          'Content-Type': 'application/json'
+        },
+        body: body);
+    print("${response.statusCode}");
+    print("${response.body}");
+    final test = json.decode(response.body);
+    print(test['weight']);
+    return response;
+  }

@@ -3,14 +3,14 @@ import 'package:flutter/foundation.dart';
 
 class FirestoreUtils {
   static void addProfile(String email, String name, String surname,
-      String height, String weight, String sex, String bmi) {
+      String height, String weight, String sex, String age) {
     Firestore.instance.collection('profile').document(email).setData({
       'name': name,
       'surname': surname,
       'height': height,
       'weight': weight,
       'sex': sex,
-      'bmi': bmi
+      'age': age,
     });
   }
 
@@ -18,7 +18,7 @@ class FirestoreUtils {
     return Firestore.instance.collection('profile').document(email).get();
   }
 
-  static void update(String email, String name, String surname, String weight, String height, String bmi) {
+  static void update(String email, String name, String surname, String weight, String height, String age) {
     final DocumentReference postRef = Firestore.instance.document('profile/' + email);
 
     Firestore.instance.runTransaction((Transaction tx) async {
@@ -28,7 +28,7 @@ class FirestoreUtils {
         await tx.update(postRef, <String, dynamic>{'surname': surname});
         await tx.update(postRef, <String, dynamic>{'weight': weight});
         await tx.update(postRef, <String, dynamic>{'height': height});
-        await tx.update(postRef, <String, dynamic>{'bmi': bmi});
+        await tx.update(postRef, <String, dynamic>{'age': age});
       }
     });
   }
