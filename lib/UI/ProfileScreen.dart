@@ -29,9 +29,6 @@ class ProfileScreenState extends State<ProfileScreen> {
   TextEditingController weightController = TextEditingController();
   TextEditingController heightController = TextEditingController();
   TextEditingController ageController = TextEditingController();
-  TextEditingController bmiValController = TextEditingController();
-  TextEditingController bmiStatusController = TextEditingController();
-  TextEditingController bmiRiskController = TextEditingController();
   TextEditingController img = TextEditingController();
   var url =
       'https://cdn3.iconfinder.com/data/icons/map-and-location-fill/144/People_Location-512.png';
@@ -51,14 +48,6 @@ class ProfileScreenState extends State<ProfileScreen> {
           heightController.text = result.data['height'];
           ageController.text = result.data['age'];
           getUrlImage();
-          postRequest(weightController.text, heightController.text, ageController.text, sexController.text).then((response){
-            var data = json.decode(response.body);
-            setState(() {
-              bmiValController.text = data['bmi']['value'];
-              bmiStatusController.text = data['bmi']['status'];
-              bmiRiskController.text = data['bmi']['risk'];
-            });
-          });
         });
       });
     });
@@ -131,14 +120,14 @@ class ProfileScreenState extends State<ProfileScreen> {
                 TextFormField(
                     controller: nameController,
                     decoration: InputDecoration(
-                        icon: Icon(Icons.account_box, size: 30,), labelText: "Name"),
+                        icon: Icon(Icons.portrait, size: 30,), labelText: "Name"),
                     keyboardType: TextInputType.text,
                     validator: (value) {
                       if (value.isEmpty) return "Name is required";
                     }),
                 TextFormField(
                     controller: surnameController,
-                    decoration: InputDecoration(icon: Icon(Icons.account_box, size: 30,),labelText: "Surname"),
+                    decoration: InputDecoration(icon: Icon(Icons.portrait, size: 30,),labelText: "Surname"),
                     keyboardType: TextInputType.text,
                     validator: (value) {
                       if (value.isEmpty) return "Surname is required";
@@ -146,19 +135,19 @@ class ProfileScreenState extends State<ProfileScreen> {
                 TextField(
                   enabled: false,
                   controller: sexController,
-                  decoration: InputDecoration(icon: Icon(Icons.account_box, size: 30,), labelText: "Gender"),
+                  decoration: InputDecoration(icon: Icon(Icons.face, size: 30,), labelText: "Gender"),
                   keyboardType: TextInputType.text,
                 ),
                 TextFormField(
                     controller: weightController,
-                    decoration: InputDecoration(icon: Icon(Icons.account_box, size: 30,), labelText: "Weight"),
+                    decoration: InputDecoration(icon: Icon(Icons.create, size: 30,), labelText: "Weight"),
                     keyboardType: TextInputType.text,
                     validator: (value) {
                       if (value.isEmpty) return "Weight is required";
                     }),
                 TextFormField(
                     controller: heightController,
-                    decoration: InputDecoration(icon: Icon(Icons.account_box, size: 30,), labelText: "Height"),
+                    decoration: InputDecoration(icon: Icon(Icons.create, size: 30,), labelText: "Height"),
                     keyboardType: TextInputType.text,
                     validator: (value) {
                       if (value.isEmpty) return "Height  is required";
@@ -168,44 +157,101 @@ class ProfileScreenState extends State<ProfileScreen> {
                   decoration: InputDecoration(icon: Icon(Icons.account_box, size: 30,), labelText: "Age"),
                   keyboardType: TextInputType.text,
                 ),
-                TextField(
-                  enabled: false,
-                  controller: bmiValController,
-                  decoration: InputDecoration(icon: Icon(Icons.account_box, size: 30,), labelText: "BMI value"),
-                ),
-                TextField(
-                  enabled: false,
-                  controller: bmiStatusController,
-                  decoration: InputDecoration(icon: Icon(Icons.account_box, size: 30,), labelText: "Status"),
-                ),
-                TextField(
-                  enabled: false,
-                  controller: bmiRiskController,
-                  maxLines: 2,
-                  decoration: InputDecoration(icon: Icon(Icons.account_box, size: 30,), labelText: "Risk"),
-                ),
+                // TextField(
+                  // enabled: false,
+
+                //   controller: bmiValController,
+                //   decoration: InputDecoration(icon: Icon(Icons.account_box, size: 30,), labelText: "BMI value"),
+                // ),
+                // TextField(
+                //   enabled: false,
+                //   controller: bmiStatusController,
+                //   decoration: InputDecoration(icon: Icon(Icons.account_box, size: 30,), labelText: "Status"),
+                // ),
+                // TextField(
+                //   enabled: false,
+                //   controller: bmiRiskController,
+                //   maxLines: 2,
+                //   decoration: InputDecoration(icon: Icon(Icons.account_box, size: 30,), labelText: "Risk"),
+                // ),
+                // Row(
+                //   children: <Widget>[
+                //     Expanded(
+                //       flex: 1,
+                //       child: RaisedButton(
+                //         child: Text("SAVE"),
+                //         onPressed: () {
+                //           FirestoreUtils.update(
+                //               emailController.text,
+                //               nameController.text,
+                //               surnameController.text,
+                //               weightController.text,
+                //               heightController.text,
+                //               ageController.text);
+                //           Navigator.pushReplacementNamed(context, '/');
+                //         },
+                //       ),
+                //     ),
+                //     Padding(
+                //       padding: EdgeInsets.all(10),
+                //     ),
+
+                  // controller: ageController,
+                  // decoration: InputDecoration(icon: Icon(Icons.fitness_center, size: 30,), labelText: "Age"),
+                  // keyboardType: TextInputType.text,
+                // ),
                 Row(
-                  children: <Widget>[
-                    Expanded(
-                      flex: 1,
-                      child: RaisedButton(
-                        child: Text("SAVE"),
-                        onPressed: () {
-                          FirestoreUtils.update(
-                              emailController.text,
-                              nameController.text,
-                              surnameController.text,
-                              weightController.text,
-                              heightController.text,
-                              ageController.text);
-                          Navigator.pushReplacementNamed(context, '/');
-                        },
+                 children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: ButtonTheme(
+                        minWidth: 350.0,
+                        height: 50.0,
+                        child: RaisedButton(
+                          child: Text("SAVE", style:
+                            TextStyle(color: Colors.white)),
+                          color: Colors.blueAccent,
+                          
+                          shape: new RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(15.0)),
+                          onPressed: () {
+                            FirestoreUtils.update(
+                                emailController.text,
+                                nameController.text,
+                                surnameController.text,
+                                weightController.text,
+                                heightController.text,
+                                ageController.text);
+                            
+                            Navigator.pushReplacementNamed(
+                                context, '/');
+                          },
+                        ),
                       ),
                     ),
-                    Padding(
-                      padding: EdgeInsets.all(10),
-                    ),
-
+                    // Padding(
+                    //   padding: EdgeInsets.all(10),
+                    // ),
+                    // Padding(
+                    //   padding: const EdgeInsets.all(5.0),
+                    //   child: ButtonTheme(
+                    //     minWidth: 350.0,
+                    //     height: 50.0,
+                    //     child: RaisedButton(
+                    //       child: Text(
+                    //         "BACK",
+                    //         style: TextStyle(
+                    //             fontSize: 18, fontWeight: FontWeight.bold),
+                    //       ),
+                    //       onPressed: () {
+                    //         Navigator.pop(context);
+                    //       },
+                    //       color: Colors.white,
+                    //       shape: new RoundedRectangleBorder(
+                    //           borderRadius: new BorderRadius.circular(15.0)),
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 )
               ],
@@ -214,33 +260,3 @@ class ProfileScreenState extends State<ProfileScreen> {
     );
   }
 }
-
-Future<http.Response> postRequest(String weight, String height, String age, String sex) async {
-    var url =
-        'https://bmi.p.rapidapi.com/';
-
-    Map data = {
-      'weight': {'value': weight, 'unit': 'kg'},
-      'height': {'value': height, 'unit': 'cm'},
-      'sex': sex.substring(0, 1).toLowerCase(),
-      'age': age,
-    };
-    //encode Map to JSON
-    var body = json.encode(data);
-
-    var response = await http.post(url,
-        headers: {
-          'X-RapidAPI-Host': 'bmi.p.rapidapi.com',
-          'X-RapidAPI-Key': 'a5367c95edmsh93c43a9a99f221fp193dcejsnd9a7ccf34386',
-          'Content-Type': 'application/json'
-        },
-        body: body);
-    // print("${response.statusCode}");
-    // print("${response.body}");
-    final test = json.decode(response.body);
-    print(test['weight']['kg']);
-    print(test['bmi']['value']);
-    print(test['bmi']['status']);
-    print(test['bmi']['risk']);
-    return response;
-  }
