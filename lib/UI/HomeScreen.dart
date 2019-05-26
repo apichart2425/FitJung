@@ -1,3 +1,4 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:fitjung/UI/SigninScreen.dart';
 import 'package:fitjung/utility/firestore_util.dart';
 import 'package:fitjung/utility/share.dart';
@@ -20,6 +21,8 @@ class HomeState extends State<HomeScreen> {
   var currentPage = images.length - 1.0;
   TextEditingController email = TextEditingController();
   TextEditingController name = TextEditingController(text: "test");
+  var url =
+      'https://cdn3.iconfinder.com/data/icons/map-and-location-fill/144/People_Location-512.png';
 
   @override
   void initState() {
@@ -31,9 +34,18 @@ class HomeState extends State<HomeScreen> {
           setState(() {
             name.text = result.data['name'];
             name.text += " " + result.data['surname'];
+            getUrlImage();
           });
         });
       });
+    });
+  }
+
+  getUrlImage() async {
+    final ref = FirebaseStorage.instance.ref().child(email.text);
+    var url = await ref.getDownloadURL();
+    setState(() {
+      this.url = url;
     });
   }
 
@@ -70,6 +82,7 @@ class HomeState extends State<HomeScreen> {
                   accountName: new Text(name.text),
                   accountEmail: new Text(email.text),
                   currentAccountPicture: new CircleAvatar(
+                    backgroundImage: NetworkImage(url),
                     backgroundColor:
                         Theme.of(context).platform == TargetPlatform.iOS
                             ? Colors.deepPurple
@@ -154,13 +167,21 @@ class HomeState extends State<HomeScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text("Course",
+                    Text("Trending",
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 46.0,
+                          fontSize: 30.0,
                           fontFamily: "Calibre-Semibold",
                           letterSpacing: 1.0,
                         )),
+                    IconButton(
+                      icon: Icon(
+                        CustomIcon.option,
+                        size: 8.0,
+                        color: Colors.white,
+                      ),
+                      onPressed: () {},
+                    )
                   ],
                 ),
               ),
@@ -168,12 +189,27 @@ class HomeState extends State<HomeScreen> {
                 padding: const EdgeInsets.only(left: 20.0),
                 child: Row(
                   children: <Widget>[
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Color(0xFFff6e6e),
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                      child: Center(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 22.0, vertical: 6.0),
+                          child: Text("Animated",
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: 10.0)),
+                        ),
+                      ),
+                    ),
                     SizedBox(
                       width: 15.0,
                     ),
-                    Text("Exercise Library",
+                    Text("25+ Stories",
                         style:
-                            TextStyle(color: Colors.grey, fontSize: 18.0))
+                            TextStyle(color: Colors.blueAccent, fontSize: 10.0))
                   ],
                 ),
               ),
@@ -197,13 +233,21 @@ class HomeState extends State<HomeScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text("Tips",
+                    Text("Favourite",
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 46.0,
                           fontFamily: "Calibre-Semibold",
                           letterSpacing: 1.0,
                         )),
+                    IconButton(
+                      icon: Icon(
+                        CustomIcon.option,
+                        size: 12.0,
+                        color: Colors.white,
+                      ),
+                      onPressed: () {},
+                    )
                   ],
                 ),
               ),
@@ -211,11 +255,25 @@ class HomeState extends State<HomeScreen> {
                 padding: const EdgeInsets.only(left: 20.0),
                 child: Row(
                   children: <Widget>[
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.blueAccent,
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                      child: Center(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 22.0, vertical: 6.0),
+                          child: Text("Latest",
+                              style: TextStyle(color: Colors.white)),
+                        ),
+                      ),
+                    ),
                     SizedBox(
                       width: 15.0,
                     ),
-                    Text("Clean health fitness education blog..",
-                        style: TextStyle(color: Colors.grey))
+                    Text("9+ Stories",
+                        style: TextStyle(color: Colors.blueAccent))
                   ],
                 ),
               ),
@@ -309,7 +367,7 @@ class CardScrollWidget extends StatelessWidget {
                                   horizontal: 16.0, vertical: 8.0),
                               child: Text(title[i],
                                   style: TextStyle(
-                                      color: Colors.black87,
+                                      color: Colors.white,
                                       fontSize: 25.0,
                                       fontFamily: "SF-Pro-Text-Regular")),
                             ),
