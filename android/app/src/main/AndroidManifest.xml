@@ -16,6 +16,8 @@
         android:name="io.flutter.app.FlutterApplication"
         android:label="fitjung"
         android:icon="@mipmap/ic_launcher">
+        <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyD0LqZgBAAQ13CrzjuXXL6nD6oLNC5p0Hk"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
@@ -35,5 +37,6 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        
     </application>
 </manifest>
