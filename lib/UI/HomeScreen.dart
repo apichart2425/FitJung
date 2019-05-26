@@ -131,6 +131,7 @@ class HomeState extends State<HomeScreen> {
                     style: TextStyle(color: Colors.white),
                   ),
                   onTap: () {
+                    SharedPreferencesUtil.saveLastLogin(null);
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => SigninScreen()),
