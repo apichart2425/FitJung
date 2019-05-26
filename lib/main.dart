@@ -10,6 +10,7 @@ import './map/mapApi.dart';
 import 'UI/ModeScreen.dart';
 
 import 'UI/ProfileUser.dart';
+import 'UI/SplashScreen.dart';
 
 
 
@@ -40,7 +41,7 @@ class MyApp extends StatelessWidget {
         
       ),
 
-      initialRoute: "/",
+      initialRoute: "/splash",
 
       routes: {
         "/" : (context) => HomeScreen(),
@@ -52,6 +53,7 @@ class MyApp extends StatelessWidget {
         '/modescreen': (context) => ModeScreen(null),
         '/profileuser': (context) => ProfileUser(),
         '/test': (context) => TestScreen(),
+        '/splash': (context) => SplashScreen(),
         // "/image": (context) => ImageScreen(),
 
       },
