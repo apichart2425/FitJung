@@ -92,10 +92,11 @@ class ProfileUserState extends State<ProfileUser> {
                 size: 30,
               ),
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ProfileScreen()),
-                );
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(builder: (context) => ProfileScreen()),
+                // );
+                Navigator.pushReplacementNamed(context, "/profile");
               },
             )
           ],

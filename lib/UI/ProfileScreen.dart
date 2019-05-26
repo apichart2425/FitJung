@@ -253,13 +253,13 @@ class ProfileScreenState extends State<ProfileScreen> {
 
                             print('Update !!!!!');
 
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ProfileUser()),
-                            );
-                            // Navigator.pushReplacementNamed(
-                            //     context, '/profileuser');
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //       builder: (context) => ProfileUser()),
+                            // );
+                            Navigator.pushReplacementNamed(
+                                context, '/profileuser');
 
                             // Navigator.pushNamed(context, '/profileuser');
                           },
