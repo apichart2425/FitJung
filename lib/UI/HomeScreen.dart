@@ -132,7 +132,7 @@ class HomeState extends State<HomeScreen> {
                   ),
                   onTap: () {
                     SharedPreferencesUtil.saveLastLogin(null);
-                    Navigator.push(
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(builder: (context) => SigninScreen()),
                     );
