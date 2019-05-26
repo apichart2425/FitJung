@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:firebase_storage/firebase_storage.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fitjung/utility/firestore_util.dart';
 import 'package:fitjung/utility/share.dart';
@@ -24,7 +26,12 @@ class ProfileUserState extends State<ProfileUser> {
   TextEditingController weightController = TextEditingController();
   TextEditingController heightController = TextEditingController();
   TextEditingController bmiController = TextEditingController();
+  var url =
+      'https://cdn3.iconfinder.com/data/icons/map-and-location-fill/144/People_Location-512.png';
+  @override
   void initState() {
+    super.initState();
+
     SharedPreferencesUtil.loadLastLogin().then((value) {
       emailController.text = value;
       FirestoreUtils.getData(value).then((result) {
@@ -35,10 +42,18 @@ class ProfileUserState extends State<ProfileUser> {
           weightController.text = result.data['weight'];
           heightController.text = result.data['height'];
           bmiController.text = result.data['bmi'];
+          getUrlImage();
         });
       });
     });
-    super.initState();
+  }
+
+  getUrlImage() async {
+    final ref = FirebaseStorage.instance.ref().child(emailController.text);
+    var url = await ref.getDownloadURL();
+    setState(() {
+      this.url = url;
+    });
   }
 
   @override
@@ -46,6 +61,21 @@ class ProfileUserState extends State<ProfileUser> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Profile"),
+        actions: <Widget>[
+          IconButton(
+            tooltip: "Add Photo",
+            icon: Icon(
+              Icons.edit,
+              size: 30,
+            ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ProfileScreen()),
+              );
+            },
+          )
+        ],
       ),
       body: Form(
           key: _formkey,
@@ -56,9 +86,13 @@ class ProfileUserState extends State<ProfileUser> {
                 Stack(
                   alignment: const Alignment(0.2, 0.7),
                   children: [
-                    CircleAvatar(
-                      backgroundImage: AssetImage('resource/cat_eating.jpg'),
-                      radius: 100,
+                    ClipRRect(
+                      borderRadius: new BorderRadius.circular(50.0),
+                      child: Image.network(
+                        url,
+                        width: 350,
+                        height: 300,
+                      ),
                     ),
                     Container(
                       child: Padding(
@@ -68,17 +102,17 @@ class ProfileUserState extends State<ProfileUser> {
                           top: 150,
                           bottom: 0,
                         ),
-                        child: FloatingActionButton(
-                          tooltip: 'Change image',
-                          child: Icon(Icons.edit),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ProfileScreen()),
-                            );
-                          },
-                        ),
+                        // child: FloatingActionButton(
+                        //   tooltip: 'Change image',
+                        //   child: Icon(Icons.edit),
+                        //   onPressed: () {
+                        //     Navigator.push(
+                        //       context,
+                        //       MaterialPageRoute(
+                        //           builder: (context) => ProfileScreen()),
+                        //     );
+                        //   },
+                        // ),
                       ),
                     ),
                   ],
