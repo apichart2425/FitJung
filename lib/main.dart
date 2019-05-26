@@ -37,12 +37,7 @@ class MyApp extends StatelessWidget {
         
       ),
 
-<<<<<<< HEAD
       initialRoute: "/signin",
-=======
-      initialRoute: "/profileuser",
->>>>>>> 85a10688b91ef2c1c46469da0d78abaf941cdede
-
       routes: {
         "/" : (context) => HomeScreen(),
         "/signin": (context) => SigninScreen(),
