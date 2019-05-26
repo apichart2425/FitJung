@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:firebase_storage/firebase_storage.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fitjung/utility/firestore_util.dart';
@@ -15,6 +16,8 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class ProfileScreenState extends State<ProfileScreen> {
+  TextEditingController email = TextEditingController();
+
   QuerySnapshot info;
   final _formkey = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
@@ -24,21 +27,38 @@ class ProfileScreenState extends State<ProfileScreen> {
   TextEditingController weightController = TextEditingController();
   TextEditingController heightController = TextEditingController();
   TextEditingController bmiController = TextEditingController();
+  TextEditingController img = TextEditingController();
+  var url =
+      'https://cdn3.iconfinder.com/data/icons/map-and-location-fill/144/People_Location-512.png';
+
+  @override
   void initState() {
+    super.initState();
+
     SharedPreferencesUtil.loadLastLogin().then((value) {
       emailController.text = value;
       FirestoreUtils.getData(value).then((result) {
-        setState(() {
+        setState(() async {
           nameController.text = result.data['name'];
           surnameController.text = result.data['surname'];
           sexController.text = result.data['sex'];
           weightController.text = result.data['weight'];
           heightController.text = result.data['height'];
           bmiController.text = result.data['bmi'];
+          getUrlImage();
+          // print('img-----------------${img}');
         });
       });
     });
-    super.initState();
+    print('******************************************** ${this.url}');
+  }
+
+  getUrlImage() async {
+    final ref = FirebaseStorage.instance.ref().child(emailController.text);
+    var url = await ref.getDownloadURL();
+    setState(() {
+      this.url = url;
+    });
   }
 
   @override
@@ -46,6 +66,19 @@ class ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Profile"),
+        actions: <Widget>[
+          IconButton(
+            tooltip: "Add Photo",
+            icon: Icon(
+              Icons.photo_library,
+              size: 30,
+            ),
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => ImageScreen()));
+            },
+          )
+        ],
       ),
       body: Form(
           key: _formkey,
@@ -56,9 +89,13 @@ class ProfileScreenState extends State<ProfileScreen> {
                 Stack(
                   alignment: const Alignment(0.2, 0.7),
                   children: [
-                    CircleAvatar(
-                      backgroundImage: AssetImage('resource/cat_eating.jpg'),
-                      radius: 100,
+                    ClipRRect(
+                      borderRadius: new BorderRadius.circular(50.0),
+                      child: Image.network(
+                        url,
+                        width: 350,
+                        height: 300,
+                      ),
                     ),
                     Container(
                       child: Padding(
@@ -68,16 +105,6 @@ class ProfileScreenState extends State<ProfileScreen> {
                           top: 150,
                           bottom: 0,
                         ),
-                        child: FloatingActionButton(
-                          tooltip: 'Change image',
-                          child: Icon(Icons.add),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder:  (context) =>ImageScreen())
-                            );
-                          },
-                        ),
                       ),
                     ),
                   ],
@@ -85,19 +112,21 @@ class ProfileScreenState extends State<ProfileScreen> {
                 TextField(
                   enabled: false,
                   controller: emailController,
-                  decoration: InputDecoration(labelText: "Email"),
+                  decoration: InputDecoration(
+                      icon: Icon(Icons.email , size: 30,), labelText: "Email"),
                   keyboardType: TextInputType.emailAddress,
                 ),
                 TextFormField(
                     controller: nameController,
-                    decoration: InputDecoration(labelText: "Name"),
+                    decoration: InputDecoration(
+                        icon: Icon(Icons.account_box, size: 30,), labelText: "Name"),
                     keyboardType: TextInputType.text,
                     validator: (value) {
                       if (value.isEmpty) return "Name is required";
                     }),
                 TextFormField(
                     controller: surnameController,
-                    decoration: InputDecoration(labelText: "Surname"),
+                    decoration: InputDecoration(icon: Icon(Icons.account_box, size: 30,),labelText: "Surname"),
                     keyboardType: TextInputType.text,
                     validator: (value) {
                       if (value.isEmpty) return "Surname is required";
@@ -105,19 +134,19 @@ class ProfileScreenState extends State<ProfileScreen> {
                 TextField(
                   enabled: false,
                   controller: sexController,
-                  decoration: InputDecoration(labelText: "Gender"),
+                  decoration: InputDecoration(icon: Icon(Icons.account_box, size: 30,), labelText: "Gender"),
                   keyboardType: TextInputType.text,
                 ),
                 TextFormField(
                     controller: weightController,
-                    decoration: InputDecoration(labelText: "Weight"),
+                    decoration: InputDecoration(icon: Icon(Icons.account_box, size: 30,), labelText: "Weight"),
                     keyboardType: TextInputType.text,
                     validator: (value) {
                       if (value.isEmpty) return "Weight is required";
                     }),
                 TextFormField(
                     controller: heightController,
-                    decoration: InputDecoration(labelText: "Height"),
+                    decoration: InputDecoration(icon: Icon(Icons.account_box, size: 30,), labelText: "Height"),
                     keyboardType: TextInputType.text,
                     validator: (value) {
                       if (value.isEmpty) return "Height  is required";
@@ -125,7 +154,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                 TextField(
                   enabled: false,
                   controller: bmiController,
-                  decoration: InputDecoration(labelText: "BMI"),
+                  decoration: InputDecoration(icon: Icon(Icons.account_box, size: 30,), labelText: "BMI"),
                   keyboardType: TextInputType.text,
                 ),
                 Row(
@@ -135,9 +164,18 @@ class ProfileScreenState extends State<ProfileScreen> {
                       child: RaisedButton(
                         child: Text("SAVE"),
                         onPressed: () {
-                          FirestoreUtils.update(emailController.text, nameController.text, surnameController.text, weightController.text, heightController.text, _calBMI(double.parse(weightController.text), double.parse(heightController.text)));
+                          FirestoreUtils.update(
+                              emailController.text,
+                              nameController.text,
+                              surnameController.text,
+                              weightController.text,
+                              heightController.text,
+                              _calBMI(double.parse(weightController.text),
+                                  double.parse(heightController.text)));
                           setState(() {
-                           bmiController.text = _calBMI(double.parse(weightController.text), double.parse(heightController.text)) ;
+                            bmiController.text = _calBMI(
+                                double.parse(weightController.text),
+                                double.parse(heightController.text));
                           });
                           Navigator.pushReplacementNamed(context, '/profile');
                         },

@@ -76,7 +76,6 @@ class HomeState extends State<HomeScreen> {
                             : Colors.white,
                     child: new Text(name.text.substring(0, 1).toUpperCase()),
                   ),
-
                   otherAccountsPictures: <Widget>[
                     new IconButton(
                       icon: Icon(
@@ -132,6 +131,7 @@ class HomeState extends State<HomeScreen> {
                     style: TextStyle(color: Colors.white),
                   ),
                   onTap: () {
+                    SharedPreferencesUtil.saveLastLogin(null);
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => SigninScreen()),
