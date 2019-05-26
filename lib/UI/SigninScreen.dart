@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:fitjung/UI/ImageScreen.dart';
 import 'package:fitjung/UI/SignupScreen.dart';
+import 'package:fitjung/utility/share.dart';
 import 'package:flutter/material.dart';
 import './HomeScreen.dart';
 
@@ -19,7 +20,6 @@ class SigninScreenState extends State<SigninScreen> {
   void initState() {
     super.initState();
     getUrlImage();
-    print(this.url);
   }
 
   getUrlImage() async {
@@ -111,6 +111,7 @@ class SigninScreenState extends State<SigninScreen> {
                                 email: email.text, password: password.text)
                             .then((user) {
                           if (user.isEmailVerified) {
+                            SharedPreferencesUtil.saveLastLogin(email.text);
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(

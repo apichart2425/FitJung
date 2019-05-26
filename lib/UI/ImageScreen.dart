@@ -58,6 +58,7 @@ class ImageState extends State<ImageScreen>{
               print(await(await task.onComplete).ref.getDownloadURL());
               if (task.isComplete){
                 Toast.show("UPLOAD complete", context);
+                Navigator.pushNamed(context, "/signin");
               }
             },
           )
