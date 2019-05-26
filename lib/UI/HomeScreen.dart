@@ -78,7 +78,7 @@ class HomeState extends State<HomeScreen> {
                     style: TextStyle(color: Colors.white),
                   ),
                   onTap: () {
-                    Navigator.pop(context);
+                    Navigator.pushReplacementNamed(context, '/map');
                   },
                 ),
                 ListTile(
