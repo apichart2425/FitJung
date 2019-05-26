@@ -331,7 +331,7 @@ class MapScreen extends State<MapApiPage> {
         ),
       );
     }).toList();
-
-    return ListView(shrinkWrap: true, children: placesWidget);
+    
+    return ListView(shrinkWrap: true, children: placesWidget,);
   }
 }
