@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:toast/toast.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -52,10 +52,13 @@ class ImageState extends State<ImageScreen>{
             elevation: 7.0,
             child: Text('Upload'),
             textColor: Colors.blue,
-            onPressed: () {
+            onPressed: () async {
               final StorageReference firebaseStorageRef = FirebaseStorage.instance.ref().child('myimage.jpg');
               final StorageUploadTask task = firebaseStorageRef.putFile(sampleImage);
-              
+              print(await(await task.onComplete).ref.getDownloadURL());
+              if (task.isComplete){
+                Toast.show("UPLOAD complete", context);
+              }
             },
           )
         ],

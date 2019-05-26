@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fitjung/UI/ImageScreen.dart';
 import 'package:fitjung/UI/SignupScreen.dart';
 import 'package:flutter/material.dart';
 import './HomeScreen.dart';
@@ -128,6 +129,28 @@ class SigninScreenState extends State<SigninScreen> {
                           left: 0, top: 0, bottom: 0, right: 30),
                       child: Text(
                         "Register New Account",
+                      ),
+                    ),
+                    textColor: Colors.teal.shade500,
+                  ),
+                ),
+              ),
+              Align(
+                alignment: Alignment.centerRight,
+                child: ButtonTheme(
+                  padding: EdgeInsets.all(0),
+                  child: FlatButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ImageScreen()));
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          left: 0, top: 0, bottom: 0, right: 30),
+                      child: Text(
+                        "IMAGE",
                       ),
                     ),
                     textColor: Colors.teal.shade500,
