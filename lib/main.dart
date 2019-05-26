@@ -1,4 +1,5 @@
 import 'package:fitjung/UI/HomeScreen.dart';
+import 'package:fitjung/UI/MapScreen.dart';
 import 'package:fitjung/UI/ProfileScreen.dart';
 // import 'package:fitjung/UI/ImageScreen.dart';
 import 'package:fitjung/UI/SignInfoScreen.dart';
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
         "/signin": (context) => SigninScreen(),
         "/signup": (context) => SignUpScreen(),
         "/signinfo": (context) => SignInfoScreen(),
+        "/map": (context) => MapScreen(),
         '/profile': (context) => ProfileScreen(),
         // "/image": (context) => ImageScreen(),
 

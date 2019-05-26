@@ -113,6 +113,11 @@ class SigninScreenState extends State<SigninScreen> {
                         offset: Offset(0.0, -10.0),
                         blurRadius: 10.0
                       ),
+                      BoxShadow(
+                        color: Colors.black12,
+                        offset: Offset(0.0, 10.0),
+                        blurRadius: 10.0
+                      ),
                     ]
                   ),
                   child: Padding(
@@ -130,7 +135,7 @@ class SigninScreenState extends State<SigninScreen> {
                         ),
                         Padding(
                                 padding: const EdgeInsets.only(
-                                    left: 40, top: 0, bottom: 0, right: 40),
+                                    left: 10, top: 0, bottom: 0, right: 10),
                                 child: TextFormField(
                                   controller: email,
                                   decoration: InputDecoration(labelText: "Email"),
@@ -150,7 +155,7 @@ class SigninScreenState extends State<SigninScreen> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(
-                                    left: 40, top: 0, bottom: 0, right: 40),
+                                    left: 10, top: 0, bottom: 0, right: 10),
                                 child: TextFormField(
                                   obscureText: true,
                                   controller: password,
