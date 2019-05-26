@@ -76,8 +76,7 @@ class HomeState extends State<HomeScreen> {
                             : Colors.white,
                     child: new Text(name.text.substring(0, 1).toUpperCase()),
                   ),
-<<<<<<< HEAD
-=======
+
                   otherAccountsPictures: <Widget>[
                     new IconButton(
                       icon: Icon(
@@ -93,7 +92,6 @@ class HomeState extends State<HomeScreen> {
                       },
                     )
                   ],
->>>>>>> 48cd06ea7345b5a786b2e3096f1ee863288af5ec
                 ),
                 ListTile(
                   leading: Icon(
