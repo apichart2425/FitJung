@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:fitjung/UI/ImageScreen.dart';
 import 'package:fitjung/UI/SignupScreen.dart';
+import 'package:fitjung/utility/share.dart';
 import 'package:flutter/material.dart';
 import './HomeScreen.dart';
 
@@ -13,6 +15,21 @@ class SigninScreen extends StatefulWidget {
 }
 
 class SigninScreenState extends State<SigninScreen> {
+  var url;
+  @override
+  void initState() {
+    super.initState();
+    getUrlImage();
+  }
+
+  getUrlImage() async {
+    final ref = FirebaseStorage.instance.ref().child('myimage.jpg');
+    var url = await ref.getDownloadURL();
+    setState(() {
+     this.url = url; 
+    });
+  }
+
   final _formKey = GlobalKey<FormState>();
 
   FirebaseAuth auth = FirebaseAuth.instance;
@@ -20,9 +37,10 @@ class SigninScreenState extends State<SigninScreen> {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
 
+
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    getUrlImage();
     return Scaffold(
         // resizeToAvoidBottomPadding: false,
         body: ListView(
@@ -35,10 +53,17 @@ class SigninScreenState extends State<SigninScreen> {
           child: Column(
             children: <Widget>[
               // Icon()crossAxisAlignment: CrossAxisAlignment.center,
-              Image.asset(
-                "resource/cat_eating.jpg",
-                height: 200,
-              ),
+              // Image.asset(
+              //   "resource/cat_eating.jpg",
+              //   height: 200,
+              // ),
+              this.url == null
+                  ? Image.asset(
+                      "resource/cat_eating.jpg",
+                      height: 200,
+                    )
+                  : Image.network(this.url,
+                      height: 200,),
               Padding(
                 padding: const EdgeInsets.only(
                     left: 40, top: 0, bottom: 0, right: 40),
@@ -86,6 +111,7 @@ class SigninScreenState extends State<SigninScreen> {
                                 email: email.text, password: password.text)
                             .then((user) {
                           if (user.isEmailVerified) {
+                            SharedPreferencesUtil.saveLastLogin(email.text);
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
