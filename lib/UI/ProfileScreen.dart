@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fitjung/utility/firestore_util.dart';
 import 'package:fitjung/utility/share.dart';
@@ -126,7 +128,13 @@ class ProfileScreenState extends State<ProfileScreen> {
                       flex: 1,
                       child: RaisedButton(
                         child: Text("SAVE"),
-                        onPressed: () {},
+                        onPressed: () {
+                          FirestoreUtils.update(emailController.text, nameController.text, surnameController.text, weightController.text, heightController.text, _calBMI(double.parse(weightController.text), double.parse(heightController.text)));
+                          setState(() {
+                           bmiController.text = _calBMI(double.parse(weightController.text), double.parse(heightController.text)) ;
+                          });
+                          Navigator.pushReplacementNamed(context, '/profile');
+                        },
                       ),
                     ),
                     Padding(
@@ -146,4 +154,9 @@ class ProfileScreenState extends State<ProfileScreen> {
           )),
     );
   }
+}
+
+String _calBMI(double weight, double height) {
+  height = height / 100;
+  return (weight / pow(height, 2)).toStringAsFixed(2);
 }
