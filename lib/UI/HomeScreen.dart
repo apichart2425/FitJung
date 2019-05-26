@@ -189,7 +189,7 @@ class HomeState extends State<HomeScreen>{
                     padding: EdgeInsets.only(left: 18.0),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20.0),
-                      child: Image.asset("../resource/image_02.png",
+                      child: Image.asset("resource/image_02.png",
                           width: 296.0, height: 222.0),
                     ),
                   )
