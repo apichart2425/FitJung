@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../Icon/CustomIcon.dart';
 import '../data.dart';
 import 'dart:math';
+import 'ModeScreen.dart';
 import 'ProfileScreen.dart';
 import 'ProfileUser.dart';
 
@@ -200,20 +201,29 @@ class HomeState extends State<HomeScreen> {
                   ],
                 ),
               ),
-              Stack(
-                children: <Widget>[
-                  CardScrollWidget(currentPage),
-                  Positioned.fill(
-                    child: PageView.builder(
-                      itemCount: images.length,
-                      controller: controller,
-                      reverse: true,
-                      itemBuilder: (context, index) {
-                        return Container();
-                      },
-                    ),
-                  )
-                ],
+              InkWell(
+                onTap: (){
+                  Navigator.push(context, 
+                              MaterialPageRoute(
+                                builder: (context) => ModeScreen(currentPage.toInt())
+                              )
+                              );
+                },
+                  child: Stack(
+                  children: <Widget>[
+                    CardScrollWidget(currentPage),
+                    Positioned.fill(
+                      child: PageView.builder(
+                        itemCount: images.length,
+                        controller: controller,
+                        reverse: true,
+                        itemBuilder: (context, index) {
+                          return Container();
+                        },
+                      ),
+                    )
+                  ],
+                ),
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.0),
