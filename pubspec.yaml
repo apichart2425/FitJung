@@ -32,8 +32,8 @@ dependencies:
   shared_preferences: ^0.5.2+1
   flutter_screenutil: ^0.4.2
 
-  google_maps_flutter: 
-  flutter_google_places: 
+  google_maps_flutter: ^0.0.3
+  flutter_google_places: ^0.1.4
   location: ^1.4.1
 
 
