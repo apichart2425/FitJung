@@ -236,7 +236,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                               child: RaisedButton(
                                 child: Text("SAVE",
                                     style: TextStyle(color: Colors.white)),
-                                color: Colors.blueAccent,
+                                color: Color(0xff1f1f2b),
                                 shape: new RoundedRectangleBorder(
                                     borderRadius:
                                         new BorderRadius.circular(15.0)),
