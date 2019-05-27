@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
-class ModeScreen extends StatelessWidget {
+
+import 'ExerciseScreen.dart';
+
+class ModeScreen extends StatelessWidget{
   int _idPage;
   String titleStr;
 
@@ -59,8 +62,16 @@ class ModeScreen extends StatelessWidget {
                 padding: EdgeInsets.only(bottom: 90),
               ),
               InkWell(
-                onTap: () {},
-                child: SizedBox(
+
+                  onTap: (){
+                    Navigator.push(
+                      context, 
+                      MaterialPageRoute(
+                        builder: (context) => ExerciseScreen(_idPage, 'easy')
+                      )
+                    );
+                  },
+                  child: SizedBox(
                   height: 100.0,
                   child: Padding(
                     padding: EdgeInsets.only(right: 20.0, left: 20.0),
@@ -97,8 +108,15 @@ class ModeScreen extends StatelessWidget {
                 ),
               ),
               InkWell(
-                onTap: () {},
-                child: SizedBox(
+                  onTap: (){
+                    Navigator.push(
+                      context, 
+                      MaterialPageRoute(
+                        builder: (context) => ExerciseScreen(_idPage, 'medium')
+                      )
+                    );
+                  },
+                  child: SizedBox(
                   height: 100.0,
                   child: Padding(
                     padding: EdgeInsets.only(right: 20.0, left: 20.0),
@@ -135,7 +153,15 @@ class ModeScreen extends StatelessWidget {
                 ),
               ),
               InkWell(
-                onTap: () {},
+
+                onTap: (){
+                  Navigator.push(
+                      context, 
+                      MaterialPageRoute(
+                        builder: (context) => ExerciseScreen(_idPage, 'hard')
+                      )
+                    );
+                },
                 child: SizedBox(
                   height: 100.0,
                   child: Padding(

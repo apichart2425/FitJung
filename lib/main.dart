@@ -7,6 +7,7 @@ import 'package:fitjung/UI/SignupScreen.dart';
 import 'package:fitjung/UI/TestScreen.dart';
 import 'package:flutter/material.dart';
 import './map/mapApi.dart';
+import 'UI/ExerciseScreen.dart';
 import 'UI/ModeScreen.dart';
 
 import 'UI/ProfileUser.dart';
@@ -55,6 +56,7 @@ class MyApp extends StatelessWidget {
         '/profileuser': (context) => ProfileUser(),
         '/test': (context) => TestScreen(),
         '/splash': (context) => SplashScreen(),
+        '/exercise': (context) => ExerciseScreen(null, null)
         // "/image": (context) => ImageScreen(),
 
       },
