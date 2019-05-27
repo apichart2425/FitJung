@@ -189,20 +189,19 @@ class HomeState extends State<HomeScreen> {
                       width: 15.0,
                     ),
                     Text("Exercise Library",
-                        style:
-                            TextStyle(color: Colors.grey, fontSize: 18.0))
+                        style: TextStyle(color: Colors.grey, fontSize: 18.0))
                   ],
                 ),
               ),
               InkWell(
-                onTap: (){
-                  Navigator.push(context, 
-                              MaterialPageRoute(
-                                builder: (context) => ModeScreen(currentPage.toInt())
-                              )
-                              );
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              ModeScreen(currentPage.toInt())));
                 },
-                  child: Stack(
+                child: Stack(
                   children: <Widget>[
                     CardScrollWidget(currentPage),
                     Positioned.fill(
@@ -248,17 +247,61 @@ class HomeState extends State<HomeScreen> {
               SizedBox(
                 height: 20.0,
               ),
-              Row(
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(left: 18.0),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(20.0),
-                      child: Image.asset("resource/image_02.png",
-                          width: 296.0, height: 222.0),
-                    ),
-                  )
-                ],
+              Container(
+                child: Container(
+                  child: Column(
+                    children: <Widget>[
+                      Row(
+                        children: <Widget>[
+                          new Card(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Image.network(
+                                'https://sv1.picz.in.th/images/2019/05/27/wGXHA9.jpg',
+                                width: 150,
+                                height: 150,
+                              ),
+                            ),
+                          ),
+                          new Card(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Image.network(
+                                'https://sv1.picz.in.th/images/2019/05/27/wGX81D.jpg',
+                                width: 150,
+                                height: 150,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: <Widget>[
+                          new Card(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Image.network(
+                                'https://sv1.picz.in.th/images/2019/05/27/wGXVLJ.jpg',
+                                width: 150,
+                                height: 150,
+                              ),
+                            ),
+                          ),
+                          new Card(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Image.network(
+                                'https://sv1.picz.in.th/images/2019/05/27/wGXakb.png',
+                                width: 150,
+                                height: 150,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
               )
             ],
           ),
