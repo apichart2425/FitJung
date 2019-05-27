@@ -88,7 +88,9 @@ class ExerciseScreenState extends State<ExerciseScreen> {
                                   child: Row(
                                     children: <Widget>[
                                       Image.asset(
-                                        'resource/1/GateSwings.gif',
+                                        'resource/$_id/${snapshot.data
+                                                            .documents[index]
+                                                        ['name']}.gif',
                                         width: screen_w * 0.25,
                                         height: screen_h * 0.25,
                                       ),
