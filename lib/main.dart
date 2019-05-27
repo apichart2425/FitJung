@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import './map/mapApi.dart';
 import 'UI/ExerciseScreen.dart';
 import 'UI/ModeScreen.dart';
-
+import './UI/article.dart';
 import 'UI/ProfileUser.dart';
 import 'UI/SplashScreen.dart';
 
@@ -56,7 +56,8 @@ class MyApp extends StatelessWidget {
         '/profileuser': (context) => ProfileUser(),
         '/test': (context) => TestScreen(),
         '/splash': (context) => SplashScreen(),
-        '/exercise': (context) => ExerciseScreen(null, null)
+        '/exercise': (context) => ExerciseScreen(null, null),
+        '/article':(context) => Article(), 
         // "/image": (context) => ImageScreen(),
 
       },

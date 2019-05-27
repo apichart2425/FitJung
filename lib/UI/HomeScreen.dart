@@ -16,7 +16,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 var cardAspectRatio = 12.0 / 16.0;
-var widgetAspectRatio = cardAspectRatio * 1.2;
+var widgetAspectRatio = cardAspectRatio * 1.25;
 
 class HomeState extends State<HomeScreen> {
   var currentPage = images.length - 1.0;
@@ -52,6 +52,8 @@ class HomeState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double screen_w = MediaQuery.of(context).size.width,
+        screen_h = MediaQuery.of(context).size.height;
     PageController controller = PageController(initialPage: images.length - 1);
     controller.addListener(() {
       setState(() {
@@ -247,61 +249,81 @@ class HomeState extends State<HomeScreen> {
               SizedBox(
                 height: 20.0,
               ),
-              Container(
-                child: Container(
-                  child: Column(
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          new Card(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Image.network(
-                                'https://sv1.picz.in.th/images/2019/05/27/wGXHA9.jpg',
-                                width: 150,
-                                height: 150,
-                              ),
+              Column(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        new Card(
+                          child: Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: Column(
+                              children: <Widget>[
+                                Image.network(
+                                  'https://sv1.picz.in.th/images/2019/05/27/wGXHA9.jpg',
+                                  width: screen_w * .4,
+                                  height: screen_h * .25,
+                                ),
+                                Text("Healthy Life"),
+                                
+                              ],
                             ),
                           ),
-                          new Card(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Image.network(
-                                'https://sv1.picz.in.th/images/2019/05/27/wGX81D.jpg',
-                                width: 150,
-                                height: 150,
-                              ),
+                        ),
+                        new Card(
+                          child: Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: Column(
+                              children: <Widget>[
+                                Image.network(
+                                  'https://sv1.picz.in.th/images/2019/05/27/wGX81D.jpg',
+                                  width: screen_w * .4,
+                                  height: screen_h * .25,
+                                ),
+                                Text("What's good workout?")
+                              ],
                             ),
                           ),
-                        ],
-                      ),
-                      Row(
-                        children: <Widget>[
-                          new Card(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Image.network(
-                                'https://sv1.picz.in.th/images/2019/05/27/wGXVLJ.jpg',
-                                width: 150,
-                                height: 150,
-                              ),
-                            ),
-                          ),
-                          new Card(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Image.network(
-                                'https://sv1.picz.in.th/images/2019/05/27/wGXakb.png',
-                                width: 150,
-                                height: 150,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
+                        ),
+                      ],
+                    ),
                   ),
-                ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Row(
+                      children: <Widget>[
+                        new Card(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              children: <Widget>[
+                                Image.network(
+                                  'https://sv1.picz.in.th/images/2019/05/27/wGXVLJ.jpg',
+                                  width: screen_w * .4,
+                                  height: screen_h * .25,
+                                ),
+                                Text("Healthy Food !!")
+                              ],
+                            ),
+                            
+                          ),
+                        ),
+                        new Card(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Image.network(
+                              'https://sv1.picz.in.th/images/2019/05/27/wGXakb.png',
+                              width: screen_w * .4,
+                              height: screen_h * .25,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               )
             ],
           ),
