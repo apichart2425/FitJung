@@ -325,7 +325,7 @@ class SigninScreenState extends State<SigninScreen> {
                                                                       .text,
                                                                   password:
                                                                       password
-                                                                          .text)
+                                                                          .text).timeout(Duration(seconds: 5),onTimeout: (){throw("Timeout trying to update, maybe you're offline");})
                                                               .then((user) {
                                                             if (user
                                                                 .isEmailVerified) {
