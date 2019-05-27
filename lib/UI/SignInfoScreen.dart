@@ -399,7 +399,7 @@ class SignInfoScreenState extends State<SignInfoScreen> {
                                                       email:
                                                           widget.map['email'],
                                                       password: widget
-                                                          .map['password'])
+                                                          .map['password']).timeout(Duration(seconds: 10),onTimeout: (){throw("Timeout trying to update, maybe you're offline");})
                                                   .then((FirebaseUser user) {
                                                 user
                                                     .sendEmailVerification()

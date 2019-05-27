@@ -48,6 +48,17 @@ class MapScreen extends State<MapApiPage> {
         key: homeScaffoldKey,
         appBar: AppBar(
           title: const Text("Fitness"),
+          centerTitle: true,
+          leading: new IconButton(
+            tooltip: "",
+            icon: Icon(
+              Icons.arrow_back,
+              size: 30,
+            ),
+            onPressed: () {
+              Navigator.pushNamed(context, '/');
+            },
+          ),
           actions: <Widget>[
             isLoading
                 ? IconButton(
@@ -119,8 +130,13 @@ class MapScreen extends State<MapApiPage> {
       this.errorMessage = null;
     });
 
+<<<<<<< HEAD
     final location = Location(center.latitude,center.longitude);
     final result = await _places.searchNearbyWithRadius(location, 2500);
+=======
+    final location = Location(center.latitude, center.longitude);
+    final result = await _places.searchNearbyWithRadius(location, 500);
+>>>>>>> d4ba930ca4f0aef16b61bee50e9b351e1dc6dea2
     var list = [
       'gym',
       'health',
@@ -150,21 +166,20 @@ class MapScreen extends State<MapApiPage> {
         result.results.forEach((f) {
           print('F types ${f.types} ++++  f name ${f.name}');
 
-          for(var a in f.types){
+          for (var a in f.types) {
             // print("checking list ${list.contains(a.toLowerCase())}");
             print('F types ${a}');
-            if (list.contains(a.toLowerCase())){
+            if (list.contains(a.toLowerCase())) {
               print(list.contains(a.toLowerCase()));
               this.places.add(f);
               final markerOptions = MarkerOptions(
-                position:
-                    LatLng(f.geometry.location.lat, f.geometry.location.lng),
-                infoWindowText:
-                    InfoWindowText("${f.name}", "${f.types}"));
+                  position:
+                      LatLng(f.geometry.location.lat, f.geometry.location.lng),
+                  infoWindowText: InfoWindowText("${f.name}", "${f.types}"));
               mapController.addMarker(markerOptions);
             }
             break;
-            }
+          }
 
           // print("a.toLowerCase   ${f.name.toLowerCase()}");
 
@@ -201,35 +216,34 @@ class MapScreen extends State<MapApiPage> {
           //   infoWindowText:
           //       InfoWindowText("${f.name}", "${f.types?.first}"));
           // mapController.addMarker(markerOptions);
-              });
-            } else {
-              this.errorMessage = result.errorMessage;
-            }
-          });
+        });
+      } else {
+        this.errorMessage = result.errorMessage;
+      }
+    });
 
-          
-          //OG
-      //     setState(() {
-      //       this.isLoading = false;
-      //       if (result.status == "OK") {
-      //         this.places = result.results;
-      //         result.results.forEach((f) {
-      //           // print("this f.name ${f.name}");
-      //           final markerOptions = MarkerOptions(
-      //               position: LatLng(
-      //                   f.geometry.location.lat, f.geometry.location.lng),
-      //               infoWindowText:
-      //                   InfoWindowText("${f.name}", "${f.types?.first}"));
-      //           mapController.addMarker(markerOptions);
-      //         });
-      //       } else {
-      //         this.errorMessage = result.errorMessage;
-      //       }
-      //     });
-      //   });
-      // } else {
-      //   this.errorMessage = result.errorMessage;
-      // }
+    //OG
+    //     setState(() {
+    //       this.isLoading = false;
+    //       if (result.status == "OK") {
+    //         this.places = result.results;
+    //         result.results.forEach((f) {
+    //           // print("this f.name ${f.name}");
+    //           final markerOptions = MarkerOptions(
+    //               position: LatLng(
+    //                   f.geometry.location.lat, f.geometry.location.lng),
+    //               infoWindowText:
+    //                   InfoWindowText("${f.name}", "${f.types?.first}"));
+    //           mapController.addMarker(markerOptions);
+    //         });
+    //       } else {
+    //         this.errorMessage = result.errorMessage;
+    //       }
+    //     });
+    //   });
+    // } else {
+    //   this.errorMessage = result.errorMessage;
+    // }
     // });
   }
 
@@ -331,7 +345,10 @@ class MapScreen extends State<MapApiPage> {
         ),
       );
     }).toList();
-    
-    return ListView(shrinkWrap: true, children: placesWidget,);
+
+    return ListView(
+      shrinkWrap: true,
+      children: placesWidget,
+    );
   }
 }

@@ -18,6 +18,12 @@ class FirestoreUtils {
     return Firestore.instance.collection('profile').document(email).get();
   }
 
+  static getType(String type, String mode) async{
+    return Firestore.instance.collection('workout').document(type).collection(mode).snapshots();
+  } 
+  static getArticle(String) async{
+    return Firestore.instance.collection('article').getDocuments();
+  }
   static void update(String email, String name, String surname, String weight, String height, String age) {
     final DocumentReference postRef = Firestore.instance.document('profile/' + email);
 

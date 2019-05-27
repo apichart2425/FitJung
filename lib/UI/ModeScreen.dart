@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 
+
+import 'ExerciseScreen.dart';
+
 class ModeScreen extends StatelessWidget{
   int _idPage;
   String titleStr;
 
-  ModeScreen(_id){
+  ModeScreen(_id) {
     this._idPage = _id;
-    if(_idPage == 2){
+    if (_idPage == 2) {
       titleStr = 'Lower Body Workout';
-    }else if(_idPage == 1){
+    } else if (_idPage == 1) {
       titleStr = 'Full Body Workout';
-    }else{
+    } else {
       titleStr = 'Upper Body Workout';
     }
   }
@@ -18,7 +21,7 @@ class ModeScreen extends StatelessWidget{
   Widget build(BuildContext context) {
     // TODO: implement build
     return Container(
-       decoration: BoxDecoration(
+      decoration: BoxDecoration(
           gradient: LinearGradient(
               colors: [
             Color(0xFF1b1e44),
@@ -32,16 +35,26 @@ class ModeScreen extends StatelessWidget{
         appBar: AppBar(
           title: Padding(
             padding: EdgeInsets.only(left: 10.0),
-            child: Text('$titleStr',
-            style: TextStyle(
-              color: Colors.white,
-
-            ),),
+            child: Text(
+              '$titleStr',
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
+          ),
+          centerTitle: true,
+          leading: new IconButton(
+            tooltip: "",
+            icon: Icon(
+              Icons.arrow_back,
+              size: 30,
+            ),
+            onPressed: () {
+              Navigator.pushNamed(context, '/');
+            },
           ),
           backgroundColor: Colors.transparent,
         ),
-      
-
         body: Center(
           child: ListView(
             children: <Widget>[
@@ -49,116 +62,140 @@ class ModeScreen extends StatelessWidget{
                 padding: EdgeInsets.only(bottom: 90),
               ),
               InkWell(
+
                   onTap: (){
-                    
+                    Navigator.push(
+                      context, 
+                      MaterialPageRoute(
+                        builder: (context) => ExerciseScreen(_idPage, 'easy')
+                      )
+                    );
                   },
                   child: SizedBox(
                   height: 100.0,
                   child: Padding(
                     padding: EdgeInsets.only(right: 20.0, left: 20.0),
                     child: Card(
-                    color: Color(0xFF121e2f) ,
-                    
-                    child: Center(
-                      child: Row(
-                        children: <Widget>[
-                          Padding(
-                            padding: EdgeInsets.only(right: 20.0),
-                          ),
-                          Image.asset('resource/easy.png', width: 42, height: 42,),
-                          Padding(
-                            padding: EdgeInsets.only(right: 30),
-                          ),
-                          Text('EASY', style:TextStyle(
-                            color: Colors.white,
-                            fontSize: 42
-                          )),
-                          Padding(
-                            padding: EdgeInsets.only(left: 70),
-                            child: Icon(Icons.arrow_forward_ios, size: 30, color: Colors.white,),
-                          ),
-                          
-                        ],
-                      )
-                    )
-                ),
-                  ),
-                ),
-              ),
-              InkWell(
-                  onTap: (){
-
-                  },
-                  child: SizedBox(
-                  height: 100.0,
-                  child: Padding(
-                    padding: EdgeInsets.only(right: 20.0, left: 20.0),
-                    child: Card(
-                    color: Color(0xFF121e2f) ,
-                    
-                    child: Center(
-                      child: Row(
-                        children: <Widget>[
-                          Padding(
-                            padding: EdgeInsets.only(right: 20.0),
-                          ),
-                          Image.asset('resource/medium.png', width: 42, height: 42,),
-                          Padding(
-                            padding: EdgeInsets.only(right: 30),
-                          ),
-                          Text('MEDIUM', style:TextStyle(
-                            color: Colors.white,
-                            fontSize: 42
-                          )),
-                          Padding(
-                            padding: EdgeInsets.only(left: 10.0),
-                            child: Icon(Icons.arrow_forward_ios, size: 30, color: Colors.white,),
-                          ),
-
-                        ],
-                      )
-                    )
-                ),
-                  ),
-                ),
-              ),
-              InkWell(
-                onTap: (){
-                  
-                },
-                child: SizedBox(
-                              height: 100.0,
-                  child: Padding(
-                    padding: EdgeInsets.only(right: 20.0, left: 20.0),
-                    child: Card(
-                      
-                    color: Color(0xFF121e2f) ,
-      
-                      child: Center(
-                        child: Row(
+                        color: Color(0xFF121e2f),
+                        child: Center(
+                            child: Row(
                           children: <Widget>[
                             Padding(
                               padding: EdgeInsets.only(right: 20.0),
                             ),
-                            Image.asset('resource/hard.png', width: 42, height: 42,),
+                            Image.asset(
+                              'resource/easy.png',
+                              width: 42,
+                              height: 42,
+                            ),
                             Padding(
                               padding: EdgeInsets.only(right: 30),
                             ),
-                            Text('HARD', style:TextStyle(
-                              color: Colors.white,
-                              fontSize: 42
-                            )),
+                            Text('EASY',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 42)),
                             Padding(
-                            padding: EdgeInsets.only(left: 60.0),
-                            child: Icon(Icons.arrow_forward_ios, size: 30, color: Colors.white,),
-                          ),
-                          
-
+                              padding: EdgeInsets.only(left: 70),
+                              child: Icon(
+                                Icons.arrow_forward_ios,
+                                size: 30,
+                                color: Colors.white,
+                              ),
+                            ),
                           ],
-                        )
-                      ),
-                    
+                        ))),
+                  ),
                 ),
+              ),
+              InkWell(
+                  onTap: (){
+                    Navigator.push(
+                      context, 
+                      MaterialPageRoute(
+                        builder: (context) => ExerciseScreen(_idPage, 'medium')
+                      )
+                    );
+                  },
+                  child: SizedBox(
+                  height: 100.0,
+                  child: Padding(
+                    padding: EdgeInsets.only(right: 20.0, left: 20.0),
+                    child: Card(
+                        color: Color(0xFF121e2f),
+                        child: Center(
+                            child: Row(
+                          children: <Widget>[
+                            Padding(
+                              padding: EdgeInsets.only(right: 20.0),
+                            ),
+                            Image.asset(
+                              'resource/medium.png',
+                              width: 42,
+                              height: 42,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(right: 30),
+                            ),
+                            Text('MEDIUM',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 42)),
+                            Padding(
+                              padding: EdgeInsets.only(left: 10.0),
+                              child: Icon(
+                                Icons.arrow_forward_ios,
+                                size: 30,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ))),
+                  ),
+                ),
+              ),
+              InkWell(
+
+                onTap: (){
+                  Navigator.push(
+                      context, 
+                      MaterialPageRoute(
+                        builder: (context) => ExerciseScreen(_idPage, 'hard')
+                      )
+                    );
+                },
+                child: SizedBox(
+                  height: 100.0,
+                  child: Padding(
+                    padding: EdgeInsets.only(right: 20.0, left: 20.0),
+                    child: Card(
+                      color: Color(0xFF121e2f),
+                      child: Center(
+                          child: Row(
+                        children: <Widget>[
+                          Padding(
+                            padding: EdgeInsets.only(right: 20.0),
+                          ),
+                          Image.asset(
+                            'resource/hard.png',
+                            width: 42,
+                            height: 42,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(right: 30),
+                          ),
+                          Text('HARD',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 42)),
+                          Padding(
+                            padding: EdgeInsets.only(left: 60.0),
+                            child: Icon(
+                              Icons.arrow_forward_ios,
+                              size: 30,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      )),
+                    ),
                   ),
                 ),
               )
@@ -168,5 +205,4 @@ class ModeScreen extends StatelessWidget{
       ),
     );
   }
-
 }

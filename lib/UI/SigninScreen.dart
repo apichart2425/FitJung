@@ -99,11 +99,12 @@ class SigninScreenState extends State<SigninScreen> {
                                 Text(
                                   "FITJUNG",
                                   style: TextStyle(
-                                    fontFamily: 'Poppins-Bold',
+                                    fontFamily: 'SFSportsNight',
                                     fontSize:
-                                        ScreenUtil.getInstance().setSp(46),
+                                        ScreenUtil.getInstance().setSp(60),
                                     letterSpacing: .6,
                                     fontWeight: FontWeight.bold,
+                                    
                                   ),
                                 )
                               ],
@@ -324,7 +325,7 @@ class SigninScreenState extends State<SigninScreen> {
                                                                       .text,
                                                                   password:
                                                                       password
-                                                                          .text)
+                                                                          .text).timeout(Duration(seconds: 10),onTimeout: (){throw("Timeout trying to update, maybe you're offline");})
                                                               .then((user) {
                                                             if (user
                                                                 .isEmailVerified) {
