@@ -61,58 +61,9 @@ class ExerciseScreenState extends State<ExerciseScreen> {
                     return Column(
                       children: <Widget>[
                         Padding(
-                          padding: EdgeInsets.only(top: 20),
+                          padding: EdgeInsets.only(top: 10),
                         ),
-                        Row(
-                          children: <Widget>[
-                            Padding(
-                                padding:
-                                    EdgeInsets.only(left: 35.0, right: 70.0),
-                                child: Column(
-                                  children: <Widget>[
-                                    Text('35',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 30.0)),
-                                    Text('KCAL',
-                                        style: TextStyle(
-                                            color: Colors.grey,
-                                            fontSize: 12.0)),
-                                  ],
-                                )),
-                            Padding(
-                                padding: EdgeInsets.only(right: 70.0),
-                                child: Column(
-                                  children: <Widget>[
-                                    Text('5-6',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 30.0)),
-                                    Text('MIN',
-                                        style: TextStyle(
-                                            color: Colors.grey,
-                                            fontSize: 12.0)),
-                                  ],
-                                )),
-                            Padding(
-                                padding: EdgeInsets.only(right: 10.0),
-                                child: Column(
-                                  children: <Widget>[
-                                    Text('${mode.toUpperCase()}',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 30.0)),
-                                    Text('LEVEL',
-                                        style: TextStyle(
-                                            color: Colors.grey,
-                                            fontSize: 12.0)),
-                                  ],
-                                )),
-                          ],
-                        ),
+                        
                         Padding(
                           padding: EdgeInsets.only(
                               left: 20.0, right: 20.0, top: 10.0),
@@ -141,16 +92,16 @@ class ExerciseScreenState extends State<ExerciseScreen> {
                                             EdgeInsets.only(top: 20, left: 30),
                                         child: Column(
                                           children: <Widget>[
-                                            Text(snapshot.data.documents[0]['name'],
+                                            Text(snapshot.data.documents[index]['name'],
                                                 style: TextStyle(
                                                     color: Colors.white,
                                                     fontWeight: FontWeight.bold,
-                                                    fontSize: 20.0)),
-                                            Text(snapshot.data.documents[0]['set'],
+                                                    fontSize: 16.0)),
+                                            Text(snapshot.data.documents[index]['set'],
                                                 style: TextStyle(
                                                     color: Colors.grey,
                                                     fontWeight: FontWeight.bold,
-                                                    fontSize: 16.0)),
+                                                    fontSize: 12.0)),
                                           ],
                                         ),
                                       ),
