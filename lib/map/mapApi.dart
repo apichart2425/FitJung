@@ -130,13 +130,8 @@ class MapScreen extends State<MapApiPage> {
       this.errorMessage = null;
     });
 
-<<<<<<< HEAD
     final location = Location(center.latitude,center.longitude);
     final result = await _places.searchNearbyWithRadius(location, 2500);
-=======
-    final location = Location(center.latitude, center.longitude);
-    final result = await _places.searchNearbyWithRadius(location, 500);
->>>>>>> d4ba930ca4f0aef16b61bee50e9b351e1dc6dea2
     var list = [
       'gym',
       'health',
