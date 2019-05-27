@@ -141,7 +141,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                     controller: nameController,
                     decoration: InputDecoration(
                         icon: Icon(
-                          Icons.account_box,
+                          Icons.portrait,
                           size: 30,
                         ),
                         labelText: "Name"),
@@ -153,7 +153,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                     controller: surnameController,
                     decoration: InputDecoration(
                         icon: Icon(
-                          Icons.account_box,
+                          Icons.portrait,
                           size: 30,
                         ),
                         labelText: "Surname"),
@@ -166,7 +166,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                   controller: sexController,
                   decoration: InputDecoration(
                       icon: Icon(
-                        Icons.account_box,
+                        Icons.face,
                         size: 30,
                       ),
                       labelText: "Gender"),
@@ -176,7 +176,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                     controller: weightController,
                     decoration: InputDecoration(
                         icon: Icon(
-                          Icons.account_box,
+                          Icons.create,
                           size: 30,
                         ),
                         labelText: "Weight"),
@@ -188,7 +188,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                     controller: heightController,
                     decoration: InputDecoration(
                         icon: Icon(
-                          Icons.account_box,
+                          Icons.create,
                           size: 30,
                         ),
                         labelText: "Height"),
@@ -200,7 +200,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                     controller: ageController,
                     decoration: InputDecoration(
                         icon: Icon(
-                          Icons.account_box,
+                          Icons.date_range,
                           size: 30,
                         ),
                         labelText: "Age"),
@@ -213,7 +213,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                     Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: ButtonTheme(
-                        minWidth: 350.0,
+                        minWidth: 300.0,
                         height: 50.0,
                         child: RaisedButton(
                           child: Text("SAVE",
@@ -223,15 +223,18 @@ class ProfileScreenState extends State<ProfileScreen> {
                               borderRadius: new BorderRadius.circular(15.0)),
                           onPressed: () async {
                             print(' Save --------------');
-                            final StorageReference firebaseStorageRef =
-                                FirebaseStorage.instance
-                                    .ref()
-                                    .child(this.emailController.text);
-                            final StorageUploadTask task =
-                                firebaseStorageRef.putFile(sampleImage);
-                            print(await (await task.onComplete)
-                                .ref
-                                .getDownloadURL());
+                            if (sampleImage != null) {
+                              final StorageReference firebaseStorageRef =
+                                  FirebaseStorage.instance
+                                      .ref()
+                                      .child(this.emailController.text);
+                              final StorageUploadTask task =
+                                  firebaseStorageRef.putFile(sampleImage);
+                              print(await (await task.onComplete)
+                                  .ref
+                                  .getDownloadURL());
+                            }
+
                             // print(emailController.text);
                             // print(' Save2 --------------');
 
