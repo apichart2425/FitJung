@@ -293,11 +293,11 @@ class HomeState extends State<HomeScreen> {
                                             ),
                                           ),
                                           onTap: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        Article(0)));
+                                          //   Navigator.push(
+                                          //       context,
+                                          //       MaterialPageRoute(
+                                          //           builder: (context) =>
+                                          //               Article(0)));
                                           },
                                         ),
                                         GestureDetector(
@@ -318,11 +318,11 @@ class HomeState extends State<HomeScreen> {
                                             ),
                                           ),
                                           onTap: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        Article(1)));
+                                          //   Navigator.push(
+                                          //       context,
+                                          //       MaterialPageRoute(
+                                          //           builder: (context) =>
+                                          //               Article(1)));
                                           },
                                         ),
                                       ],
@@ -351,11 +351,11 @@ class HomeState extends State<HomeScreen> {
                                             ),
                                           ),
                                           onTap: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        Article(2)));
+                                          //   Navigator.push(
+                                          //       context,
+                                          //       MaterialPageRoute(
+                                          //           builder: (context) =>
+                                          //               Article(2)));
                                           },
                                         ),
                                         GestureDetector(
@@ -370,13 +370,13 @@ class HomeState extends State<HomeScreen> {
                                               ),
                                             ),
                                           ),
-                                          onTap: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        Article(3)));
-                                          },
+                                          // onTap: () {
+                                          //   Navigator.push(
+                                          //       context,
+                                          //       MaterialPageRoute(
+                                          //           builder: (context) =>
+                                          //               Article(3)));
+                                          // },
                                         ),
                                       ],
                                     ),

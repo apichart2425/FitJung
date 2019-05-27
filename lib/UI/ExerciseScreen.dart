@@ -67,11 +67,11 @@ class ExerciseScreenState extends State<ExerciseScreen> {
                     return Column(
                       children: <Widget>[
                         Padding(
-                          padding: EdgeInsets.only(top: 10),
+                          padding: EdgeInsets.only(top: 0),
                         ),
                         Padding(
-                          padding: EdgeInsets.only(
-                              left: 20.0, right: 20.0, top: 10.0),
+                          padding:
+                              EdgeInsets.only(left: 20.0, right: 20.0, top: 0),
                           child: new Container(
                             height: 1.5,
                             color: Colors.grey,
@@ -79,54 +79,76 @@ class ExerciseScreenState extends State<ExerciseScreen> {
                         ),
                         Column(
                           children: <Widget>[
-                            SizedBox(
-                              height: screen_h * .15,
-                              child: Card(
-                                color: Color(0xFF1b1e44),
-                                child: Padding(
-                                  padding: EdgeInsets.only(left: 10, top: 0.0),
-                                  child: Row(
-                                    children: <Widget>[
-                                      Image.asset(
-                                        'resource/$_id/${snapshot.data
-                                                            .documents[index]
-                                                        ['name']}.gif',
-                                        width: screen_w * 0.25,
-                                        height: screen_h * 0.25,
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                            top: screen_h * .035,
-                                            left: screen_w * .03),
-                                        child: Column(
-                                          children: <Widget>[
-                                            Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: <Widget>[
-                                                Text(
-                                                    snapshot.data
-                                                            .documents[index]
-                                                        ['name'],
-                                                    style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontSize: 16.0)),
-                                                Text(
-                                                    snapshot.data
-                                                            .documents[index]
-                                                        ['set'],
-                                                    style: TextStyle(
-                                                        color: Colors.grey,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontSize: 12.0)),
-                                              ],
-                                            ),
-                                          ],
+                            GestureDetector(
+                              onTap: () {
+                                print("TEST");
+                                return showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title: Text("${snapshot.data.documents[index]['name']}"),
+                                        content: Image.asset(
+                                          'resource/$_id/${snapshot.data.documents[index]['name']}.gif',),
+                                        actions: <Widget>[
+                                          FlatButton(
+                                            child: Text("Close"),
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                          )
+                                        ],
+                                      );
+                                    });
+                              },
+                              child: SizedBox(
+                                height: screen_h * .15,
+                                child: Card(
+                                  color: Color(0xFF1b1e44),
+                                  child: Padding(
+                                    padding:
+                                        EdgeInsets.only(left: 10, top: 0.0),
+                                    child: Row(
+                                      children: <Widget>[
+                                        Image.asset(
+                                          'resource/$_id/${snapshot.data.documents[index]['name']}.gif',
+                                          width: screen_w * 0.25,
+                                          height: screen_h * 0.25,
                                         ),
-                                      ),
-                                    ],
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                              top: screen_h * .035,
+                                              left: screen_w * .03),
+                                          child: Column(
+                                            children: <Widget>[
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: <Widget>[
+                                                  Text(
+                                                      snapshot.data
+                                                              .documents[index]
+                                                          ['name'],
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 16.0)),
+                                                  Text(
+                                                      snapshot.data
+                                                              .documents[index]
+                                                          ['set'],
+                                                      style: TextStyle(
+                                                          color: Colors.grey,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 12.0)),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
