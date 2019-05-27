@@ -19,7 +19,7 @@ class FirestoreUtils {
   }
 
   static getType(String type, String mode) async{
-    return Firestore.instance.collection('workout').document(type).collection(mode).getDocuments();
+    return Firestore.instance.collection('workout').document(type).collection(mode).snapshots();
   } 
   static getArticle(String id,String detail) async{
     return Firestore.instance.collection('article').document(id).collection(detail).getDocuments();
