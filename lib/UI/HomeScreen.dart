@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:fitjung/UI/SigninScreen.dart';
 import 'package:fitjung/utility/firestore_util.dart';
@@ -9,6 +10,7 @@ import 'dart:math';
 import 'ModeScreen.dart';
 import 'ProfileScreen.dart';
 import 'ProfileUser.dart';
+import 'article.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -161,172 +163,238 @@ class HomeState extends State<HomeScreen> {
             ),
           ),
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(
-                    left: 12.0, right: 12.0, top: 30.0, bottom: 8.0),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text("Course",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 46.0,
-                          fontFamily: "Calibre-Semibold",
-                          letterSpacing: 1.0,
-                        )),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 20.0),
-                child: Row(
-                  children: <Widget>[
-                    SizedBox(
-                      width: 15.0,
-                    ),
-                    Text("Exercise Library",
-                        style: TextStyle(color: Colors.grey, fontSize: 18.0))
-                  ],
-                ),
-              ),
-              InkWell(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              ModeScreen(currentPage.toInt())));
-                },
-                child: Stack(
-                  children: <Widget>[
-                    CardScrollWidget(currentPage),
-                    Positioned.fill(
-                      child: PageView.builder(
-                        itemCount: images.length,
-                        controller: controller,
-                        reverse: true,
-                        itemBuilder: (context, index) {
-                          return Container();
-                        },
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text("Tips",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 46.0,
-                          fontFamily: "Calibre-Semibold",
-                          letterSpacing: 1.0,
-                        )),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 20.0),
-                child: Row(
-                  children: <Widget>[
-                    SizedBox(
-                      width: 15.0,
-                    ),
-                    Text("Clean health fitness education blog..",
-                        style: TextStyle(color: Colors.grey))
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 20.0,
-              ),
-              Column(
+        body: ListView(
+          children: <Widget>[
+            SingleChildScrollView(
+              child: Column(
                 children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    padding: const EdgeInsets.only(
+                        left: 12.0, right: 12.0, top: 30.0, bottom: 8.0),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.0),
                     child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        new Card(
-                          child: Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Column(
-                              children: <Widget>[
-                                Image.network(
-                                  'https://sv1.picz.in.th/images/2019/05/27/wGXHA9.jpg',
-                                  width: screen_w * .4,
-                                  height: screen_h * .25,
-                                ),
-                                Text("Healthy Life"),
-                                
-                              ],
-                            ),
-                          ),
-                        ),
-                        new Card(
-                          child: Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Column(
-                              children: <Widget>[
-                                Image.network(
-                                  'https://sv1.picz.in.th/images/2019/05/27/wGX81D.jpg',
-                                  width: screen_w * .4,
-                                  height: screen_h * .25,
-                                ),
-                                Text("What's good workout?")
-                              ],
-                            ),
-                          ),
-                        ),
+                        Text("Course",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 46.0,
+                              fontFamily: "Calibre-Semibold",
+                              letterSpacing: 1.0,
+                            )),
                       ],
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    padding: const EdgeInsets.only(left: 20.0),
                     child: Row(
                       children: <Widget>[
-                        new Card(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              children: <Widget>[
-                                Image.network(
-                                  'https://sv1.picz.in.th/images/2019/05/27/wGXVLJ.jpg',
-                                  width: screen_w * .4,
-                                  height: screen_h * .25,
-                                ),
-                                Text("Healthy Food !!")
-                              ],
-                            ),
-                            
-                          ),
+                        SizedBox(
+                          width: 15.0,
                         ),
-                        new Card(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Image.network(
-                              'https://sv1.picz.in.th/images/2019/05/27/wGXakb.png',
-                              width: screen_w * .4,
-                              height: screen_h * .25,
-                            ),
-                          ),
-                        ),
+                        Text("Exercise Library",
+                            style:
+                                TextStyle(color: Colors.grey, fontSize: 18.0))
                       ],
                     ),
                   ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  ModeScreen(currentPage.toInt())));
+                    },
+                    child: Stack(
+                      children: <Widget>[
+                        CardScrollWidget(currentPage),
+                        Positioned.fill(
+                          child: PageView.builder(
+                            itemCount: images.length,
+                            controller: controller,
+                            reverse: true,
+                            itemBuilder: (context, index) {
+                              return Container();
+                            },
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text("Tips",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 46.0,
+                              fontFamily: "Calibre-Semibold",
+                              letterSpacing: 1.0,
+                            )),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20.0),
+                    child: Row(
+                      children: <Widget>[
+                        SizedBox(
+                          width: 15.0,
+                        ),
+                        Text("Clean health fitness education blog..",
+                            style: TextStyle(color: Colors.grey))
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  Container(
+                    child: StreamBuilder<QuerySnapshot>(
+                      stream:
+                          Firestore.instance.collection('article').snapshots(),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<QuerySnapshot> snapshot) {
+                        if (snapshot.hasData) {
+                          return ListView.builder(
+                            scrollDirection: Axis.vertical,
+                            shrinkWrap: true,
+                            itemCount: 1,
+                            itemBuilder: (context, index) {
+                              return Column(
+                                children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10),
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        GestureDetector(
+                                          child: new Card(
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(5.0),
+                                              child: Column(
+                                                children: <Widget>[
+                                                  Image.network(
+                                                    'https://sv1.picz.in.th/images/2019/05/27/wGXHA9.jpg',
+                                                    width: screen_w * .4,
+                                                    height: screen_h * .25,
+                                                  ),
+                                                  Text("Healthy Life"),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                          onTap: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        Article(0)));
+                                          },
+                                        ),
+                                        GestureDetector(
+                                          child: new Card(
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(5.0),
+                                              child: Column(
+                                                children: <Widget>[
+                                                  Image.network(
+                                                    'https://sv1.picz.in.th/images/2019/05/27/wGX81D.jpg',
+                                                    width: screen_w * .4,
+                                                    height: screen_h * .25,
+                                                  ),
+                                                  Text("What's good workout?")
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                          onTap: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        Article(1)));
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10),
+                                    child: Row(
+                                      children: <Widget>[
+                                        GestureDetector(
+                                          child: new Card(
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Column(
+                                                children: <Widget>[
+                                                  Image.network(
+                                                    'https://sv1.picz.in.th/images/2019/05/27/wGXVLJ.jpg',
+                                                    width: screen_w * .4,
+                                                    height: screen_h * .25,
+                                                  ),
+                                                  Text("Healthy Food !!")
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                          onTap: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        Article(2)));
+                                          },
+                                        ),
+                                        GestureDetector(
+                                          child: new Card(
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Image.network(
+                                                'https://sv1.picz.in.th/images/2019/05/27/wGXakb.png',
+                                                width: screen_w * .4,
+                                                height: screen_h * .25,
+                                              ),
+                                            ),
+                                          ),
+                                          onTap: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        Article(3)));
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        } else {
+                          return CircularProgressIndicator();
+                        }
+                      },
+                    ),
+                  )
                 ],
-              )
-            ],
-          ),
+              ),
+            ),
+          ],
         ),
       ),
     );

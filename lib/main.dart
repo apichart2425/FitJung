@@ -57,7 +57,6 @@ class MyApp extends StatelessWidget {
         '/test': (context) => TestScreen(),
         '/splash': (context) => SplashScreen(),
         '/exercise': (context) => ExerciseScreen(null, null),
-        '/article':(context) => Article(), 
         // "/image": (context) => ImageScreen(),
 
       },
