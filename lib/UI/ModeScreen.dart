@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'ExerciseScreen.dart';
+
 class ModeScreen extends StatelessWidget{
   int _idPage;
   String titleStr;
@@ -50,7 +52,12 @@ class ModeScreen extends StatelessWidget{
               ),
               InkWell(
                   onTap: (){
-                    
+                    Navigator.push(
+                      context, 
+                      MaterialPageRoute(
+                        builder: (context) => ExerciseScreen(_idPage, 'easy')
+                      )
+                    );
                   },
                   child: SizedBox(
                   height: 100.0,
@@ -87,7 +94,12 @@ class ModeScreen extends StatelessWidget{
               ),
               InkWell(
                   onTap: (){
-
+                    Navigator.push(
+                      context, 
+                      MaterialPageRoute(
+                        builder: (context) => ExerciseScreen(_idPage, 'medium')
+                      )
+                    );
                   },
                   child: SizedBox(
                   height: 100.0,
@@ -124,7 +136,12 @@ class ModeScreen extends StatelessWidget{
               ),
               InkWell(
                 onTap: (){
-                  
+                  Navigator.push(
+                      context, 
+                      MaterialPageRoute(
+                        builder: (context) => ExerciseScreen(_idPage, 'hard')
+                      )
+                    );
                 },
                 child: SizedBox(
                               height: 100.0,
