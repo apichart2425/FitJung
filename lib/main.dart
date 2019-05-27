@@ -35,13 +35,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: "FitJung",
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: colors,
         
       ),
 
-      initialRoute: "/splash",
+      initialRoute: "/signin",
 
       routes: {
         "/" : (context) => HomeScreen(),

@@ -72,6 +72,8 @@ class HomeState extends State<HomeScreen> {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
+          title: Text("FitJung"),
+          centerTitle: true,
           backgroundColor: Colors.transparent,
         ),
         drawer: new Drawer(
