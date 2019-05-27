@@ -83,6 +83,10 @@ flutter:
     - family: CustomIcon
       fonts:
         - asset: fonts/custom_icons.ttf
+    - family: SFSportsNight
+      fonts:
+        - asset: resource/SFSportsNight.ttf
+        
       
   #   - family: Trajan Pro
   #     fonts:

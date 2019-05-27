@@ -47,7 +47,9 @@ class ProfileUserState extends State<ProfileUser> {
           heightController.text = result.data['height'];
           ageController.text = result.data['age'];
           getUrlImage();
-          postRequest(weightController.text, heightController.text, ageController.text, sexController.text).then((response){
+          postRequest(weightController.text, heightController.text,
+                  ageController.text, sexController.text)
+              .then((response) {
             var data = json.decode(response.body);
             setState(() {
               bmiController.text = data['bmi']['value'];
@@ -84,6 +86,18 @@ class ProfileUserState extends State<ProfileUser> {
         backgroundColor: Colors.transparent,
         appBar: AppBar(
           title: Text("Profile"),
+          centerTitle: true,
+          leading: new IconButton(
+              tooltip: "",
+              icon: Icon(
+                Icons.arrow_back,
+                size: 30,
+              ),
+              onPressed: () {
+                Navigator.pushNamed(context, '/');
+              },
+            
+          ),
           actions: <Widget>[
             IconButton(
               tooltip: "Edit",
@@ -98,7 +112,8 @@ class ProfileUserState extends State<ProfileUser> {
                 // );
                 Navigator.pushReplacementNamed(context, "/profile");
               },
-            )
+            ),
+            
           ],
         ),
         body: Form(
@@ -198,7 +213,8 @@ class ProfileUserState extends State<ProfileUser> {
                                   Padding(
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 10),
-                                    child: Text("Status : ${bmiStatusController.text}",
+                                    child: Text(
+                                        "Status : ${bmiStatusController.text}",
                                         style: TextStyle(
                                             color: Colors.black,
                                             fontSize: 20.0)),
@@ -206,7 +222,8 @@ class ProfileUserState extends State<ProfileUser> {
                                   Padding(
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 10),
-                                    child: Text("Risk : ${bmiRiskController.text}",
+                                    child: Text(
+                                        "Risk : ${bmiRiskController.text}",
                                         style: TextStyle(
                                             color: Colors.black,
                                             fontSize: 20.0)),
