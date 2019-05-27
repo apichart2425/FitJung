@@ -64,6 +64,7 @@ class HomeState extends State<HomeScreen> {
     });
 
     return Container(
+      
       decoration: BoxDecoration(
           gradient: LinearGradient(
               colors: [
@@ -74,6 +75,7 @@ class HomeState extends State<HomeScreen> {
               end: Alignment.topCenter,
               tileMode: TileMode.clamp)),
       child: Scaffold(
+        resizeToAvoidBottomPadding: false,
         backgroundColor: Colors.transparent,
         appBar: AppBar(
           title: Text("FitJung"),
@@ -279,7 +281,7 @@ class HomeState extends State<HomeScreen> {
                                           child: new Card(
                                             child: Padding(
                                               padding:
-                                                  const EdgeInsets.all(5.0),
+                                                  const EdgeInsets.all(8.0),
                                               child: Column(
                                                 children: <Widget>[
                                                   Image.network(
@@ -293,18 +295,18 @@ class HomeState extends State<HomeScreen> {
                                             ),
                                           ),
                                           onTap: () {
-                                          //   Navigator.push(
-                                          //       context,
-                                          //       MaterialPageRoute(
-                                          //           builder: (context) =>
-                                          //               Article(0)));
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        Article(0)));
                                           },
                                         ),
                                         GestureDetector(
                                           child: new Card(
                                             child: Padding(
                                               padding:
-                                                  const EdgeInsets.all(5.0),
+                                                  const EdgeInsets.all(8.0),
                                               child: Column(
                                                 children: <Widget>[
                                                   Image.network(
@@ -318,11 +320,11 @@ class HomeState extends State<HomeScreen> {
                                             ),
                                           ),
                                           onTap: () {
-                                          //   Navigator.push(
-                                          //       context,
-                                          //       MaterialPageRoute(
-                                          //           builder: (context) =>
-                                          //               Article(1)));
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        Article(1)));
                                           },
                                         ),
                                       ],
@@ -351,11 +353,11 @@ class HomeState extends State<HomeScreen> {
                                             ),
                                           ),
                                           onTap: () {
-                                          //   Navigator.push(
-                                          //       context,
-                                          //       MaterialPageRoute(
-                                          //           builder: (context) =>
-                                          //               Article(2)));
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        Article(2)));
                                           },
                                         ),
                                         GestureDetector(
@@ -363,24 +365,30 @@ class HomeState extends State<HomeScreen> {
                                             child: Padding(
                                               padding:
                                                   const EdgeInsets.all(8.0),
-                                              child: Image.network(
-                                                'https://sv1.picz.in.th/images/2019/05/27/wGXakb.png',
-                                                width: screen_w * .4,
-                                                height: screen_h * .25,
+                                              child: Column(
+                                                children: <Widget>[
+                                                  Image.network(
+                                                    'https://sv1.picz.in.th/images/2019/05/27/wGXakb.png',
+                                                    width: screen_w * .4,
+                                                    height: screen_h * .25,
+                                                  ),
+                                                  Text("Treat Depression")
+                                                ],
                                               ),
                                             ),
                                           ),
-                                          // onTap: () {
-                                          //   Navigator.push(
-                                          //       context,
-                                          //       MaterialPageRoute(
-                                          //           builder: (context) =>
-                                          //               Article(3)));
-                                          // },
+                                          onTap: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        Article(3)));
+                                          },
                                         ),
                                       ],
                                     ),
                                   ),
+                                  SizedBox(height: 20,)
                                 ],
                               );
                             },
