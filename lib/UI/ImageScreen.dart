@@ -15,7 +15,7 @@ class ImageScreen extends StatefulWidget {
 }
 
 class ImageState extends State<ImageScreen> {
-  File sampleImage;
+  File sampleImage = null;
 
   Future getImage() async {
     var tempImage = await ImagePicker.pickImage(source: ImageSource.gallery);
@@ -47,7 +47,7 @@ class ImageState extends State<ImageScreen> {
         centerTitle: true,
       ),
       body: Center(
-        child: sampleImage == null ? Text('Select Image') : enableUpload(),
+        child: sampleImage == null ? Text("Photo") : enableUpload(),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: getImage,
@@ -74,8 +74,9 @@ class ImageState extends State<ImageScreen> {
                   firebaseStorageRef.putFile(sampleImage);
               print(await (await task.onComplete).ref.getDownloadURL());
               if (task.isComplete) {
-                Toast.show("UPLOAD complete", context);
-                Navigator.pushReplacementNamed(context, '/profile');
+                print( "task Complate");
+                // Toast.show("UPLOAD complete", context);
+                // Navigator.pushReplacementNamed(context, '/profile');
               }
             },
           )

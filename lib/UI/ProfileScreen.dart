@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 import 'package:firebase_storage/firebase_storage.dart';
 
@@ -6,9 +7,12 @@ import 'package:fitjung/utility/firestore_util.dart';
 import 'package:fitjung/utility/share.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:toast/toast.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'ImageScreen.dart';
+import 'ProfileUser.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -38,9 +42,10 @@ class ProfileScreenState extends State<ProfileScreen> {
     super.initState();
 
     SharedPreferencesUtil.loadLastLogin().then((value) {
-      emailController.text = value;
       FirestoreUtils.getData(value).then((result) {
         setState(() async {
+          emailController.text = value;
+
           nameController.text = result.data['name'];
           surnameController.text = result.data['surname'];
           sexController.text = result.data['sex'];
@@ -62,11 +67,21 @@ class ProfileScreenState extends State<ProfileScreen> {
     });
   }
 
+  File sampleImage = null;
+
+  Future getImage() async {
+    var tempImage = await ImagePicker.pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      sampleImage = tempImage;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Profile"),
+        title: Text("Edit Profile"),
         actions: <Widget>[
           IconButton(
             tooltip: "Add Photo",
@@ -75,8 +90,7 @@ class ProfileScreenState extends State<ProfileScreen> {
               size: 30,
             ),
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ImageScreen()));
+              getImage();
             },
           )
         ],
@@ -92,11 +106,13 @@ class ProfileScreenState extends State<ProfileScreen> {
                   children: [
                     ClipRRect(
                       borderRadius: new BorderRadius.circular(50.0),
-                      child: Image.network(
-                        url,
-                        width: 350,
-                        height: 300,
-                      ),
+                      child: sampleImage == null
+                          ? Image.network(
+                              url,
+                              width: 350,
+                              height: 300,
+                            )
+                          : enableUpload(),
                     ),
                     Container(
                       child: Padding(
@@ -114,20 +130,33 @@ class ProfileScreenState extends State<ProfileScreen> {
                   enabled: false,
                   controller: emailController,
                   decoration: InputDecoration(
-                      icon: Icon(Icons.email , size: 30,), labelText: "Email"),
+                      icon: Icon(
+                        Icons.email,
+                        size: 30,
+                      ),
+                      labelText: "Email"),
                   keyboardType: TextInputType.emailAddress,
                 ),
                 TextFormField(
                     controller: nameController,
                     decoration: InputDecoration(
-                        icon: Icon(Icons.portrait, size: 30,), labelText: "Name"),
+                        icon: Icon(
+                          Icons.account_box,
+                          size: 30,
+                        ),
+                        labelText: "Name"),
                     keyboardType: TextInputType.text,
                     validator: (value) {
                       if (value.isEmpty) return "Name is required";
                     }),
                 TextFormField(
                     controller: surnameController,
-                    decoration: InputDecoration(icon: Icon(Icons.portrait, size: 30,),labelText: "Surname"),
+                    decoration: InputDecoration(
+                        icon: Icon(
+                          Icons.account_box,
+                          size: 30,
+                        ),
+                        labelText: "Surname"),
                     keyboardType: TextInputType.text,
                     validator: (value) {
                       if (value.isEmpty) return "Surname is required";
@@ -135,86 +164,85 @@ class ProfileScreenState extends State<ProfileScreen> {
                 TextField(
                   enabled: false,
                   controller: sexController,
-                  decoration: InputDecoration(icon: Icon(Icons.face, size: 30,), labelText: "Gender"),
+                  decoration: InputDecoration(
+                      icon: Icon(
+                        Icons.account_box,
+                        size: 30,
+                      ),
+                      labelText: "Gender"),
                   keyboardType: TextInputType.text,
                 ),
                 TextFormField(
                     controller: weightController,
-                    decoration: InputDecoration(icon: Icon(Icons.create, size: 30,), labelText: "Weight"),
+                    decoration: InputDecoration(
+                        icon: Icon(
+                          Icons.account_box,
+                          size: 30,
+                        ),
+                        labelText: "Weight"),
                     keyboardType: TextInputType.text,
                     validator: (value) {
                       if (value.isEmpty) return "Weight is required";
                     }),
                 TextFormField(
                     controller: heightController,
-                    decoration: InputDecoration(icon: Icon(Icons.create, size: 30,), labelText: "Height"),
+                    decoration: InputDecoration(
+                        icon: Icon(
+                          Icons.account_box,
+                          size: 30,
+                        ),
+                        labelText: "Height"),
                     keyboardType: TextInputType.text,
                     validator: (value) {
                       if (value.isEmpty) return "Height  is required";
                     }),
                 TextFormField(
-                  controller: ageController,
-                  decoration: InputDecoration(icon: Icon(Icons.account_box, size: 30,), labelText: "Age"),
-                  keyboardType: TextInputType.text,
-                ),
-                // TextField(
-                  // enabled: false,
-
-                //   controller: bmiValController,
-                //   decoration: InputDecoration(icon: Icon(Icons.account_box, size: 30,), labelText: "BMI value"),
-                // ),
-                // TextField(
-                //   enabled: false,
-                //   controller: bmiStatusController,
-                //   decoration: InputDecoration(icon: Icon(Icons.account_box, size: 30,), labelText: "Status"),
-                // ),
-                // TextField(
-                //   enabled: false,
-                //   controller: bmiRiskController,
-                //   maxLines: 2,
-                //   decoration: InputDecoration(icon: Icon(Icons.account_box, size: 30,), labelText: "Risk"),
-                // ),
-                // Row(
-                //   children: <Widget>[
-                //     Expanded(
-                //       flex: 1,
-                //       child: RaisedButton(
-                //         child: Text("SAVE"),
-                //         onPressed: () {
-                //           FirestoreUtils.update(
-                //               emailController.text,
-                //               nameController.text,
-                //               surnameController.text,
-                //               weightController.text,
-                //               heightController.text,
-                //               ageController.text);
-                //           Navigator.pushReplacementNamed(context, '/');
-                //         },
-                //       ),
-                //     ),
-                //     Padding(
-                //       padding: EdgeInsets.all(10),
-                //     ),
-
-                  // controller: ageController,
-                  // decoration: InputDecoration(icon: Icon(Icons.fitness_center, size: 30,), labelText: "Age"),
-                  // keyboardType: TextInputType.text,
-                // ),
+                    controller: ageController,
+                    decoration: InputDecoration(
+                        icon: Icon(
+                          Icons.account_box,
+                          size: 30,
+                        ),
+                        labelText: "Age"),
+                    keyboardType: TextInputType.number,
+                    validator: (value) {
+                      if (value.isEmpty) return "Age  is required";
+                    }),
                 Row(
-                 children: <Widget>[
+                  children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: ButtonTheme(
                         minWidth: 300.0,
                         height: 50.0,
                         child: RaisedButton(
-                          child: Text("SAVE", style:
-                            TextStyle(color: Colors.white)),
+                          child: Text("SAVE",
+                              style: TextStyle(color: Colors.white)),
                           color: Colors.blueAccent,
-                          
                           shape: new RoundedRectangleBorder(
                               borderRadius: new BorderRadius.circular(15.0)),
-                          onPressed: () {
+                          onPressed: () async {
+                            print(' Save --------------');
+                            final StorageReference firebaseStorageRef =
+                                FirebaseStorage.instance
+                                    .ref()
+                                    .child(this.emailController.text);
+                            final StorageUploadTask task =
+                                firebaseStorageRef.putFile(sampleImage);
+                            print(await (await task.onComplete)
+                                .ref
+                                .getDownloadURL());
+                            // print(emailController.text);
+                            // print(' Save2 --------------');
+
+                            // print(await task.onComplete);
+                            //     .ref
+                            //     .getDownloadURL());
+                            // if (task.isComplete) {
+                            //   Toast.show("UPLOAD complete", context);
+                            //   Navigator.pushReplacementNamed(
+                            //       context, '/profile');
+                            // }
                             FirestoreUtils.update(
                                 emailController.text,
                                 nameController.text,
@@ -222,9 +250,21 @@ class ProfileScreenState extends State<ProfileScreen> {
                                 weightController.text,
                                 heightController.text,
                                 ageController.text);
-                            
+
+                            print('Update !!!!!');
+
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //       builder: (context) => ProfileUser()),
+                            // );
+
+                            // Navigator.pop(context);
+
                             Navigator.pushReplacementNamed(
-                                context, '/');
+                                context, '/profileuser');
+
+                            // Navigator.pushNamed(context, '/profileuser');
                           },
                         ),
                       ),
@@ -257,6 +297,19 @@ class ProfileScreenState extends State<ProfileScreen> {
               ],
             ),
           )),
+    );
+  }
+
+  Widget enableUpload() {
+    return Container(
+      child: Column(
+        children: <Widget>[
+          Image.file(sampleImage, height: 300, width: 300),
+
+          // Toast.show("UPLOAD complete", context);
+          // Navigator.pushReplacementNamed(context, '/profile');
+        ],
+      ),
     );
   }
 }

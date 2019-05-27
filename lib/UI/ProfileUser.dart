@@ -92,10 +92,11 @@ class ProfileUserState extends State<ProfileUser> {
                 size: 30,
               ),
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ProfileScreen()),
-                );
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(builder: (context) => ProfileScreen()),
+                // );
+                Navigator.pushReplacementNamed(context, "/profile");
               },
             )
           ],
@@ -155,25 +156,7 @@ class ProfileUserState extends State<ProfileUser> {
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 10),
                                     child: Text(
-                                        "Email : ${emailController.text}",
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 20.0)),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 10),
-                                    child: Text(
-                                        "Name : ${nameController.text} ",
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 20.0)),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 10),
-                                    child: Text(
-                                        "Surname : ${surnameController.text}",
+                                        "${nameController.text} ${surnameController.text} ",
                                         style: TextStyle(
                                             color: Colors.black,
                                             fontSize: 20.0)),

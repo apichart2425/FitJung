@@ -1,3 +1,4 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:fitjung/UI/SigninScreen.dart';
 import 'package:fitjung/utility/firestore_util.dart';
 import 'package:fitjung/utility/share.dart';
@@ -5,6 +6,7 @@ import 'package:flutter/material.dart';
 import '../Icon/CustomIcon.dart';
 import '../data.dart';
 import 'dart:math';
+import 'ModeScreen.dart';
 import 'ProfileScreen.dart';
 import 'ProfileUser.dart';
 
@@ -20,6 +22,8 @@ class HomeState extends State<HomeScreen> {
   var currentPage = images.length - 1.0;
   TextEditingController email = TextEditingController();
   TextEditingController name = TextEditingController(text: "test");
+  var url =
+      'https://cdn3.iconfinder.com/data/icons/map-and-location-fill/144/People_Location-512.png';
 
   @override
   void initState() {
@@ -31,9 +35,18 @@ class HomeState extends State<HomeScreen> {
           setState(() {
             name.text = result.data['name'];
             name.text += " " + result.data['surname'];
+            getUrlImage();
           });
         });
       });
+    });
+  }
+
+  getUrlImage() async {
+    final ref = FirebaseStorage.instance.ref().child(email.text);
+    var url = await ref.getDownloadURL();
+    setState(() {
+      this.url = url;
     });
   }
 
@@ -70,6 +83,7 @@ class HomeState extends State<HomeScreen> {
                   accountName: new Text(name.text),
                   accountEmail: new Text(email.text),
                   currentAccountPicture: new CircleAvatar(
+                    backgroundImage: NetworkImage(url),
                     backgroundColor:
                         Theme.of(context).platform == TargetPlatform.iOS
                             ? Colors.deepPurple
@@ -106,6 +120,7 @@ class HomeState extends State<HomeScreen> {
                       context,
                       MaterialPageRoute(builder: (context) => ProfileUser()),
                     );
+                    // Navigator.pushReplacementNamed(context, '/profileuser');
                   },
                 ),
                 ListTile(
@@ -177,20 +192,29 @@ class HomeState extends State<HomeScreen> {
                   ],
                 ),
               ),
-              Stack(
-                children: <Widget>[
-                  CardScrollWidget(currentPage),
-                  Positioned.fill(
-                    child: PageView.builder(
-                      itemCount: images.length,
-                      controller: controller,
-                      reverse: true,
-                      itemBuilder: (context, index) {
-                        return Container();
-                      },
-                    ),
-                  )
-                ],
+              InkWell(
+                onTap: (){
+                  Navigator.push(context, 
+                              MaterialPageRoute(
+                                builder: (context) => ModeScreen(currentPage.toInt())
+                              )
+                              );
+                },
+                  child: Stack(
+                  children: <Widget>[
+                    CardScrollWidget(currentPage),
+                    Positioned.fill(
+                      child: PageView.builder(
+                        itemCount: images.length,
+                        controller: controller,
+                        reverse: true,
+                        itemBuilder: (context, index) {
+                          return Container();
+                        },
+                      ),
+                    )
+                  ],
+                ),
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.0),
