@@ -50,11 +50,17 @@ class ExerciseScreenState extends State<ExerciseScreen> {
           ),
           body: Container(
               // padding: EdgeInsets.only(right: 20.0, left: 20.0),
-              child: StreamBuilder <QuerySnapshot> (
-            stream: Firestore.instance.collection('workout').document(_id.toString()).collection(mode).snapshots(),
-            builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              child: StreamBuilder<QuerySnapshot>(
+            stream: Firestore.instance
+                .collection('workout')
+                .document(_id.toString())
+                .collection(mode)
+                .snapshots(),
+            builder:
+                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
               if (snapshot.hasData) {
-                print("--------------------------${snapshot.data.documents[0]['name']}");
+                print(
+                    "--------------------------${snapshot.data.documents[0]['name']}");
                 return ListView.builder(
                   itemCount: snapshot.data.documents.length,
                   itemBuilder: (context, index) {
@@ -63,7 +69,6 @@ class ExerciseScreenState extends State<ExerciseScreen> {
                         Padding(
                           padding: EdgeInsets.only(top: 10),
                         ),
-                        
                         Padding(
                           padding: EdgeInsets.only(
                               left: 20.0, right: 20.0, top: 10.0),
@@ -75,7 +80,7 @@ class ExerciseScreenState extends State<ExerciseScreen> {
                         Column(
                           children: <Widget>[
                             SizedBox(
-                              height: 100.0,
+                              height: screen_h * .15,
                               child: Card(
                                 color: Color(0xFF1b1e44),
                                 child: Padding(
@@ -88,29 +93,35 @@ class ExerciseScreenState extends State<ExerciseScreen> {
                                         height: screen_h * 0.25,
                                       ),
                                       Padding(
-                                        padding:
-                                            EdgeInsets.only(top: 20, left: 30),
+                                        padding: EdgeInsets.only(
+                                            top: screen_h * .035,
+                                            left: screen_w * .03),
                                         child: Column(
                                           children: <Widget>[
-                                            Text(snapshot.data.documents[index]['name'],
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 16.0)),
-                                            Text(snapshot.data.documents[index]['set'],
-                                                style: TextStyle(
-                                                    color: Colors.grey,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 12.0)),
+                                            Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: <Widget>[
+                                                Text(
+                                                    snapshot.data
+                                                            .documents[index]
+                                                        ['name'],
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 16.0)),
+                                                Text(
+                                                    snapshot.data
+                                                            .documents[index]
+                                                        ['set'],
+                                                    style: TextStyle(
+                                                        color: Colors.grey,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 12.0)),
+                                              ],
+                                            ),
                                           ],
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(left: 60.0),
-                                        child: Icon(
-                                          Icons.arrow_forward_ios,
-                                          size: 30,
-                                          color: Colors.white,
                                         ),
                                       ),
                                     ],
