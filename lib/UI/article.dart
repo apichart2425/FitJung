@@ -6,20 +6,16 @@ import '../utility/share.dart';
 
 class Article extends StatefulWidget {
   int _id;
-
-  Article(this._id);
+  Article(this._id, {Key key}) : super(key: key);
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return _ArticleState(_id);
+    return _ArticleState();
   }
 }
 
 class _ArticleState extends State<Article> {
   String titlename;
-   int id;
-
-  Article(this.id);
   @override
   Widget build(BuildContext context) {
     double screen_w = MediaQuery.of(context).size.width,
@@ -41,7 +37,7 @@ class _ArticleState extends State<Article> {
           title: Padding(
             padding: EdgeInsets.only(left: 70.0),
             child: Text(
-              '${titlename}',
+              "Article",
               style: TextStyle(
                 color: Colors.white,
               ),
@@ -51,29 +47,69 @@ class _ArticleState extends State<Article> {
         ),
         body: Container(
             child: StreamBuilder<QuerySnapshot>(
-                stream: Firestore.instance.collection('article').document(id.toString()).snapshots(),
+                stream: Firestore.instance.collection('article').snapshots(),
                 builder: (BuildContext context,
                     AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (snapshot.hasData) {
                     return ListView.builder(
                         scrollDirection: Axis.vertical,
                         shrinkWrap: true,
-                        itemCount: snapshot.data.documents.length,
+                        itemCount: 1,
                         itemBuilder: (context, index) {
-                          titlename = snapshot.data.documents[index]['title'];
-                          
-                          Text("data");
-                          Center(
+                          return Card(
                             child: Padding(
                               padding: const EdgeInsets.all(5.0),
-                              child: Column(
-                                children: <Widget>[
-                                  Text('data', style: TextStyle(color: Colors.white,)),
-                                  Image.network()
-                                  // Text(snapshot.data.documents[index]['detail0']),
-                                  // Text(snapshot.data.documents[index]['detail1']),
-                                  // Text(snapshot.data.documents[index]['detail2']),
-                                ],
+                              child: Container(
+                                child: Column(
+                                  children: <Widget>[
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 8.0),
+                                      child: Text(
+                                          snapshot.data.documents[widget._id]
+                                              ['title'],
+                                          style: TextStyle(
+                                              color: Color(0xff1f1f2b),
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 25)),
+                                    ),
+                                    Image.network(
+                                      snapshot.data.documents[widget._id]
+                                          ['imgblog'],
+                                      width: 250,
+                                      height: 250,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 15, left: 15, right: 15),
+                                      child: Text(
+                                          '${snapshot.data.documents[widget._id]['detail0']}'),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 15, left: 15, right: 15),
+                                      child: Text(snapshot.data.documents[index]
+                                          ['detail1']),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 15, left: 15, right: 15),
+                                      child: Text(snapshot.data.documents[index]
+                                          ['detail2']),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 15, left: 15, right: 15),
+                                      child: Text(snapshot.data.documents[index]
+                                          ['detail3']),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 15, left: 15, right: 15),
+                                      child: Text(snapshot.data.documents[index]
+                                          ['detail4']),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           );

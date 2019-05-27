@@ -279,7 +279,7 @@ class HomeState extends State<HomeScreen> {
                                           child: new Card(
                                             child: Padding(
                                               padding:
-                                                  const EdgeInsets.all(5.0),
+                                                  const EdgeInsets.all(8.0),
                                               child: Column(
                                                 children: <Widget>[
                                                   Image.network(
@@ -304,7 +304,7 @@ class HomeState extends State<HomeScreen> {
                                           child: new Card(
                                             child: Padding(
                                               padding:
-                                                  const EdgeInsets.all(5.0),
+                                                  const EdgeInsets.all(8.0),
                                               child: Column(
                                                 children: <Widget>[
                                                   Image.network(
@@ -363,10 +363,15 @@ class HomeState extends State<HomeScreen> {
                                             child: Padding(
                                               padding:
                                                   const EdgeInsets.all(8.0),
-                                              child: Image.network(
-                                                'https://sv1.picz.in.th/images/2019/05/27/wGXakb.png',
-                                                width: screen_w * .4,
-                                                height: screen_h * .25,
+                                              child: Column(
+                                                children: <Widget>[
+                                                  Image.network(
+                                                    'https://sv1.picz.in.th/images/2019/05/27/wGXakb.png',
+                                                    width: screen_w * .4,
+                                                    height: screen_h * .25,
+                                                  ),
+                                                  Text("Treat Depression")
+                                                ],
                                               ),
                                             ),
                                           ),
@@ -381,6 +386,7 @@ class HomeState extends State<HomeScreen> {
                                       ],
                                     ),
                                   ),
+                                  SizedBox(height: 20,)
                                 ],
                               );
                             },
